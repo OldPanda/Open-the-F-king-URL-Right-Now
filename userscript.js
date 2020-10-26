@@ -10,10 +10,10 @@
 // @match          https://link.ld246.com/forward?goto=*
 // @match          https://mp.weixin.qq.com/*
 // @match          http://redir.yy.duowan.com/warning.php?url=*
-// @version        0.5.1
+// @version        0.5.2
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
-// @require        https://code.jquery.com/jquery-3.5.1.min.js
+// @require        https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js
 // @license        GPLv3 License
 // ==/UserScript==
 
