@@ -11,7 +11,7 @@
 // @match          https://mp.weixin.qq.com/*
 // @match          http://redir.yy.duowan.com/warning.php?url=*
 // @match          https://weixin110.qq.com/cgi-bin/mmspamsupport-bin/newredirectconfirmcgi*
-// @version        0.6.0
+// @version        0.6.1
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
 // @require        https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js
@@ -47,9 +47,7 @@
 
   $(document).ready(function () {
     if (window.location.href.includes("http://t.cn/")) {
-      if ($(".wrap .desc").first().text() === "如需浏览，请长按网址复制后使用浏览器访问") {
-        window.location.replace($(".wrap .link").first().text());
-      }
+      window.location.replace($(".wrap .link").first().text());
     } else if (window.location.href.includes("https://www.jianshu.com/go-wild?")) {
       let fakeURL = new URL(window.location.href);
       let trueURL = fakeURL.searchParams.get("url");
@@ -71,9 +69,7 @@
       let trueURL = fakeURL.searchParams.get("url");
       window.location.replace(trueURL);
     } else if (window.location.href.includes("https://weixin110.qq.com/cgi-bin/mmspamsupport-bin/newredirectconfirmcgi")) {
-      if ($(".weui-msg__title").first().text() === "如需浏览，请长按网址复制后使用浏览器访问") {
-        window.location.replace($(".weui-msg__desc").first().text());
-      }
+      window.location.replace($(".weui-msg__desc").first().text());
     }
   });
 })();
