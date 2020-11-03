@@ -11,7 +11,7 @@
 // @match          https://mp.weixin.qq.com/*
 // @match          http://redir.yy.duowan.com/warning.php?url=*
 // @match          https://weixin110.qq.com/cgi-bin/mmspamsupport-bin/newredirectconfirmcgi*
-// @version        0.6.1
+// @version        0.6.2
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
 // @require        https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js
@@ -20,6 +20,55 @@
 
 (function () {
   'use strict';
+
+  /**
+   * Split concatenated URL string into separate URLs.
+   * @param {String} str
+   */
+  function splitMultiURLs(str) {
+    let results = new Array();
+    let entry = "";
+    while (str.length > 0) {
+      if (str.indexOf("http:") === -1 && str.indexOf("https:") === -1) {
+        entry += str;
+        str = "";
+        results.push(entry);
+        break;
+      }
+
+      if (str.startsWith("http:")) {
+        entry += "http:";
+        str = str.substring("http:".length);
+      } else if (str.startsWith("https:")) {
+        entry += "https:";
+        str = str.substring("https:".length);
+      } else {
+        return results;
+      }
+
+      let nextIndex = Math.min(
+        str.indexOf("https:") === -1 ? Number.MAX_SAFE_INTEGER : str.indexOf("https:"),
+        str.indexOf("http:") === -1 ? Number.MAX_SAFE_INTEGER : str.indexOf("http:")
+      );
+      if (nextIndex > 0) {
+        entry += str.substring(0, nextIndex);
+        str = str.substring(nextIndex);
+      }
+      results.push(entry);
+      entry = "";
+    }
+    return results;
+  }
+
+  /**
+   * Replace url with clickable `<a>` tag in html content.
+   * @param {String} url
+   */
+  function replaceSingleURL(url) {
+    $("#js_content").html((_, html) => {
+      return html.replace(url, `<a target="_blank" rel="noopener noreferrer" href="${url}">${url}</a>`);
+    });
+  }
 
   /**
    * Make urls clickable again on Weixin Media Platform.
@@ -34,14 +83,15 @@
     let urls = content.matchAll(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/g);
     let replaced = new Set();
     for (let value of urls) {
-      let url = $.trim(value[0]);
-      if (!url || replaced.has(url) || url.includes("localhost") || url.includes("127.0.0.1") || existingLinks.has(url)) {
-        continue;
+      let urlStr = $.trim(value[0]);
+      for (let url of splitMultiURLs(urlStr)) {
+        console.log(`URL: ${url}`);
+        if (!url || replaced.has(url) || url.includes("localhost") || url.includes("127.0.0.1") || existingLinks.has(url)) {
+          continue;
+        }
+        replaceSingleURL(url);
+        replaced.add(url);
       }
-      $("#js_content").html((_, html) => {
-        return html.replace(url, `<a target="_blank" rel="noopener noreferrer" href="${url}">${url}</a>`);
-      });
-      replaced.add(url);
     }
   }
 
