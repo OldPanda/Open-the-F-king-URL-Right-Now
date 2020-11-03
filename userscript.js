@@ -11,7 +11,7 @@
 // @match          https://mp.weixin.qq.com/*
 // @match          http://redir.yy.duowan.com/warning.php?url=*
 // @match          https://weixin110.qq.com/cgi-bin/mmspamsupport-bin/newredirectconfirmcgi*
-// @version        0.6.2
+// @version        0.6.3
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
 // @require        https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js
@@ -20,6 +20,17 @@
 
 (function () {
   'use strict';
+
+  function rstrip(str, regex) {
+    let i = str.length - 1;
+    while (i >= 0) {
+      if (!str[i].match(regex)) {
+        break;
+      }
+      i--;
+    }
+    return str.substring(0, i + 1);
+  }
 
   /**
    * Split concatenated URL string into separate URLs.
@@ -32,7 +43,7 @@
       if (str.indexOf("http:") === -1 && str.indexOf("https:") === -1) {
         entry += str;
         str = "";
-        results.push(entry);
+        results.push(rstrip(entry, /[@:%_\+~#?&=,$^\*]/g));
         break;
       }
 
@@ -54,7 +65,7 @@
         entry += str.substring(0, nextIndex);
         str = str.substring(nextIndex);
       }
-      results.push(entry);
+      results.push(rstrip(entry, /[@:%_\+~#?&=,$^\*]/g));
       entry = "";
     }
     return results;
@@ -88,6 +99,9 @@
         console.log(`URL: ${url}`);
         if (!url || replaced.has(url) || url.includes("localhost") || url.includes("127.0.0.1") || existingLinks.has(url)) {
           continue;
+        }
+        if (url.endsWith(".") && url[url.length - 2].match(/\d/g)) {
+          url = url.substring(0, url.length - 2);
         }
         replaceSingleURL(url);
         replaced.add(url);
