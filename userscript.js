@@ -11,7 +11,8 @@
 // @match          https://mp.weixin.qq.com/*
 // @match          http://redir.yy.duowan.com/warning.php?url=*
 // @match          https://weixin110.qq.com/cgi-bin/mmspamsupport-bin/newredirectconfirmcgi*
-// @version        0.6.4
+// @match          https://link.csdn.net/?target=*
+// @version        0.7.0
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
 // @require        https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js
@@ -131,6 +132,8 @@
       replaceWithTrueURL(window.location.href, "url");
     } else if (window.location.href.includes("https://weixin110.qq.com/cgi-bin/mmspamsupport-bin/newredirectconfirmcgi")) {
       window.location.replace($(".weui-msg__desc").first().text());
+    } else if (window.location.href.includes("https://link.csdn.net/?target=")) {
+      replaceWithTrueURL(window.location.href, "target");
     }
   });
 })();
