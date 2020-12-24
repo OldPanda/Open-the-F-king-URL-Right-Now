@@ -13,7 +13,7 @@
 // @match          http://redir.yy.duowan.com/warning.php?url=*
 // @match          https://weixin110.qq.com/cgi-bin/mmspamsupport-bin/newredirectconfirmcgi*
 // @match          https://link.csdn.net/?target=*
-// @version        0.7.0
+// @version        0.7.1
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
 // @require        https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js
@@ -120,13 +120,11 @@
 
   /**
    * @function
-   * @name math
-   * @param {string} str
-   * @description check if current URL matchs given pattern
+   * @name match
+   * @param {...string} patterns
+   * @description check if current URL matchs given patterns
    */
-  function match(str) {
-    return curURL.includes(str)
-  }
+  const match = (...patterns) => patterns.some(p => curURL.includes(p))
 
   /**
    * @enum {string}
@@ -156,13 +154,13 @@
   }
 
   $(document).ready(function () {
-    if (match(fuckers.weibo) || match(fuckers.weibo2) || match(fuckers.weibo3)) {
+    if (match(fuckers.weibo, fuckers.weibo2, fuckers.weibo3)) {
       window.location.replace($(".wrap .link").first().text());
     }
     if (match(fuckers.jianshu)) {
       redirect(curURL, "url");
     }
-    if (match(fuckers.zhihu) || match(fuckers.zhihu2)) {
+    if (match(fuckers.zhihu, fuckers.zhihu2)) {
       redirect(curURL, "target");
     }
     if (match(fuckers.douban)) {
