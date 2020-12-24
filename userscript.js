@@ -3,6 +3,7 @@
 // @description    自动跳转某些网站不希望用户直达的外链
 // @author         OldPanda
 // @match          http://t.cn/*
+// @match          https://weibo.cn/sinaurl?*
 // @match          https://www.jianshu.com/go-wild?*
 // @match          https://link.zhihu.com/?target=*
 // @match          http://link.zhihu.com/?target=*
@@ -12,7 +13,7 @@
 // @match          http://redir.yy.duowan.com/warning.php?url=*
 // @match          https://weixin110.qq.com/cgi-bin/mmspamsupport-bin/newredirectconfirmcgi*
 // @match          https://link.csdn.net/?target=*
-// @version        0.7.0
+// @version        0.7.1
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
 // @require        https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js
@@ -21,6 +22,8 @@
 
 (function () {
   'use strict';
+
+  const curURL = window.location.href
 
   function rstrip(str, regex) {
     let i = str.length - 1;
@@ -109,31 +112,75 @@
     }
   }
 
-  function replaceWithTrueURL(fakeURLStr, trueURLParam) {
+  function redirect(fakeURLStr, trueURLParam) {
     let fakeURL = new URL(fakeURLStr);
     let trueURL = fakeURL.searchParams.get(trueURLParam);
     window.location.replace(trueURL);
   }
 
+  /**
+   * @function
+   * @name match
+   * @param {...string} patterns
+   * @description check if current URL matchs given patterns
+   */
+  const match = (...patterns) => patterns.some(p => curURL.includes(p))
+
+  /**
+   * @enum {string}
+   * @name fuckers
+   * @description all link pattern needed deal with
+   */
+  const fuckers = {
+    weibo: 'http://t.cn/', // 微博网页版
+    weibo2: 'https://weibo.cn/sinaurl?u=', // 微博国际版客户端
+    weibo3: 'https://weibo.cn/sinaurl?toasturl=', // 微博客户端
+    // http://t.cn/RgAKoPE
+    // https://weibo.cn/sinaurl?u=https%3A%2F%2Fwww.freebsd.org%2F 
+    // https://weibo.cn/sinaurl?toasturl=https%3A%2F%2Ftime.geekbang.org%2F
+    jianshu: 'https://www.jianshu.com/go-wild?',
+    zhihu: 'https://link.zhihu.com/?target=',
+    // https://link.zhihu.com/?target=https%3A%2F%2Ftime.geekbang.org%2F
+    // https://link.zhihu.com/?target=https%3A%2F%2Fwww.freebsd.org%2F
+    zhihu2: 'http://link.zhihu.com/?target=',
+    // http://link.zhihu.com/?target=https%3A%2F%2Ftime.geekbang.org%2F
+    // http://link.zhihu.com/?target=https%3A%2F%2Fwww.freebsd.org%2F
+    douban: 'https://www.douban.com/link2/?url=',
+    dilian: 'https://link.ld246.com/forward?goto=',
+    theWorst: 'https://mp.weixin.qq.com/',
+    theWorst2: 'https://weixin110.qq.com/cgi-bin/mmspamsupport-bin/newredirectconfirmcgi',
+    yy: 'http://redir.yy.duowan.com/warning.php?url=',
+    csdn:'https://link.csdn.net/?target='
+  }
+
   $(document).ready(function () {
-    if (window.location.href.includes("http://t.cn/")) {
+    if (match(fuckers.weibo, fuckers.weibo2, fuckers.weibo3)) {
       window.location.replace($(".wrap .link").first().text());
-    } else if (window.location.href.includes("https://www.jianshu.com/go-wild?")) {
-      replaceWithTrueURL(window.location.href, "url");
-    } else if (window.location.href.includes("https://link.zhihu.com/?target=") || window.location.href.includes("http://link.zhihu.com/?target=")) {
-      replaceWithTrueURL(window.location.href, "target");
-    } else if (window.location.href.includes("https://www.douban.com/link2/?url=")) {
-      replaceWithTrueURL(window.location.href, "url");
-    } else if (window.location.href.includes("https://link.ld246.com/forward?goto=")) {
-      replaceWithTrueURL(window.location.href, "goto");
-    } else if (window.location.href.includes("https://mp.weixin.qq.com/")) {
+    }
+    if (match(fuckers.jianshu)) {
+      redirect(curURL, "url");
+    }
+    if (match(fuckers.zhihu, fuckers.zhihu2)) {
+      redirect(curURL, "target");
+    }
+    if (match(fuckers.douban)) {
+      redirect(curURL, "url");
+    }
+    if (match(fuckers.dilian)) {
+      redirect(curURL, "goto");
+    }
+    if (match(fuckers.theWorst)) {
       enableURLs();
-    } else if (window.location.href.includes("http://redir.yy.duowan.com/warning.php?url=")) {
-      replaceWithTrueURL(window.location.href, "url");
-    } else if (window.location.href.includes("https://weixin110.qq.com/cgi-bin/mmspamsupport-bin/newredirectconfirmcgi")) {
+    }
+    if (match(fuckers.yy)) {
+      redirect(curURL, "url");
+    }
+    if (match(fuckers.theWorst2)) {
       window.location.replace($(".weui-msg__desc").first().text());
-    } else if (window.location.href.includes("https://link.csdn.net/?target=")) {
-      replaceWithTrueURL(window.location.href, "target");
+    }
+    if (match(fuckers.csdn)) {
+      redirect(curURL, "target");
     }
   });
+
 })();
