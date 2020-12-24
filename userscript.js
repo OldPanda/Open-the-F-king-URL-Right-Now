@@ -3,6 +3,7 @@
 // @description    自动跳转某些网站不希望用户直达的外链
 // @author         OldPanda
 // @match          http://t.cn/*
+// @match          https://weibo.cn/sinaurl?*
 // @match          https://www.jianshu.com/go-wild?*
 // @match          https://link.zhihu.com/?target=*
 // @match          http://link.zhihu.com/?target=*
@@ -133,10 +134,19 @@
    * @description all link pattern needed deal with
    */
   const fuckers = {
-    weibo: 'http://t.cn/',
+    weibo: 'http://t.cn/', // 微博网页版
+    weibo2: 'https://weibo.cn/sinaurl?u=', // 微博国际版客户端
+    weibo3: 'https://weibo.cn/sinaurl?toasturl=', // 微博客户端
+    // http://t.cn/RgAKoPE
+    // https://weibo.cn/sinaurl?u=https%3A%2F%2Fwww.freebsd.org%2F 
+    // https://weibo.cn/sinaurl?toasturl=https%3A%2F%2Ftime.geekbang.org%2F
     jianshu: 'https://www.jianshu.com/go-wild?',
     zhihu: 'https://link.zhihu.com/?target=',
+    // https://link.zhihu.com/?target=https%3A%2F%2Ftime.geekbang.org%2F
+    // https://link.zhihu.com/?target=https%3A%2F%2Fwww.freebsd.org%2F
     zhihu2: 'http://link.zhihu.com/?target=',
+    // http://link.zhihu.com/?target=https%3A%2F%2Ftime.geekbang.org%2F
+    // http://link.zhihu.com/?target=https%3A%2F%2Fwww.freebsd.org%2F
     douban: 'https://www.douban.com/link2/?url=',
     dilian: 'https://link.ld246.com/forward?goto=',
     theWorst: 'https://mp.weixin.qq.com/',
@@ -146,7 +156,7 @@
   }
 
   $(document).ready(function () {
-    if (match(fuckers.weibo)) {
+    if (match(fuckers.weibo) || match(fuckers.weibo2) || match(fuckers.weibo3)) {
       window.location.replace($(".wrap .link").first().text());
     }
     if (match(fuckers.jianshu)) {
