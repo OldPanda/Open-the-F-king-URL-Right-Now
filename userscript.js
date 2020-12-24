@@ -22,6 +22,8 @@
 (function () {
   'use strict';
 
+  const curURL = window.location.href
+
   function rstrip(str, regex) {
     let i = str.length - 1;
     while (i >= 0) {
@@ -109,31 +111,68 @@
     }
   }
 
-  function replaceWithTrueURL(fakeURLStr, trueURLParam) {
+  function redirect(fakeURLStr, trueURLParam) {
     let fakeURL = new URL(fakeURLStr);
     let trueURL = fakeURL.searchParams.get(trueURLParam);
     window.location.replace(trueURL);
   }
 
+  /**
+   * @function
+   * @name math
+   * @param {string} str
+   * @description check if current URL matchs given pattern
+   */
+  function match(str) {
+    return curURL.includes(str)
+  }
+
+  /**
+   * @enum {string}
+   * @name fuckers
+   * @description all link pattern needed deal with
+   */
+  const fuckers = {
+    weibo: 'http://t.cn/',
+    jianshu: 'https://www.jianshu.com/go-wild?',
+    zhihu: 'https://link.zhihu.com/?target=',
+    zhihu2: 'http://link.zhihu.com/?target=',
+    douban: 'https://www.douban.com/link2/?url=',
+    dilian: 'https://link.ld246.com/forward?goto=',
+    theWorst: 'https://mp.weixin.qq.com/',
+    theWorst2: 'https://weixin110.qq.com/cgi-bin/mmspamsupport-bin/newredirectconfirmcgi',
+    yy: 'http://redir.yy.duowan.com/warning.php?url=',
+    csdn:'https://link.csdn.net/?target='
+  }
+
   $(document).ready(function () {
-    if (window.location.href.includes("http://t.cn/")) {
+    if (match(fuckers.weibo)) {
       window.location.replace($(".wrap .link").first().text());
-    } else if (window.location.href.includes("https://www.jianshu.com/go-wild?")) {
-      replaceWithTrueURL(window.location.href, "url");
-    } else if (window.location.href.includes("https://link.zhihu.com/?target=") || window.location.href.includes("http://link.zhihu.com/?target=")) {
-      replaceWithTrueURL(window.location.href, "target");
-    } else if (window.location.href.includes("https://www.douban.com/link2/?url=")) {
-      replaceWithTrueURL(window.location.href, "url");
-    } else if (window.location.href.includes("https://link.ld246.com/forward?goto=")) {
-      replaceWithTrueURL(window.location.href, "goto");
-    } else if (window.location.href.includes("https://mp.weixin.qq.com/")) {
+    }
+    if (match(fuckers.jianshu)) {
+      redirect(curURL, "url");
+    }
+    if (match(fuckers.zhihu) || match(fuckers.zhihu2)) {
+      redirect(curURL, "target");
+    }
+    if (match(fuckers.douban)) {
+      redirect(curURL, "url");
+    }
+    if (match(fuckers.dilian)) {
+      redirect(curURL, "goto");
+    }
+    if (match(fuckers.theWorst)) {
       enableURLs();
-    } else if (window.location.href.includes("http://redir.yy.duowan.com/warning.php?url=")) {
-      replaceWithTrueURL(window.location.href, "url");
-    } else if (window.location.href.includes("https://weixin110.qq.com/cgi-bin/mmspamsupport-bin/newredirectconfirmcgi")) {
+    }
+    if (match(fuckers.yy)) {
+      redirect(curURL, "url");
+    }
+    if (match(fuckers.theWorst2)) {
       window.location.replace($(".weui-msg__desc").first().text());
-    } else if (window.location.href.includes("https://link.csdn.net/?target=")) {
-      replaceWithTrueURL(window.location.href, "target");
+    }
+    if (match(fuckers.csdn)) {
+      redirect(curURL, "target");
     }
   });
+
 })();
