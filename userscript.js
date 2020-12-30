@@ -13,7 +13,7 @@
 // @match          http://redir.yy.duowan.com/warning.php?url=*
 // @match          https://weixin110.qq.com/cgi-bin/mmspamsupport-bin/newredirectconfirmcgi*
 // @match          https://link.csdn.net/?target=*
-// @version        0.7.1
+// @version        0.7.2
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
 // @require        https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js
@@ -133,11 +133,11 @@
    */
   const fuckers = {
     weibo: 'http://t.cn/', // 微博网页版
-    weibo2: 'https://weibo.cn/sinaurl?u=', // 微博国际版客户端
-    weibo3: 'https://weibo.cn/sinaurl?toasturl=', // 微博客户端
+    weibo2: 'https://weibo.cn/sinaurl?',
     // http://t.cn/RgAKoPE
     // https://weibo.cn/sinaurl?u=https%3A%2F%2Fwww.freebsd.org%2F 
     // https://weibo.cn/sinaurl?toasturl=https%3A%2F%2Ftime.geekbang.org%2F
+    // https://weibo.cn/sinaurl?luicode=10000011&lfid=230259&u=http%3A%2F%2Ft.cn%2FA6qHeVlf
     jianshu: 'https://www.jianshu.com/go-wild?',
     zhihu: 'https://link.zhihu.com/?target=',
     // https://link.zhihu.com/?target=https%3A%2F%2Ftime.geekbang.org%2F
@@ -154,7 +154,7 @@
   }
 
   $(document).ready(function () {
-    if (match(fuckers.weibo, fuckers.weibo2, fuckers.weibo3)) {
+    if (match(fuckers.weibo, fuckers.weibo2)) {
       window.location.replace($(".wrap .link").first().text());
     }
     if (match(fuckers.jianshu)) {
