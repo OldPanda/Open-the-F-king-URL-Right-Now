@@ -13,7 +13,7 @@
 // @match          http://redir.yy.duowan.com/warning.php?url=*
 // @match          https://weixin110.qq.com/cgi-bin/mmspamsupport-bin/newredirectconfirmcgi*
 // @match          https://link.csdn.net/?target=*
-// @version        0.7.2
+// @version        0.7.3
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
 // @require        https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js
@@ -155,7 +155,8 @@
 
   $(document).ready(function () {
     if (match(fuckers.weibo, fuckers.weibo2)) {
-      window.location.replace($(".wrap .link").first().text());
+      const link = $(".wrap .link").first().text() || document.querySelector('.open-url').children[0].href
+      window.location.replace(link);
     }
     if (match(fuckers.jianshu)) {
       redirect(curURL, "url");
