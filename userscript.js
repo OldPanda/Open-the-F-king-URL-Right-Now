@@ -13,7 +13,8 @@
 // @match          http://redir.yy.duowan.com/warning.php?url=*
 // @match          https://weixin110.qq.com/cgi-bin/mmspamsupport-bin/newredirectconfirmcgi*
 // @match          https://link.csdn.net/?target=*
-// @version        0.7.3
+// @match          https://steamcommunity.com/linkfilter/?url=*
+// @version        0.7.4
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
 // @require        https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js
@@ -150,7 +151,8 @@
     theWorst: 'https://mp.weixin.qq.com/',
     theWorst2: 'https://weixin110.qq.com/cgi-bin/mmspamsupport-bin/newredirectconfirmcgi',
     yy: 'http://redir.yy.duowan.com/warning.php?url=',
-    csdn:'https://link.csdn.net/?target='
+    csdn:'https://link.csdn.net/?target=',
+    steam: 'https://steamcommunity.com/linkfilter/?url='
   }
 
   $(document).ready(function () {
@@ -181,6 +183,9 @@
     }
     if (match(fuckers.csdn)) {
       redirect(curURL, "target");
+    }
+    if (match(fuckers.steam)) {
+      redirect(curURL, "url");
     }
   });
 
