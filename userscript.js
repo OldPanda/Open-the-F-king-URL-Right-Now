@@ -14,6 +14,7 @@
 // @match          https://weixin110.qq.com/cgi-bin/mmspamsupport-bin/newredirectconfirmcgi*
 // @match          https://link.csdn.net/?target=*
 // @match          https://steamcommunity.com/linkfilter/?url=*
+// @match          https://game.bilibili.com/linkfilter/?url=*
 // @version        0.7.4
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
@@ -151,8 +152,9 @@
     theWorst: 'https://mp.weixin.qq.com/',
     theWorst2: 'https://weixin110.qq.com/cgi-bin/mmspamsupport-bin/newredirectconfirmcgi',
     yy: 'http://redir.yy.duowan.com/warning.php?url=',
-    csdn:'https://link.csdn.net/?target=',
-    steam: 'https://steamcommunity.com/linkfilter/?url='
+    csdn: 'https://link.csdn.net/?target=',
+    steam: 'https://steamcommunity.com/linkfilter/?url=',
+    gamebilibili:'game.bilibili.com/linkfilter/?url='
   }
 
   $(document).ready(function () {
@@ -185,6 +187,9 @@
       redirect(curURL, "target");
     }
     if (match(fuckers.steam)) {
+      redirect(curURL, "url");
+    }
+    if (match(fuckers.gamebilibili)) {
       redirect(curURL, "url");
     }
   });
