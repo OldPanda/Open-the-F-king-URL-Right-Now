@@ -15,7 +15,7 @@
 // @match          https://link.csdn.net/?target=*
 // @match          https://steamcommunity.com/linkfilter/?url=*
 // @match          https://game.bilibili.com/linkfilter/?url=*
-// @version        0.7.4
+// @version        0.7.5
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
 // @require        https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js
