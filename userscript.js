@@ -16,7 +16,7 @@
 // @match          https://steamcommunity.com/linkfilter/?url=*
 // @match          https://game.bilibili.com/linkfilter/?url=*
 // @match          https://www.oschina.net/action/GoToLink?url=*
-// @version        0.7.5
+// @version        0.7.6
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
 // @require        https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js
