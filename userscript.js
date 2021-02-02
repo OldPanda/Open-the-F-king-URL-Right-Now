@@ -16,6 +16,7 @@
 // @match          https://steamcommunity.com/linkfilter/?url=*
 // @match          https://game.bilibili.com/linkfilter/?url=*
 // @match          https://www.oschina.net/action/GoToLink?url=*
+// @match          https://developers.weixin.qq.com/community/middlepage/href?href=
 // @version        0.7.6
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
@@ -156,7 +157,8 @@
     csdn: 'https://link.csdn.net/?target=',
     steam: 'https://steamcommunity.com/linkfilter/?url=',
     gamebilibili:'game.bilibili.com/linkfilter/?url=',
-    oschina: 'https://www.oschina.net/action/GoToLink?url='
+    oschina: 'https://www.oschina.net/action/GoToLink?url=',
+    weixindev:'https://developers.weixin.qq.com/community/middlepage/href?href=',
   }
 
   $(document).ready(function () {
@@ -196,6 +198,9 @@
     }
     if (match(fuckers.oschina)) {
       redirect(curURL, "url");
+    }
+    if (match(fuckers.weixindev)) {
+      redirect(curURL, "href");
     }
   });
 
