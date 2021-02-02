@@ -16,7 +16,7 @@
 // @match          https://steamcommunity.com/linkfilter/?url=*
 // @match          https://game.bilibili.com/linkfilter/?url=*
 // @match          https://www.oschina.net/action/GoToLink?url=*
-// @match          https://developers.weixin.qq.com/community/middlepage/href?href=
+// @match          https://developers.weixin.qq.com/community/middlepage/href?href=*
 // @version        0.7.6
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
@@ -139,7 +139,7 @@
     weibo: 'http://t.cn/', // 微博网页版
     weibo2: 'https://weibo.cn/sinaurl?',
     // http://t.cn/RgAKoPE
-    // https://weibo.cn/sinaurl?u=https%3A%2F%2Fwww.freebsd.org%2F 
+    // https://weibo.cn/sinaurl?u=https%3A%2F%2Fwww.freebsd.org%2F
     // https://weibo.cn/sinaurl?toasturl=https%3A%2F%2Ftime.geekbang.org%2F
     // https://weibo.cn/sinaurl?luicode=10000011&lfid=230259&u=http%3A%2F%2Ft.cn%2FA6qHeVlf
     jianshu: 'https://www.jianshu.com/go-wild?',
@@ -158,7 +158,7 @@
     steam: 'https://steamcommunity.com/linkfilter/?url=',
     gamebilibili:'game.bilibili.com/linkfilter/?url=',
     oschina: 'https://www.oschina.net/action/GoToLink?url=',
-    weixindev:'https://developers.weixin.qq.com/community/middlepage/href?href=',
+    weixindev:'https://developers.weixin.qq.com/community/middlepage/href?href='
   }
 
   $(document).ready(function () {
