@@ -17,7 +17,7 @@
 // @match          https://game.bilibili.com/linkfilter/?url=*
 // @match          https://www.oschina.net/action/GoToLink?url=*
 // @match          https://developers.weixin.qq.com/community/middlepage/href?href=*
-// @version        0.7.6
+// @version        0.7.7
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
 // @require        https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js
