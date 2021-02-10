@@ -19,7 +19,7 @@
 // @match          https://developers.weixin.qq.com/community/middlepage/href?href=*
 // @match          https://docs.qq.com/scenario/link.html?url=*
 // @match          https://www.pixiv.net/jump.php?url=*
-// @version        0.7.7
+// @version        0.7.8
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
 // @require        https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js
