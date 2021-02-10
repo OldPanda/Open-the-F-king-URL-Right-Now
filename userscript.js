@@ -17,6 +17,8 @@
 // @match          https://game.bilibili.com/linkfilter/?url=*
 // @match          https://www.oschina.net/action/GoToLink?url=*
 // @match          https://developers.weixin.qq.com/community/middlepage/href?href=*
+// @match          https://docs.qq.com/scenario/link.html?url=*
+// @match          https://www.pixiv.net/jump.php?url=*
 // @version        0.7.7
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
@@ -158,7 +160,9 @@
     steam: 'https://steamcommunity.com/linkfilter/?url=',
     gamebilibili:'game.bilibili.com/linkfilter/?url=',
     oschina: 'https://www.oschina.net/action/GoToLink?url=',
-    weixindev:'https://developers.weixin.qq.com/community/middlepage/href?href='
+    weixindev:'https://developers.weixin.qq.com/community/middlepage/href?href=',
+    qqdocs: 'https://docs.qq.com/scenario/link.html?url=',
+    pixiv: 'https://www.pixiv.net/jump.php?url='
   }
 
   $(document).ready(function () {
@@ -201,6 +205,12 @@
     }
     if (match(fuckers.weixindev)) {
       redirect(curURL, "href");
+    }
+    if (match(fuckers.qqdocs)){
+      redirect(curURL, "url")
+    }
+    if (match(fuckers.pixiv)){
+      redirect(curURL, "url")
     }
   });
 
