@@ -19,7 +19,8 @@
 // @match          https://developers.weixin.qq.com/community/middlepage/href?href=*
 // @match          https://docs.qq.com/scenario/link.html?url=*
 // @match          https://www.pixiv.net/jump.php?url=*
-// @version        0.7.7
+// @match          https://anonymz.com/?*  
+// @version        0.7.9
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
 // @require        https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js
@@ -162,7 +163,8 @@
     oschina: 'https://www.oschina.net/action/GoToLink?url=',
     weixindev:'https://developers.weixin.qq.com/community/middlepage/href?href=',
     qqdocs: 'https://docs.qq.com/scenario/link.html?url=',
-    pixiv: 'https://www.pixiv.net/jump.php?url='
+    pixiv: 'https://www.pixiv.net/jump.php?url=',
+    anonymz: 'https://anonymz.com/?*'
   }
 
   $(document).ready(function () {
@@ -210,6 +212,9 @@
       redirect(curURL, "url")
     }
     if (match(fuckers.pixiv)){
+      redirect(curURL, "url")
+    }
+    if (match(fuckers.anonymz)){
       redirect(curURL, "url")
     }
   });
