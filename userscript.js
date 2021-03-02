@@ -5,8 +5,7 @@
 // @match          http://t.cn/*
 // @match          https://weibo.cn/sinaurl?*
 // @match          https://www.jianshu.com/go-wild?*
-// @match          https://link.zhihu.com/?target=*
-// @match          http://link.zhihu.com/?target=*
+// @match          https://link.zhihu.com/?*
 // @match          https://www.douban.com/link2/?url=*
 // @match          https://link.ld246.com/forward?goto=*
 // @match          https://mp.weixin.qq.com/*
@@ -19,7 +18,7 @@
 // @match          https://developers.weixin.qq.com/community/middlepage/href?href=*
 // @match          https://docs.qq.com/scenario/link.html?url=*
 // @match          https://www.pixiv.net/jump.php?url=*
-// @version        0.7.8
+// @version        0.7.9
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
 // @require        https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js
@@ -145,12 +144,10 @@
     // https://weibo.cn/sinaurl?toasturl=https%3A%2F%2Ftime.geekbang.org%2F
     // https://weibo.cn/sinaurl?luicode=10000011&lfid=230259&u=http%3A%2F%2Ft.cn%2FA6qHeVlf
     jianshu: 'https://www.jianshu.com/go-wild?',
-    zhihu: 'https://link.zhihu.com/?target=',
+    zhihu: 'https://link.zhihu.com/?',
     // https://link.zhihu.com/?target=https%3A%2F%2Ftime.geekbang.org%2F
     // https://link.zhihu.com/?target=https%3A%2F%2Fwww.freebsd.org%2F
-    zhihu2: 'http://link.zhihu.com/?target=',
-    // http://link.zhihu.com/?target=https%3A%2F%2Ftime.geekbang.org%2F
-    // http://link.zhihu.com/?target=https%3A%2F%2Fwww.freebsd.org%2F
+    // https://link.zhihu.com/?utm_oi=35221042888704&target=https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/import
     douban: 'https://www.douban.com/link2/?url=',
     dilian: 'https://link.ld246.com/forward?goto=',
     theWorst: 'https://mp.weixin.qq.com/',
