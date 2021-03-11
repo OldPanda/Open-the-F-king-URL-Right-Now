@@ -20,10 +20,10 @@
 // @match          https://www.pixiv.net/jump.php?url=*
 // @match          https://www.chinaz.com/go.shtml?url=*
 // @match          http://www.360doc.com/content/*
-// @version        0.7.11
+// @version        0.8.0
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
-// @require        https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js
+// @require        https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js
 // @license        GPLv3 License
 // ==/UserScript==
 
