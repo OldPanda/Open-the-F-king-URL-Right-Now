@@ -19,7 +19,8 @@
 // @match          https://docs.qq.com/scenario/link.html?url=*
 // @match          https://www.pixiv.net/jump.php?url=*
 // @match          https://www.chinaz.com/go.shtml?url=*
-// @version        0.7.10
+// @match          http://www.360doc.com/content/*
+// @version        0.7.11
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
 // @require        https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js
@@ -156,12 +157,13 @@
     yy: 'http://redir.yy.duowan.com/warning.php?url=',
     csdn: 'https://link.csdn.net/?target=',
     steam: 'https://steamcommunity.com/linkfilter/?url=',
-    gamebilibili:'game.bilibili.com/linkfilter/?url=',
+    gamebilibili: 'game.bilibili.com/linkfilter/?url=',
     oschina: 'https://www.oschina.net/action/GoToLink?url=',
-    weixindev:'https://developers.weixin.qq.com/community/middlepage/href?href=',
+    weixindev: 'https://developers.weixin.qq.com/community/middlepage/href?href=',
     qqdocs: 'https://docs.qq.com/scenario/link.html?url=',
     pixiv: 'https://www.pixiv.net/jump.php?url=',
-    chinaz: 'https://www.chinaz.com/go.shtml?url='
+    chinaz: 'https://www.chinaz.com/go.shtml?url=',
+    doc360: 'http://www.360doc.com/content/'
   }
 
   $(document).ready(function () {
@@ -205,14 +207,17 @@
     if (match(fuckers.weixindev)) {
       redirect(curURL, "href");
     }
-    if (match(fuckers.qqdocs)){
-      redirect(curURL, "url")
+    if (match(fuckers.qqdocs)) {
+      redirect(curURL, "url");
     }
-    if (match(fuckers.pixiv)){
-      redirect(curURL, "url")
+    if (match(fuckers.pixiv)) {
+      redirect(curURL, "url");
     }
-    if (match(fuckers.chinaz)){
-      redirect(curURL, "url")
+    if (match(fuckers.chinaz)) {
+      redirect(curURL, "url");
+    }
+    if (match(fuckers.doc360)) {
+      $("#articlecontent table tbody tr td#artContent").find("a").off("click");
     }
   });
 
