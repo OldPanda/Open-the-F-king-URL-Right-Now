@@ -20,7 +20,9 @@
 // @match          https://www.pixiv.net/jump.php?url=*
 // @match          https://www.chinaz.com/go.shtml?url=*
 // @match          http://www.360doc.com/content/*
-// @version        0.8.0
+// @match          https://nga.178.com/read.php?*
+// @match          https://bbs.nga.cn/read.php?*
+// @version        0.8.1
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
 // @require        https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js
@@ -163,7 +165,9 @@
     qqdocs: 'https://docs.qq.com/scenario/link.html?url=',
     pixiv: 'https://www.pixiv.net/jump.php?url=',
     chinaz: 'https://www.chinaz.com/go.shtml?url=',
-    doc360: 'http://www.360doc.com/content/'
+    doc360: 'http://www.360doc.com/content/',
+    nga: 'https://nga.178.com/read.php?',
+    nga2: 'https://bbs.nga.cn/read.php?'
   }
 
   $(document).ready(function () {
@@ -218,6 +222,9 @@
     }
     if (match(fuckers.doc360)) {
       $("#articlecontent table tbody tr td#artContent").find("a").off("click");
+    }
+    if (match(fuckers.nga, fuckers.nga2)) {
+      $("#m_posts #m_posts_c a").prop("onclick", null).off("click");
     }
   });
 
