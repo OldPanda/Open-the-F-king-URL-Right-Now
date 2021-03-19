@@ -149,6 +149,7 @@
     // https://weibo.cn/sinaurl?luicode=10000011&lfid=230259&u=http%3A%2F%2Ft.cn%2FA6qHeVlf
     jianshu: 'https://www.jianshu.com/go-wild?',
     zhihu: 'https://link.zhihu.com/?',
+    zhihu2: 'http://link.zhihu.com/?',
     // https://link.zhihu.com/?target=https%3A%2F%2Ftime.geekbang.org%2F
     // https://link.zhihu.com/?target=https%3A%2F%2Fwww.freebsd.org%2F
     // https://link.zhihu.com/?utm_oi=35221042888704&target=https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/import
