@@ -22,7 +22,7 @@
 // @match          http://www.360doc.com/content/*
 // @match          https://nga.178.com/read.php?*
 // @match          https://bbs.nga.cn/read.php?*
-// @version        0.8.1
+// @version        0.8.2
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
 // @require        https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js
