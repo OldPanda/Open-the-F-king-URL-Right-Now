@@ -22,7 +22,7 @@
 // @match          http://www.360doc.com/content/*
 // @match          https://nga.178.com/read.php?*
 // @match          https://bbs.nga.cn/read.php?*
-// @version        0.8.2
+// @version        0.8.3
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
 // @require        https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js
@@ -104,7 +104,7 @@
     });
 
     let content = $("#js_content").text();
-    let urls = content.matchAll(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/g);
+    let urls = content.matchAll(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
     let replaced = new Set();
     for (let value of urls) {
       let urlStr = $.trim(value[0]);
