@@ -6,6 +6,7 @@
 // @match          https://weibo.cn/sinaurl?*
 // @match          https://www.jianshu.com/go-wild?*
 // @match          https://link.zhihu.com/?*
+// @match          http://link.zhihu.com/?*
 // @match          https://www.douban.com/link2/?url=*
 // @match          https://link.ld246.com/forward?goto=*
 // @match          https://mp.weixin.qq.com/*
