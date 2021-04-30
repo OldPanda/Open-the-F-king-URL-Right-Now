@@ -26,10 +26,11 @@
 // @version        0.8.4
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
-// @require        https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js
+// @require        https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js
 // @license        GPLv3 License
 // ==/UserScript==
 
+const $ = jQuery.noConflict(true);
 (function () {
   'use strict';
 
