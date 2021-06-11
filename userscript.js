@@ -23,7 +23,8 @@
 // @match          http://www.360doc.com/content/*
 // @match          https://nga.178.com/read.php?*
 // @match          https://bbs.nga.cn/read.php?*
-// @version        0.9.0
+// @match          http*://c.pc.qq.com/*
+// @version        0.9.1
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
 // @require        https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js
@@ -138,6 +139,14 @@ const $ = jQuery.noConflict(true);
   const match = (...patterns) => patterns.some(p => curURL.includes(p))
 
   /**
+   * @function
+   * @name matchRegex
+   * @param {...string} patterns regex patterns
+   * @description check if current URL matchs given regex patterns
+   */
+  const matchRegex = (...patterns) => patterns.some(p => curURL.search(p) > -1)
+
+  /**
    * @enum {string}
    * @name fuckers
    * @description all link pattern needed deal with
@@ -170,7 +179,8 @@ const $ = jQuery.noConflict(true);
     chinaz: 'https://www.chinaz.com/go.shtml?url=',
     doc360: 'http://www.360doc.com/content/',
     nga: 'https://nga.178.com/read.php?',
-    nga2: 'https://bbs.nga.cn/read.php?'
+    nga2: 'https://bbs.nga.cn/read.php?',
+    qq: 'https?\://c.pc.qq.com/(middlem|index).html'
   }
 
   $(document).ready(function () {
@@ -228,6 +238,9 @@ const $ = jQuery.noConflict(true);
     }
     if (match(fuckers.nga, fuckers.nga2)) {
       $("#m_posts #m_posts_c a").prop("onclick", null).off("click");
+    }
+    if (matchRegex(fuckers.qq)){
+      redirect(curURL, "pfurl");
     }
   });
 
