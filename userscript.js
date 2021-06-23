@@ -24,6 +24,8 @@
 // @match          https://nga.178.com/read.php?*
 // @match          https://bbs.nga.cn/read.php?*
 // @match          http*://c.pc.qq.com/*
+// @match          https://www.yuque.com/r/goto?url=*
+// @match          https://www.mcbbs.net/plugin.php?id=link_redirect&target=*
 // @version        0.9.1
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
@@ -180,7 +182,9 @@ const $ = jQuery.noConflict(true);
     doc360: 'http://www.360doc.com/content/',
     nga: 'https://nga.178.com/read.php?',
     nga2: 'https://bbs.nga.cn/read.php?',
-    qq: 'https?\://c.pc.qq.com/(middlem|index).html'
+    qq: 'https?\://c.pc.qq.com/(middlem|index).html',
+    yuque: 'https://www.yuque.com/r/goto?url=',
+    mcbbs: 'https://www.mcbbs.net/plugin.php?id=link_redirect&target='
   }
 
   $(document).ready(function () {
@@ -241,6 +245,12 @@ const $ = jQuery.noConflict(true);
     }
     if (matchRegex(fuckers.qq)){
       redirect(curURL, "pfurl");
+    }
+    if (match(fuckers.yuque)) {
+      redirect(curURL, "url");
+    }
+    if (match(fuckers.mcbbs)) {
+      redirect(curURL, "target");
     }
   });
 
