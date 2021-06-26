@@ -26,7 +26,7 @@
 // @match          http*://c.pc.qq.com/*
 // @match          https://www.yuque.com/r/goto?url=*
 // @match          https://www.mcbbs.net/plugin.php?id=link_redirect&target=*
-// @version        0.9.1
+// @version        0.10.0
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
 // @require        https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js
