@@ -26,6 +26,7 @@
 // @match          https://www.yuque.com/r/goto?url=*
 // @match          https://www.mcbbs.net/plugin.php?id=link_redirect&target=*
 // @match          http*://www.360doc.cn/outlink.html?url=*
+// @match          https://jump2.bdimg.com/safecheck/index?url=*
 // @version        0.10.0
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
@@ -186,7 +187,8 @@ const $ = jQuery.noConflict(true);
     yuque: 'https://www.yuque.com/r/goto?url=',
     mcbbs: 'https://www.mcbbs.net/plugin.php?id=link_redirect&target=',
     doc360_2: 'http://www.360doc.cn/outlink.html?url=',
-    doc360_3: 'https://www.360doc.cn/outlink.html?url='
+    doc360_3: 'https://www.360doc.cn/outlink.html?url=',
+    tieba: 'https://jump2.bdimg.com/safecheck/index?url='
   }
 
   $(document).ready(function () {
@@ -256,6 +258,9 @@ const $ = jQuery.noConflict(true);
     }
     if (match(fuckers.doc360_2,fuckers.doc360_3)) {
       redirect(curURL, "url");
+    }
+    if (match(fuckers.tieba)) {
+      window.location.replace(document.getElementsByClassName('btn')[0].getAttribute('href'))
     }
   });
 
