@@ -5,8 +5,7 @@
 // @match          http://t.cn/*
 // @match          https://weibo.cn/sinaurl?*
 // @match          https://www.jianshu.com/go-wild?*
-// @match          https://link.zhihu.com/?*
-// @match          http://link.zhihu.com/?*
+// @match          http*://link.zhihu.com/?*
 // @match          https://www.douban.com/link2/?url=*
 // @match          https://link.ld246.com/forward?goto=*
 // @match          https://mp.weixin.qq.com/*
@@ -26,6 +25,7 @@
 // @match          http*://c.pc.qq.com/*
 // @match          https://www.yuque.com/r/goto?url=*
 // @match          https://www.mcbbs.net/plugin.php?id=link_redirect&target=*
+// @match          http*://www.360doc.cn/outlink.html?url=*
 // @version        0.10.0
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
@@ -184,7 +184,9 @@ const $ = jQuery.noConflict(true);
     nga2: 'https://bbs.nga.cn/read.php?',
     qq: 'https?\://c.pc.qq.com/(middlem|index).html',
     yuque: 'https://www.yuque.com/r/goto?url=',
-    mcbbs: 'https://www.mcbbs.net/plugin.php?id=link_redirect&target='
+    mcbbs: 'https://www.mcbbs.net/plugin.php?id=link_redirect&target=',
+    doc360_2: 'http://www.360doc.cn/outlink.html?url=',
+    doc360_3: 'https://www.360doc.cn/outlink.html?url='
   }
 
   $(document).ready(function () {
@@ -251,6 +253,9 @@ const $ = jQuery.noConflict(true);
     }
     if (match(fuckers.mcbbs)) {
       redirect(curURL, "target");
+    }
+    if (match(fuckers.doc360_2,fuckers.doc360_3)) {
+      redirect(curURL, "url");
     }
   });
 
