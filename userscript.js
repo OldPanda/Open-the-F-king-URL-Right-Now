@@ -129,15 +129,13 @@ const $ = jQuery.noConflict(true);
     }
   }
 
-  function redirect(fakeURLStr, trueURLParam) {
+  function redirect(fakeURLStr, trueURLParam, enableBase64 = false) {
     let fakeURL = new URL(fakeURLStr);
     let trueURL = fakeURL.searchParams.get(trueURLParam);
-    window.location.replace(trueURL);
-  }
-
-  function redirect_base64(fakeURLStr, trueURLParam) {
-    let fakeURL = new URL(fakeURLStr);
-    let trueURL = window.atob(fakeURL.searchParams.get(trueURLParam));
+    if (enableBase64) trueURL = window.atob(trueURL);
+    if (trueURL.indexOf("http://") !== 0 && trueURL.indexOf("https://") !== 0) {
+      trueURL = "https://" + trueURL;
+    }
     window.location.replace(trueURL);
   }
 
@@ -182,7 +180,7 @@ const $ = jQuery.noConflict(true);
     yy: 'http://redir.yy.duowan.com/warning.php?url=',
     csdn: 'https://link.csdn.net/?target=',
     steam: 'https://steamcommunity.com/linkfilter/?url=',
-    gamebilibili: 'game.bilibili.com/linkfilter/?url=',
+    gamebilibili: 'https://game.bilibili.com/linkfilter/?url=',
     oschina: 'https://www.oschina.net/action/GoToLink?url=',
     weixindev: 'https://developers.weixin.qq.com/community/middlepage/href?href=',
     qqdocs: 'https://docs.qq.com/scenario/link.html?url=',
@@ -191,7 +189,8 @@ const $ = jQuery.noConflict(true);
     doc360: 'http://www.360doc.com/content/',
     nga: 'https://nga.178.com/read.php?',
     nga2: 'https://bbs.nga.cn/read.php?',
-    qq: 'https?\://c.pc.qq.com/(middlem|index).html',
+    qq: 'http://c.pc.qq.com/(middlem|index).html',
+    qq2: 'https://c.pc.qq.com/(middlem|index).html',
     yuque: 'https://www.yuque.com/r/goto?url=',
     mcbbs: 'https://www.mcbbs.net/plugin.php?id=link_redirect&target=',
     doc360_2: 'http://www.360doc.cn/outlink.html?url=',
@@ -258,7 +257,7 @@ const $ = jQuery.noConflict(true);
     if (match(fuckers.nga, fuckers.nga2)) {
       $("#m_posts #m_posts_c a").prop("onclick", null).off("click");
     }
-    if (matchRegex(fuckers.qq)){
+    if (matchRegex(fuckers.qq, fuckers.qq2)) {
       redirect(curURL, "pfurl");
     }
     if (match(fuckers.yuque)) {
@@ -267,14 +266,14 @@ const $ = jQuery.noConflict(true);
     if (match(fuckers.mcbbs)) {
       redirect(curURL, "target");
     }
-    if (match(fuckers.doc360_2,fuckers.doc360_3)) {
+    if (match(fuckers.doc360_2, fuckers.doc360_3)) {
       redirect(curURL, "url");
     }
     if (match(fuckers.tieba)) {
       window.location.replace(document.getElementsByClassName('btn')[0].getAttribute('href'))
     }
-    if (match(fuckers.zaker,fuckers.zaker2)) {
-      redirect_base64(curURL, "b");
+    if (match(fuckers.zaker, fuckers.zaker2)) {
+      redirect(curURL, "b", true);
     }
     if (match(fuckers.tianyancha)) {
       redirect(curURL, "target");
