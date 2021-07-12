@@ -27,6 +27,7 @@
 // @match          https://www.mcbbs.net/plugin.php?id=link_redirect&target=*
 // @match          http*://www.360doc.cn/outlink.html?url=*
 // @match          https://jump2.bdimg.com/safecheck/index?url=*
+// @match          http*://iphone.myzaker.com/zaker/link.php?*
 // @version        0.10.0
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
@@ -133,6 +134,12 @@ const $ = jQuery.noConflict(true);
     window.location.replace(trueURL);
   }
 
+  function redirect_base64(fakeURLStr, trueURLParam) {
+    let fakeURL = new URL(fakeURLStr);
+    let trueURL = window.atob(fakeURL.searchParams.get(trueURLParam));
+    window.location.replace(trueURL);
+  }
+
   /**
    * @function
    * @name match
@@ -188,7 +195,9 @@ const $ = jQuery.noConflict(true);
     mcbbs: 'https://www.mcbbs.net/plugin.php?id=link_redirect&target=',
     doc360_2: 'http://www.360doc.cn/outlink.html?url=',
     doc360_3: 'https://www.360doc.cn/outlink.html?url=',
-    tieba: 'https://jump2.bdimg.com/safecheck/index?url='
+    tieba: 'https://jump2.bdimg.com/safecheck/index?url=',
+    zaker: 'http://iphone.myzaker.com/zaker/link.php?',
+    zaker2: 'https://www.360doc.cn/outlink.html?url='
   }
 
   $(document).ready(function () {
@@ -261,6 +270,9 @@ const $ = jQuery.noConflict(true);
     }
     if (match(fuckers.tieba)) {
       window.location.replace(document.getElementsByClassName('btn')[0].getAttribute('href'))
+    }
+    if (match(fuckers.zaker,fuckers.zaker2)) {
+      redirect_base64(curURL, "b");
     }
   });
 
