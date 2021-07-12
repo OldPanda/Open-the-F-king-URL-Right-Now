@@ -28,6 +28,7 @@
 // @match          http*://www.360doc.cn/outlink.html?url=*
 // @match          https://jump2.bdimg.com/safecheck/index?url=*
 // @match          http*://iphone.myzaker.com/zaker/link.php?*
+// @match          https://www.tianyancha.com/security?target=*
 // @version        0.10.0
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
@@ -197,7 +198,8 @@ const $ = jQuery.noConflict(true);
     doc360_3: 'https://www.360doc.cn/outlink.html?url=',
     tieba: 'https://jump2.bdimg.com/safecheck/index?url=',
     zaker: 'http://iphone.myzaker.com/zaker/link.php?',
-    zaker2: 'https://www.360doc.cn/outlink.html?url='
+    zaker2: 'https://www.360doc.cn/outlink.html?url=',
+    tianyancha: 'https://www.tianyancha.com/security?target='
   }
 
   $(document).ready(function () {
@@ -273,6 +275,9 @@ const $ = jQuery.noConflict(true);
     }
     if (match(fuckers.zaker,fuckers.zaker2)) {
       redirect_base64(curURL, "b");
+    }
+    if (match(fuckers.tianyancha)) {
+      redirect(curURL, "target");
     }
   });
 
