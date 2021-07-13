@@ -26,6 +26,7 @@
 // @match          http*://c.pc.qq.com/*
 // @match          https://www.yuque.com/r/goto?url=*
 // @match          https://www.mcbbs.net/plugin.php?id=link_redirect&target=*
+// @match          https://link.juejin.cn/?target=*
 // @version        0.10.0
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
@@ -184,7 +185,8 @@ const $ = jQuery.noConflict(true);
     nga2: 'https://bbs.nga.cn/read.php?',
     qq: 'https?\://c.pc.qq.com/(middlem|index).html',
     yuque: 'https://www.yuque.com/r/goto?url=',
-    mcbbs: 'https://www.mcbbs.net/plugin.php?id=link_redirect&target='
+    mcbbs: 'https://www.mcbbs.net/plugin.php?id=link_redirect&target=',
+    juejin: 'https://link.juejin.cn/?target='
   }
 
   $(document).ready(function () {
@@ -251,6 +253,9 @@ const $ = jQuery.noConflict(true);
     }
     if (match(fuckers.mcbbs)) {
       redirect(curURL, "target");
+    }
+    if (match(fuckers.juejin)) {
+      redirect(curURL, 'target')
     }
   });
 
