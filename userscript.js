@@ -25,6 +25,7 @@
 // @match          http*://c.pc.qq.com/*
 // @match          https://www.yuque.com/r/goto?url=*
 // @match          https://www.mcbbs.net/plugin.php?id=link_redirect&target=*
+// @match          https://link.juejin.cn/?target=*
 // @match          http*://www.360doc.cn/outlink.html?url=*
 // @match          https://jump2.bdimg.com/safecheck/index?url=*
 // @match          http*://iphone.myzaker.com/zaker/link.php?*
@@ -193,6 +194,7 @@ const $ = jQuery.noConflict(true);
     qq2: 'https://c.pc.qq.com/(middlem|index).html',
     yuque: 'https://www.yuque.com/r/goto?url=',
     mcbbs: 'https://www.mcbbs.net/plugin.php?id=link_redirect&target=',
+    juejin: 'https://link.juejin.cn/?target=',
     doc360_2: 'http://www.360doc.cn/outlink.html?url=',
     doc360_3: 'https://www.360doc.cn/outlink.html?url=',
     tieba: 'https://jump2.bdimg.com/safecheck/index?url=',
@@ -265,6 +267,9 @@ const $ = jQuery.noConflict(true);
     }
     if (match(fuckers.mcbbs)) {
       redirect(curURL, "target");
+    }
+    if (match(fuckers.juejin)) {
+      redirect(curURL, 'target')
     }
     if (match(fuckers.doc360_2, fuckers.doc360_3)) {
       redirect(curURL, "url");
