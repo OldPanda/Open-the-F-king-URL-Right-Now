@@ -5,8 +5,7 @@
 // @match          http://t.cn/*
 // @match          https://weibo.cn/sinaurl?*
 // @match          https://www.jianshu.com/go-wild?*
-// @match          https://link.zhihu.com/?*
-// @match          http://link.zhihu.com/?*
+// @match          http*://link.zhihu.com/?*
 // @match          https://www.douban.com/link2/?url=*
 // @match          https://link.ld246.com/forward?goto=*
 // @match          https://mp.weixin.qq.com/*
@@ -27,6 +26,10 @@
 // @match          https://www.yuque.com/r/goto?url=*
 // @match          https://www.mcbbs.net/plugin.php?id=link_redirect&target=*
 // @match          https://link.juejin.cn/?target=*
+// @match          http*://www.360doc.cn/outlink.html?url=*
+// @match          https://jump2.bdimg.com/safecheck/index?url=*
+// @match          http*://iphone.myzaker.com/zaker/link.php?*
+// @match          https://www.tianyancha.com/security?target=*
 // @version        0.10.0
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
@@ -127,9 +130,13 @@ const $ = jQuery.noConflict(true);
     }
   }
 
-  function redirect(fakeURLStr, trueURLParam) {
+  function redirect(fakeURLStr, trueURLParam, enableBase64 = false) {
     let fakeURL = new URL(fakeURLStr);
     let trueURL = fakeURL.searchParams.get(trueURLParam);
+    if (enableBase64) trueURL = window.atob(trueURL);
+    if (trueURL.indexOf("http://") !== 0 && trueURL.indexOf("https://") !== 0) {
+      trueURL = "https://" + trueURL;
+    }
     window.location.replace(trueURL);
   }
 
@@ -174,7 +181,7 @@ const $ = jQuery.noConflict(true);
     yy: 'http://redir.yy.duowan.com/warning.php?url=',
     csdn: 'https://link.csdn.net/?target=',
     steam: 'https://steamcommunity.com/linkfilter/?url=',
-    gamebilibili: 'game.bilibili.com/linkfilter/?url=',
+    gamebilibili: 'https://game.bilibili.com/linkfilter/?url=',
     oschina: 'https://www.oschina.net/action/GoToLink?url=',
     weixindev: 'https://developers.weixin.qq.com/community/middlepage/href?href=',
     qqdocs: 'https://docs.qq.com/scenario/link.html?url=',
@@ -183,10 +190,17 @@ const $ = jQuery.noConflict(true);
     doc360: 'http://www.360doc.com/content/',
     nga: 'https://nga.178.com/read.php?',
     nga2: 'https://bbs.nga.cn/read.php?',
-    qq: 'https?\://c.pc.qq.com/(middlem|index).html',
+    qq: 'http://c.pc.qq.com/(middlem|index).html',
+    qq2: 'https://c.pc.qq.com/(middlem|index).html',
     yuque: 'https://www.yuque.com/r/goto?url=',
     mcbbs: 'https://www.mcbbs.net/plugin.php?id=link_redirect&target=',
-    juejin: 'https://link.juejin.cn/?target='
+    juejin: 'https://link.juejin.cn/?target=',
+    doc360_2: 'http://www.360doc.cn/outlink.html?url=',
+    doc360_3: 'https://www.360doc.cn/outlink.html?url=',
+    tieba: 'https://jump2.bdimg.com/safecheck/index?url=',
+    zaker: 'http://iphone.myzaker.com/zaker/link.php?',
+    zaker2: 'https://www.360doc.cn/outlink.html?url=',
+    tianyancha: 'https://www.tianyancha.com/security?target='
   }
 
   $(document).ready(function () {
@@ -245,7 +259,7 @@ const $ = jQuery.noConflict(true);
     if (match(fuckers.nga, fuckers.nga2)) {
       $("#m_posts #m_posts_c a").prop("onclick", null).off("click");
     }
-    if (matchRegex(fuckers.qq)){
+    if (matchRegex(fuckers.qq, fuckers.qq2)) {
       redirect(curURL, "pfurl");
     }
     if (match(fuckers.yuque)) {
@@ -256,6 +270,18 @@ const $ = jQuery.noConflict(true);
     }
     if (match(fuckers.juejin)) {
       redirect(curURL, 'target')
+    }
+    if (match(fuckers.doc360_2, fuckers.doc360_3)) {
+      redirect(curURL, "url");
+    }
+    if (match(fuckers.tieba)) {
+      window.location.replace(document.getElementsByClassName('btn')[0].getAttribute('href'))
+    }
+    if (match(fuckers.zaker, fuckers.zaker2)) {
+      redirect(curURL, "b", true);
+    }
+    if (match(fuckers.tianyancha)) {
+      redirect(curURL, "target");
     }
   });
 
