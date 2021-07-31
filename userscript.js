@@ -31,7 +31,7 @@
 // @match          http*://iphone.myzaker.com/zaker/link.php?*
 // @match          https://www.tianyancha.com/security?target=*
 // @match          https://afdian.net/link?target=*
-// @version        0.11.0
+// @version        0.12.0
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
 // @require        https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js
