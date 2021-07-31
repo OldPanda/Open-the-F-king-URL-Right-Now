@@ -30,6 +30,7 @@
 // @match          https://jump2.bdimg.com/safecheck/index?url=*
 // @match          http*://iphone.myzaker.com/zaker/link.php?*
 // @match          https://www.tianyancha.com/security?target=*
+// @match          https://afdian.net/link?target=*
 // @version        0.11.0
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
@@ -200,7 +201,8 @@ const $ = jQuery.noConflict(true);
     tieba: 'https://jump2.bdimg.com/safecheck/index?url=',
     zaker: 'http://iphone.myzaker.com/zaker/link.php?',
     zaker2: 'https://www.360doc.cn/outlink.html?url=',
-    tianyancha: 'https://www.tianyancha.com/security?target='
+    tianyancha: 'https://www.tianyancha.com/security?target=',
+    afdian: 'https://afdian.net/link?target='
   }
 
   $(document).ready(function () {
@@ -281,6 +283,9 @@ const $ = jQuery.noConflict(true);
       redirect(curURL, "b", true);
     }
     if (match(fuckers.tianyancha)) {
+      redirect(curURL, "target");
+    }
+    if (match(fuckers.afdian)) {
       redirect(curURL, "target");
     }
   });
