@@ -31,7 +31,8 @@
 // @match          http*://iphone.myzaker.com/zaker/link.php?*
 // @match          https://www.tianyancha.com/security?target=*
 // @match          https://afdian.net/link?target=*
-// @version        0.12.0
+// @match          https://mail.qq.com/cgi-bin/readtemplate*
+// @version        0.13.0
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
 // @require        https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js
@@ -202,7 +203,8 @@ const $ = jQuery.noConflict(true);
     zaker: 'http://iphone.myzaker.com/zaker/link.php?',
     zaker2: 'https://www.360doc.cn/outlink.html?url=',
     tianyancha: 'https://www.tianyancha.com/security?target=',
-    afdian: 'https://afdian.net/link?target='
+    afdian: 'https://afdian.net/link?target=',
+    qqmail: 'https://mail.qq.com/cgi-bin/readtemplate'
   }
 
   $(document).ready(function () {
@@ -287,6 +289,9 @@ const $ = jQuery.noConflict(true);
     }
     if (match(fuckers.afdian)) {
       redirect(curURL, "target");
+    }
+    if (match(fuckers.qqmail)) {
+      redirect(curURL, "gourl");
     }
   });
 
