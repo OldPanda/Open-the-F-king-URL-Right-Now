@@ -32,7 +32,8 @@
 // @match          https://www.tianyancha.com/security?target=*
 // @match          https://afdian.net/link?target=*
 // @match          https://mail.qq.com/cgi-bin/readtemplate*
-// @version        0.13.0
+// @match          https://link.logonews.cn/?*
+// @version        0.14.0
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
 // @require        https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js
@@ -204,7 +205,8 @@ const $ = jQuery.noConflict(true);
     zaker2: 'https://www.360doc.cn/outlink.html?url=',
     tianyancha: 'https://www.tianyancha.com/security?target=',
     afdian: 'https://afdian.net/link?target=',
-    qqmail: 'https://mail.qq.com/cgi-bin/readtemplate'
+    qqmail: 'https://mail.qq.com/cgi-bin/readtemplate',
+    logonews: 'https://link.logonews.cn/?'
   }
 
   $(document).ready(function () {
@@ -292,6 +294,9 @@ const $ = jQuery.noConflict(true);
     }
     if (match(fuckers.qqmail)) {
       redirect(curURL, "gourl");
+    }
+    if (match(fuckers.logonews)) {
+      redirect(curURL, "url");
     }
   });
 
