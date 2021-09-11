@@ -303,6 +303,9 @@ const $ = jQuery.noConflict(true);
     if (match(fuckers.uisdc)){
       redirect(curURL, "redirect");
     }
+    if (match(fuckers.chinaz)){
+      redirect(curURL, "url")
+    }
   });
 
 })();
