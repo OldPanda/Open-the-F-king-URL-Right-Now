@@ -33,6 +33,7 @@
 // @match          https://afdian.net/link?target=*
 // @match          https://mail.qq.com/cgi-bin/readtemplate*
 // @match          https://link.logonews.cn/?*
+// @match          https://link.uisdc.com/?redirect=*
 // @version        0.14.0
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
@@ -206,7 +207,8 @@ const $ = jQuery.noConflict(true);
     tianyancha: 'https://www.tianyancha.com/security?target=',
     afdian: 'https://afdian.net/link?target=',
     qqmail: 'https://mail.qq.com/cgi-bin/readtemplate',
-    logonews: 'https://link.logonews.cn/?'
+    logonews: 'https://link.logonews.cn/?',
+    uisdc: 'https://link.uisdc.com/?redirect='
   }
 
   $(document).ready(function () {
@@ -297,6 +299,9 @@ const $ = jQuery.noConflict(true);
     }
     if (match(fuckers.logonews)) {
       redirect(curURL, "url");
+    }
+    if (match(fuckers.uisdc)){
+      redirect(curURL, "redirect");
     }
   });
 
