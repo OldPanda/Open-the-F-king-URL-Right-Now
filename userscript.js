@@ -34,7 +34,7 @@
 // @match          https://mail.qq.com/cgi-bin/readtemplate*
 // @match          https://link.logonews.cn/?*
 // @match          https://link.uisdc.com/?redirect=*
-// @version        0.15.0
+// @version        0.16.0
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
 // @require        https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js
@@ -46,6 +46,14 @@ const $ = jQuery.noConflict(true);
   'use strict';
 
   const curURL = window.location.href
+
+  /**
+  * Return URL without "http://" or "https://" at the beginning
+  * @param {String} str
+  */
+  function removeProtocol(str) {
+    return str.replace(/^https?:\/\//gm, '');
+  }
 
   function rstrip(str, regex) {
     let i = str.length - 1;
@@ -63,6 +71,7 @@ const $ = jQuery.noConflict(true);
    * @param {String} str
    */
   function splitMultiURLs(str) {
+    //TODO: add comments
     let results = new Array();
     let entry = "";
     while (str.length > 0) {
@@ -147,18 +156,25 @@ const $ = jQuery.noConflict(true);
   /**
    * @function
    * @name match
-   * @param {...string} patterns
+   * @param {...string} pattern
+   * @param {...boolean} enableRegex
+   * @param {...boolean} checkProtocol
    * @description check if current URL matchs given patterns
    */
-  const match = (...patterns) => patterns.some(p => curURL.includes(p))
-
-  /**
-   * @function
-   * @name matchRegex
-   * @param {...string} patterns regex patterns
-   * @description check if current URL matchs given regex patterns
-   */
-  const matchRegex = (...patterns) => patterns.some(p => curURL.search(p) > -1)
+  function match(pattern, enableRegex = false, checkProtocol = false) {
+    var curURLProto;
+    if (checkProtocol) { curURLProto = curURL; }
+    else {
+      curURLProto = removeProtocol(curURL);
+      pattern = removeProtocol(pattern);
+    }
+    if (enableRegex) {
+      return curURL.search(pattern) > -1
+    }
+    else {
+      return curURL.indexOf(pattern) === 0//Not Sure
+    }
+  }
 
   /**
    * @enum {string}
@@ -166,142 +182,58 @@ const $ = jQuery.noConflict(true);
    * @description all link pattern needed deal with
    */
   const fuckers = {
-    weibo: 'http://t.cn/', // 微博网页版
-    weibo2: 'https://weibo.cn/sinaurl?',
+    weibo: { match: 'http://t.cn/', redirect: function () { const link = $(".wrap .link").first().text() || document.querySelector('.open-url').children[0].href; window.location.replace(link); } }, // 微博网页版
+    weibo2: { match: 'https://weibo.cn/sinaurl?', redirect: function () { const link = $(".wrap .link").first().text() || document.querySelector('.open-url').children[0].href; window.location.replace(link); } },
     // http://t.cn/RgAKoPE
     // https://weibo.cn/sinaurl?u=https%3A%2F%2Fwww.freebsd.org%2F
     // https://weibo.cn/sinaurl?toasturl=https%3A%2F%2Ftime.geekbang.org%2F
     // https://weibo.cn/sinaurl?luicode=10000011&lfid=230259&u=http%3A%2F%2Ft.cn%2FA6qHeVlf
-    jianshu: 'https://www.jianshu.com/go-wild?',
-    zhihu: 'https://link.zhihu.com/?',
-    zhihu2: 'http://link.zhihu.com/?',
+    jianshu: { match: 'https://www.jianshu.com/go-wild?', redirect: "url" },
+    zhihu: { match: 'https://link.zhihu.com/?', redirect: "target" },
     // https://link.zhihu.com/?target=https%3A%2F%2Ftime.geekbang.org%2F
-    // https://link.zhihu.com/?target=https%3A%2F%2Fwww.freebsd.org%2F
     // https://link.zhihu.com/?utm_oi=35221042888704&target=https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/import
-    douban: 'https://www.douban.com/link2/?url=',
-    dilian: 'https://link.ld246.com/forward?goto=',
-    theWorst: 'https://mp.weixin.qq.com/',
-    theWorst2: 'https://weixin110.qq.com/cgi-bin/mmspamsupport-bin/newredirectconfirmcgi',
-    yy: 'http://redir.yy.duowan.com/warning.php?url=',
-    csdn: 'https://link.csdn.net/?target=',
-    steam: 'https://steamcommunity.com/linkfilter/?url=',
-    gamebilibili: 'https://game.bilibili.com/linkfilter/?url=',
-    oschina: 'https://www.oschina.net/action/GoToLink?url=',
-    weixindev: 'https://developers.weixin.qq.com/community/middlepage/href?href=',
-    qqdocs: 'https://docs.qq.com/scenario/link.html?url=',
-    pixiv: 'https://www.pixiv.net/jump.php?url=',
-    chinaz: 'https://www.chinaz.com/go.shtml?url=',
-    doc360: 'http://www.360doc.com/content/',
-    nga: 'https://nga.178.com/read.php?',
-    nga2: 'https://bbs.nga.cn/read.php?',
-    qq: 'http://c.pc.qq.com/(middlem|index).html',
-    qq2: 'https://c.pc.qq.com/(middlem|index).html',
-    yuque: 'https://www.yuque.com/r/goto?url=',
-    mcbbs: 'https://www.mcbbs.net/plugin.php?id=link_redirect&target=',
-    juejin: 'https://link.juejin.cn/?target=',
-    doc360_2: 'http://www.360doc.cn/outlink.html?url=',
-    doc360_3: 'https://www.360doc.cn/outlink.html?url=',
-    tieba: 'https://jump2.bdimg.com/safecheck/index?url=',
-    zaker: 'http://iphone.myzaker.com/zaker/link.php?',
-    zaker2: 'https://www.360doc.cn/outlink.html?url=',
-    tianyancha: 'https://www.tianyancha.com/security?target=',
-    afdian: 'https://afdian.net/link?target=',
-    qqmail: 'https://mail.qq.com/cgi-bin/readtemplate',
-    logonews: 'https://link.logonews.cn/?',
-    uisdc: 'https://link.uisdc.com/?redirect='
+    douban: { match: 'https://www.douban.com/link2/?url=', redirect: "url" },
+    dilian: { match: 'https://link.ld246.com/forward?goto=', redirect: "goto" },
+    theWorst: { match: 'https://mp.weixin.qq.com/', redirect: enableURLs },
+    theWorst2: { match: 'https://weixin110.qq.com/cgi-bin/mmspamsupport-bin/newredirectconfirmcgi', redirect: function () { window.location.replace($(".weui-msg__desc").first().text()) } },
+    yy: { match: 'http://redir.yy.duowan.com/warning.php?url=', redirect: "url" },
+    csdn: { match: 'https://link.csdn.net/?target=', redirect: "target" },
+    steam: { match: 'https://steamcommunity.com/linkfilter/?url=', redirect: "url" },
+    gamebilibili: { match: 'https://game.bilibili.com/linkfilter/?url=', redirect: "url" },
+    oschina: { match: 'https://www.oschina.net/action/GoToLink?url=', redirect: "url" },
+    weixindev: { match: 'https://developers.weixin.qq.com/community/middlepage/href?href=', redirect: "href" },
+    qqdocs: { match: 'https://docs.qq.com/scenario/link.html?url=', redirect: "url" },
+    pixiv: { match: 'https://www.pixiv.net/jump.php?url=', redirect: "url" },
+    chinaz: { match: 'https://www.chinaz.com/go.shtml?url=', redirect: "url" },
+    doc360: { match: 'http://www.360doc.com/content/', redirect: function () { $("#articlecontent table tbody tr td#artContent").find("a").off("click") } },
+    nga: { match: 'https://nga.178.com/read.php?', redirect: function () { $("#m_posts #m_posts_c a").prop("onclick", null).off("click") } },
+    nga2: { match: 'https://bbs.nga.cn/read.php?', redirect: function () { $("#m_posts #m_posts_c a").prop("onclick", null).off("click") } },
+    qq: { match: 'https?://c.pc.qq.com/(middlem|index).html', redirect: "pfurl", enableRegex: true },
+    yuque: { match: 'https://www.yuque.com/r/goto?url=', redirect: "url" },
+    mcbbs: { match: 'https://www.mcbbs.net/plugin.php?id=link_redirect&target=', redirect: "target" },
+    juejin: { match: 'https://link.juejin.cn/?target=', redirect: "target" },
+    doc360_2: { match: 'http://www.360doc.cn/outlink.html?url=', redirect: "url" },
+    tieba: { match: 'https://jump2.bdimg.com/safecheck/index?url=', redirect: function () { window.location.replace(document.getElementsByClassName('btn')[0].getAttribute('href')) } },
+    zaker: { match: 'http://iphone.myzaker.com/zaker/link.php?', redirect: function () { redirect(curURL, "url", true) } },
+    tianyancha: { match: 'https://www.tianyancha.com/security?target=', redirect: "target" },
+    afdian: { match: 'https://afdian.net/link?target=', redirect: "target" },
+    qqmail: { match: 'https://mail.qq.com/cgi-bin/readtemplate', redirect: "gourl" },
+    logonews: { match: 'https://link.logonews.cn/?', redirect: "url" },
+    uisdc: { match: 'https://link.uisdc.com/?redirect=', redirect: "redirect" }
   }
 
   $(document).ready(function () {
-    if (match(fuckers.weibo, fuckers.weibo2)) {
-      const link = $(".wrap .link").first().text() || document.querySelector('.open-url').children[0].href
-      window.location.replace(link);
-    }
-    if (match(fuckers.jianshu)) {
-      redirect(curURL, "url");
-    }
-    if (match(fuckers.zhihu, fuckers.zhihu2)) {
-      redirect(curURL, "target");
-    }
-    if (match(fuckers.douban)) {
-      redirect(curURL, "url");
-    }
-    if (match(fuckers.dilian)) {
-      redirect(curURL, "goto");
-    }
-    if (match(fuckers.theWorst)) {
-      enableURLs();
-    }
-    if (match(fuckers.yy)) {
-      redirect(curURL, "url");
-    }
-    if (match(fuckers.theWorst2)) {
-      window.location.replace($(".weui-msg__desc").first().text());
-    }
-    if (match(fuckers.csdn)) {
-      redirect(curURL, "target");
-    }
-    if (match(fuckers.steam)) {
-      redirect(curURL, "url");
-    }
-    if (match(fuckers.gamebilibili)) {
-      redirect(curURL, "url");
-    }
-    if (match(fuckers.oschina)) {
-      redirect(curURL, "url");
-    }
-    if (match(fuckers.weixindev)) {
-      redirect(curURL, "href");
-    }
-    if (match(fuckers.qqdocs)) {
-      redirect(curURL, "url");
-    }
-    if (match(fuckers.pixiv)) {
-      redirect(curURL, "url");
-    }
-    if (match(fuckers.chinaz)) {
-      redirect(curURL, "url");
-    }
-    if (match(fuckers.doc360)) {
-      $("#articlecontent table tbody tr td#artContent").find("a").off("click");
-    }
-    if (match(fuckers.nga, fuckers.nga2)) {
-      $("#m_posts #m_posts_c a").prop("onclick", null).off("click");
-    }
-    if (matchRegex(fuckers.qq, fuckers.qq2)) {
-      redirect(curURL, "pfurl");
-    }
-    if (match(fuckers.yuque)) {
-      redirect(curURL, "url");
-    }
-    if (match(fuckers.mcbbs)) {
-      redirect(curURL, "target");
-    }
-    if (match(fuckers.juejin)) {
-      redirect(curURL, 'target')
-    }
-    if (match(fuckers.doc360_2, fuckers.doc360_3)) {
-      redirect(curURL, "url");
-    }
-    if (match(fuckers.tieba)) {
-      window.location.replace(document.getElementsByClassName('btn')[0].getAttribute('href'))
-    }
-    if (match(fuckers.zaker, fuckers.zaker2)) {
-      redirect(curURL, "b", true);
-    }
-    if (match(fuckers.tianyancha)) {
-      redirect(curURL, "target");
-    }
-    if (match(fuckers.afdian)) {
-      redirect(curURL, "target");
-    }
-    if (match(fuckers.qqmail)) {
-      redirect(curURL, "gourl");
-    }
-    if (match(fuckers.logonews)) {
-      redirect(curURL, "url");
-    }
-    if (match(fuckers.uisdc)){
-      redirect(curURL, "redirect");
+    for (var i in fuckers) {
+      if (match(fuckers[i].match, fuckers[i].enableRegex, fuckers[i].checkProtocol)) {
+        switch (typeof (fuckers[i].redirect)) {
+          case 'string':
+            redirect(curURL, fuckers[i].redirect); break;
+          case 'function':
+            fuckers[i].redirect(); break;
+          default:
+            console.log(i + " redirect rule error!"); break;
+        }
+      }
     }
   });
 
