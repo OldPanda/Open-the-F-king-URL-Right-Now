@@ -169,10 +169,10 @@ const $ = jQuery.noConflict(true);
       pattern = removeProtocol(pattern);
     }
     if (enableRegex) {
-      return curURL.search(pattern) > -1
+      return curURLProto.search(pattern) > -1
     }
     else {
-      return curURL.indexOf(pattern) === 0//Not Sure
+      return curURLProto.indexOf(pattern) === 0//Not Sure
     }
   }
 
