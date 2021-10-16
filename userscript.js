@@ -52,7 +52,7 @@ const $ = jQuery.noConflict(true);
   * @param {String} str
   */
   function removeProtocol(str) {
-    return str.replace(/^https?:\/\//gm, '');
+    return str.replace(/^https?\??:\/\//gm, '');
   }
 
   function rstrip(str, regex) {
@@ -208,7 +208,7 @@ const $ = jQuery.noConflict(true);
     doc360: { match: 'http://www.360doc.com/content/', redirect: function () { $("#articlecontent table tbody tr td#artContent").find("a").off("click") } },
     nga: { match: 'https://nga.178.com/read.php?', redirect: function () { $("#m_posts #m_posts_c a").prop("onclick", null).off("click") } },
     nga2: { match: 'https://bbs.nga.cn/read.php?', redirect: function () { $("#m_posts #m_posts_c a").prop("onclick", null).off("click") } },
-    qq: { match: 'https?://c.pc.qq.com/(middlem|index).html', redirect: "pfurl", enableRegex: true },
+    qq: { match: 'https://c.pc.qq.com/(middlem|index).html', redirect: "pfurl", enableRegex: true },
     yuque: { match: 'https://www.yuque.com/r/goto?url=', redirect: "url" },
     mcbbs: { match: 'https://www.mcbbs.net/plugin.php?id=link_redirect&target=', redirect: "target" },
     juejin: { match: 'https://link.juejin.cn/?target=', redirect: "target" },
