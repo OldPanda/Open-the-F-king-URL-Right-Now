@@ -34,7 +34,7 @@
 // @match          https://mail.qq.com/cgi-bin/readtemplate*
 // @match          https://link.logonews.cn/?*
 // @match          https://link.uisdc.com/?redirect=*
-// @version        0.16.0
+// @version        0.16.1
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
 // @require        https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js
