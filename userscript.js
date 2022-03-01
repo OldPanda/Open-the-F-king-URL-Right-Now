@@ -34,7 +34,8 @@
 // @match          https://mail.qq.com/cgi-bin/readtemplate*
 // @match          https://link.logonews.cn/?*
 // @match          https://link.uisdc.com/?redirect=*
-// @version        0.16.1
+// @match          https://gitee.com/link?target=*
+// @version        0.16.2
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
 // @require        https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js
@@ -219,7 +220,8 @@ const $ = jQuery.noConflict(true);
     afdian: { match: 'https://afdian.net/link?target=', redirect: "target" },
     qqmail: { match: 'https://mail.qq.com/cgi-bin/readtemplate', redirect: "gourl" },
     logonews: { match: 'https://link.logonews.cn/?', redirect: "url" },
-    uisdc: { match: 'https://link.uisdc.com/?redirect=', redirect: "redirect" }
+    uisdc: { match: 'https://link.uisdc.com/?redirect=', redirect: "redirect" },
+    gitee: { match: 'https://gitee.com/link?target=', redirect: "target" }
   }
 
   $(document).ready(function () {
