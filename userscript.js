@@ -36,7 +36,7 @@
 // @match          https://link.uisdc.com/?redirect=*
 // @match          https://gitee.com/link?target=*
 // @match          https://leetcode-cn.com/link/?target=*
-// @version        0.17.0
+// @version        0.17.1
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
 // @require        https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js
@@ -143,6 +143,13 @@ const $ = jQuery.noConflict(true);
         replaced.add(url);
       }
     }
+
+    // Replace loading image with actual one
+    $("img").each(function (i, obj) {
+      if ($(obj)[0].currentSrc === "data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==") {
+          $(obj).attr("src", $(obj)[0].dataset.src)
+      }
+    })
   }
 
   function redirect(fakeURLStr, trueURLParam, enableBase64 = false) {
