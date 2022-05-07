@@ -36,7 +36,7 @@
 // @match          https://link.uisdc.com/?redirect=*
 // @match          https://gitee.com/link?target=*
 // @match          https://leetcode-cn.com/link/?target=*
-// @version        0.16.2
+// @version        0.17.0
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
 // @require        https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js
