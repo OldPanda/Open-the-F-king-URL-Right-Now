@@ -35,7 +35,7 @@
 // @match          https://link.logonews.cn/?*
 // @match          https://link.uisdc.com/?redirect=*
 // @match          https://gitee.com/link?target=*
-// @match          https://leetcode-cn.com/link/?target=*
+// @match          https://leetcode.cn/link/?target=*
 // @version        0.17.1
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
@@ -229,7 +229,7 @@ const $ = jQuery.noConflict(true);
     qqmail: { match: 'https://mail.qq.com/cgi-bin/readtemplate', redirect: "gourl" },
     logonews: { match: 'https://link.logonews.cn/?', redirect: "url" },
     uisdc: { match: 'https://link.uisdc.com/?redirect=', redirect: "redirect" },
-    leetcode: { match: 'https://leetcode-cn.com/link/?target', redirect: "target"},
+    leetcode: { match: 'https://leetcode.cn/link/?target', redirect: "target"},
     gitee: { match: 'https://gitee.com/link?target=', redirect: "target" }
   }
 
