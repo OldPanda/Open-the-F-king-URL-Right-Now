@@ -37,7 +37,7 @@
 // @match          https://gitee.com/link?target=*
 // @match          https://xie.infoq.cn/link?target=*
 // @match          https://leetcode.cn/link/?target=*
-// @version        0.17.1
+// @version        0.18.0
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
 // @require        https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js
