@@ -37,6 +37,7 @@
 // @match          https://gitee.com/link?target=*
 // @match          https://xie.infoq.cn/link?target=*
 // @match          https://leetcode.cn/link/?target=*
+// @match          https://www.kookapp.cn/go-wild.html?url=*
 // @version        0.18.0
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
@@ -232,7 +233,8 @@ const $ = jQuery.noConflict(true);
     uisdc: { match: 'https://link.uisdc.com/?redirect=', redirect: "redirect" },
     gitee: { match: 'https://gitee.com/link?target=', redirect: "target" },
     infoq: { match: 'https://xie.infoq.cn/link?target=', redirect: "target" },
-    leetcode: { match: 'https://leetcode.cn/link/?target', redirect: "target" }
+    leetcode: { match: 'https://leetcode.cn/link/?target', redirect: "target" },
+    kook: { match: 'https://www.kookapp.cn/go-wild.html?url=', redirect: "url" }
   }
 
   $(document).ready(function () {
