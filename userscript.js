@@ -37,6 +37,7 @@
 // @match          https://gitee.com/link?target=*
 // @match          https://xie.infoq.cn/link?target=*
 // @match          https://leetcode.cn/link/?target=*
+// @match          https://www.kookapp.cn/go-wild.html?url=*
 // @match          https://blog.51cto.com/transfer?*
 // @version        0.18.1
 // @run-at         document-idle
@@ -234,6 +235,7 @@ const $ = jQuery.noConflict(true);
     gitee: { match: 'https://gitee.com/link?target=', redirect: "target" },
     infoq: { match: 'https://xie.infoq.cn/link?target=', redirect: "target" },
     leetcode: { match: 'https://leetcode.cn/link/?target', redirect: "target" },
+    kook: { match: 'https://www.kookapp.cn/go-wild.html?url=', redirect: "url" },
     cto51: { match: 'https://blog.51cto.com/transfer?', redirect: function(){window.location.href = window.location.href.replace("https://blog.51cto.com/transfer?", "")} }
   }
 
