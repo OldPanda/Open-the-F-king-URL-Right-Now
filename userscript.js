@@ -195,7 +195,9 @@ const $ = jQuery.noConflict(true);
    */
   const fuckers = {
     weibo: { match: 'http://t.cn/', redirect: function () { const link = $(".wrap .link").first().text() || document.querySelector('.open-url').children[0].href; window.location.replace(link); } }, // 微博网页版
-    weibo2: { match: 'https://weibo.cn/sinaurl?', redirect: function () { const link = $(".wrap .link").first().text() || document.querySelector('.open-url').children[0].href; window.location.replace(link); } },
+	weibo_2: { match: 'https://weibo.cn/sinaurl?', redirect: "u"},
+	weibo_3: { match: 'https://weibo.cn/sinaurl?', redirect: "toasturl"},
+    weibo_4: { match: 'https://weibo.cn/sinaurl?', redirect: function () { const link = $(".wrap .link").first().text() || document.querySelector('.open-url').children[0].href; window.location.replace(link); } },
     // http://t.cn/RgAKoPE
     // https://weibo.cn/sinaurl?u=https%3A%2F%2Fwww.freebsd.org%2F
     // https://weibo.cn/sinaurl?toasturl=https%3A%2F%2Ftime.geekbang.org%2F
@@ -236,7 +238,7 @@ const $ = jQuery.noConflict(true);
     infoq: { match: 'https://xie.infoq.cn/link?target=', redirect: "target" },
     leetcode: { match: 'https://leetcode.cn/link/?target', redirect: "target" },
     kook: { match: 'https://www.kookapp.cn/go-wild.html?url=', redirect: "url" },
-    cto51: { match: 'https://blog.51cto.com/transfer?', redirect: function(){window.location.href = window.location.href.replace("https://blog.51cto.com/transfer?", "")} }
+    cto51: { match: 'https://blog.51cto.com/transfer?', redirect: function() { window.location.href = window.location.href.replace("https://blog.51cto.com/transfer?", "") } },
   }
 
   $(document).ready(function () {
