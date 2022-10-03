@@ -40,6 +40,7 @@
 // @match          https://www.kookapp.cn/go-wild.html?url=*
 // @match          https://blog.51cto.com/transfer?*
 // @match          https://www.coolapk.com/link?url=*
+// @match          https://ref.gamer.com.tw/redir.php/url=*
 // @version        0.18.1
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
@@ -196,8 +197,8 @@ const $ = jQuery.noConflict(true);
    */
   const fuckers = {
     weibo: { match: 'http://t.cn/', redirect: function () { const link = $(".wrap .link").first().text() || document.querySelector('.open-url').children[0].href; window.location.replace(link); } }, // 微博网页版
-	weibo_2: { match: 'https://weibo.cn/sinaurl?', redirect: "u"},
-	weibo_3: { match: 'https://weibo.cn/sinaurl?', redirect: "toasturl"},
+    weibo_2: { match: 'https://weibo.cn/sinaurl?', redirect: "u"},
+    weibo_3: { match: 'https://weibo.cn/sinaurl?', redirect: "toasturl"},
     weibo_4: { match: 'https://weibo.cn/sinaurl?', redirect: function () { const link = $(".wrap .link").first().text() || document.querySelector('.open-url').children[0].href; window.location.replace(link); } },
     // http://t.cn/RgAKoPE
     // https://weibo.cn/sinaurl?u=https%3A%2F%2Fwww.freebsd.org%2F
@@ -240,7 +241,8 @@ const $ = jQuery.noConflict(true);
     leetcode: { match: 'https://leetcode.cn/link/?target', redirect: "target" },
     kook: { match: 'https://www.kookapp.cn/go-wild.html?url=', redirect: "url" },
     cto51: { match: 'https://blog.51cto.com/transfer?', redirect: function() { window.location.href = window.location.href.replace("https://blog.51cto.com/transfer?", "") } },
-	coolapk: { match: 'https://www.coolapk.com/link?url=', redirect: "url" },
+    coolapk: { match: 'https://www.coolapk.com/link?url=', redirect: "url" },
+    gamertw: { match: 'https://ref.gamer.com.tw/redir.php/?url=', redirect: "url" }
   }
 
   $(document).ready(function () {
