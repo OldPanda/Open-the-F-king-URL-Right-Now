@@ -39,6 +39,7 @@
 // @match          https://leetcode.cn/link/?target=*
 // @match          https://www.kookapp.cn/go-wild.html?url=*
 // @match          https://blog.51cto.com/transfer?*
+// @match          https://www.coolapk.com/link?url=*
 // @version        0.18.1
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
@@ -239,6 +240,7 @@ const $ = jQuery.noConflict(true);
     leetcode: { match: 'https://leetcode.cn/link/?target', redirect: "target" },
     kook: { match: 'https://www.kookapp.cn/go-wild.html?url=', redirect: "url" },
     cto51: { match: 'https://blog.51cto.com/transfer?', redirect: function() { window.location.href = window.location.href.replace("https://blog.51cto.com/transfer?", "") } },
+	coolapk: { match: 'https://www.coolapk.com/link?url=', redirect: "url" },
   }
 
   $(document).ready(function () {
