@@ -41,7 +41,7 @@
 // @match          https://blog.51cto.com/transfer?*
 // @match          https://www.coolapk.com/link?url=*
 // @match          https://ref.gamer.com.tw/redir.php/url=*
-// @version        0.18.1
+// @version        0.19.0
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
 // @require        https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js
