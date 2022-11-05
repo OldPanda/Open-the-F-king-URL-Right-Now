@@ -44,7 +44,7 @@
 // @match          https://www.curseforge.com/linkout?remoteUrl=*
 // @match          https://www.bookmarkearth.com/view/*
 // @match          https://www.qcc.com/web/transfer-link?link=*
-// @version        0.19.1
+// @version        0.19.2
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
 // @require        https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js
