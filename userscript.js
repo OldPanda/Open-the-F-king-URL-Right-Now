@@ -41,6 +41,9 @@
 // @match          https://blog.51cto.com/transfer?*
 // @match          https://www.coolapk.com/link?url=*
 // @match          https://ref.gamer.com.tw/redir.php/url=*
+// @match          https://www.curseforge.com/linkout?remoteUrl=*
+// @match          https://www.bookmarkearth.com/view/*
+// @match          https://www.qcc.com/web/transfer-link?link=*
 // @version        0.19.1
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
@@ -242,7 +245,10 @@ const $ = jQuery.noConflict(true);
     kook: { match: 'https://www.kookapp.cn/go-wild.html?url=', redirect: "url" },
     cto51: { match: 'https://blog.51cto.com/transfer?', redirect: function() { window.location.href = window.location.href.replace("https://blog.51cto.com/transfer?", "") } },
     coolapk: { match: 'https://www.coolapk.com/link?url=', redirect: "url" },
-    gamertw: { match: 'https://ref.gamer.com.tw/redir.php/?url=', redirect: "url" }
+    gamertw: { match: 'https://ref.gamer.com.tw/redir.php/?url=', redirect: "url" },
+    curseforge: { match: 'https://www.curseforge.com/linkout?remoteUrl=', redirect: function() { window.location.replace(document.querySelector(".root-content a.button").href) } },
+    bookmarkearth : { match: 'https://www.bookmarkearth.com/view/', redirect: function() { window.location.replace(document.querySelector("p.link").innerHTML) } },
+    qcc : { match: 'https://www.qcc.com/web/transfer-link?link=', redirect: "link" }
   }
 
   $(document).ready(function () {
