@@ -44,7 +44,8 @@
 // @match          https://www.curseforge.com/linkout?remoteUrl=*
 // @match          https://www.bookmarkearth.com/view/*
 // @match          https://www.qcc.com/web/transfer-link?link=*
-// @version        0.19.2
+// @match          https://www.instagram.com/linkshim/?u=*
+// @version        0.20.0
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
 // @require        https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js
@@ -248,7 +249,8 @@ const $ = jQuery.noConflict(true);
     gamertw: { match: 'https://ref.gamer.com.tw/redir.php/?url=', redirect: "url" },
     curseforge: { match: 'https://www.curseforge.com/linkout?remoteUrl=', redirect: function() { window.location.replace(document.querySelector(".root-content a.button").href) } },
     bookmarkearth : { match: 'https://www.bookmarkearth.com/view/', redirect: function() { window.location.replace(document.querySelector("p.link").innerHTML) } },
-    qcc : { match: 'https://www.qcc.com/web/transfer-link?link=', redirect: "link" }
+    qcc : { match: 'https://www.qcc.com/web/transfer-link?link=', redirect: "link" },
+    instagram: { match: 'https://www.instagram.com/linkshim/?u=', redirect: "url" }
   }
 
   $(document).ready(function () {
