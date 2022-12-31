@@ -45,7 +45,8 @@
 // @match          https://www.bookmarkearth.com/view/*
 // @match          https://www.qcc.com/web/transfer-link?link=*
 // @match          https://www.instagram.com/linkshim/?u=*
-// @version        0.20.0
+// @match          https://sspai.com/link?target=*
+// @version        0.20.1
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
 // @require        https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js
@@ -250,7 +251,8 @@ const $ = jQuery.noConflict(true);
     curseforge: { match: 'https://www.curseforge.com/linkout?remoteUrl=', redirect: function() { window.location.replace(document.querySelector(".root-content a.button").href) } },
     bookmarkearth : { match: 'https://www.bookmarkearth.com/view/', redirect: function() { window.location.replace(document.querySelector("p.link").innerHTML) } },
     qcc : { match: 'https://www.qcc.com/web/transfer-link?link=', redirect: "link" },
-    instagram: { match: 'https://www.instagram.com/linkshim/?u=', redirect: "url" }
+    instagram: { match: 'https://www.instagram.com/linkshim/?u=', redirect: "url" },
+    sspai: { match: 'https://sspai.com/link?target=', redirect: "target" }
   }
 
   $(document).ready(function () {
