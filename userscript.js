@@ -46,10 +46,10 @@
 // @match          https://www.tianyancha.com/security?target=*
 // @match          https://www.yuque.com/r/goto?url=*
 // @match          https://xie.infoq.cn/link?target=*
-// @version        1.1.1
+// @version        1.1.2
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
-// @require        https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.min.js
+// @require        https://cdn.staticfile.org/jquery/3.6.3/jquery.min.js
 // @license        GPLv3 License
 // ==/UserScript==
 
