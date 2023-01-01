@@ -27,6 +27,7 @@
 // @match          https://mp.weixin.qq.com/*
 // @match          https://nga.178.com/read.php?*
 // @match          https://ref.gamer.com.tw/redir.php/url=*
+// @match          https://sspai.com/link?target=*
 // @match          https://steamcommunity.com/linkfilter/?url=*
 // @match          https://weibo.cn/sinaurl?*
 // @match          https://weixin110.qq.com/cgi-bin/mmspamsupport-bin/newredirectconfirmcgi*
@@ -45,7 +46,7 @@
 // @match          https://www.tianyancha.com/security?target=*
 // @match          https://www.yuque.com/r/goto?url=*
 // @match          https://xie.infoq.cn/link?target=*
-// @version        1.0.0
+// @version        1.1.0
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
 // @require        https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.min.js
@@ -90,6 +91,7 @@ const fuckers = {
   qq: { match: 'https://c.pc.qq.com/(middlem|index).html', redirect: "pfurl", enableRegex: true },
   qqdocs: { match: 'https://docs.qq.com/scenario/link.html?url=', redirect: "url" },
   qqmail: { match: 'https://mail.qq.com/cgi-bin/readtemplate', redirect: "gourl" },
+  sspai: { match: 'https://sspai.com/link?target=', redirect: "target" },
   steam: { match: 'https://steamcommunity.com/linkfilter/?url=', redirect: "url" },
   tianyancha: { match: 'https://www.tianyancha.com/security?target=', redirect: "target" },
   tieba: { match: 'https://jump2.bdimg.com/safecheck/index?url=', redirect: function () { window.location.replace(document.getElementsByClassName('btn')[0].getAttribute('href')) } },
