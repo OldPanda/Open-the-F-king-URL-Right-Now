@@ -46,7 +46,7 @@
 // @match          https://www.tianyancha.com/security?target=*
 // @match          https://www.yuque.com/r/goto?url=*
 // @match          https://xie.infoq.cn/link?target=*
-// @version        1.1.0
+// @version        1.1.1
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
 // @require        https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.min.js
@@ -230,9 +230,15 @@ function enableURLs() {
 function redirect(fakeURLStr, trueURLParam, enableBase64 = false) {
   let fakeURL = new URL(fakeURLStr);
   let trueURL = fakeURL.searchParams.get(trueURLParam);
-  if (enableBase64) trueURL = window.atob(trueURL);
-  if (trueURL.indexOf("http://") !== 0 && trueURL.indexOf("https://") !== 0) {
-    trueURL = "https://" + trueURL;
+  if (trueURL.startsWith(fuckers.wechat1.match)) {
+    // there could be multiple `&`s in url of a wechat link, so all of them
+    // have to be included in the trueURL.
+    trueURL = fakeURL.search.split(`${trueURLParam}=`).pop();
+  } else {
+    if (enableBase64) trueURL = window.atob(trueURL);
+    if (trueURL.indexOf("http://") !== 0 && trueURL.indexOf("https://") !== 0) {
+      trueURL = "https://" + trueURL;
+    }
   }
   window.location.replace(trueURL);
 }
