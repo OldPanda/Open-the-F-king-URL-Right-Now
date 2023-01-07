@@ -24,7 +24,7 @@
 // @match          https://link.logonews.cn/?*
 // @match          https://link.uisdc.com/?redirect=*
 // @match          https://mail.qq.com/cgi-bin/readtemplate*
-// @match          https://mp.weixin.qq.com/s/+
+// @match          https://mp.weixin.qq.com/s/*
 // @match          https://nga.178.com/read.php?*
 // @match          https://ref.gamer.com.tw/redir.php/url=*
 // @match          https://sspai.com/link?target=*
@@ -46,7 +46,8 @@
 // @match          https://www.tianyancha.com/security?target=*
 // @match          https://www.yuque.com/r/goto?url=*
 // @match          https://xie.infoq.cn/link?target=*
-// @version        1.1.3
+// @exclude        https://mp.weixin.qq.com/cgi-bin/*
+// @version        1.1.4
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
 // @require        https://cdn.staticfile.org/jquery/3.6.3/jquery.min.js
