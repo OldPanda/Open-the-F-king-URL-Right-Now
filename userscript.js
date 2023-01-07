@@ -24,7 +24,7 @@
 // @match          https://link.logonews.cn/?*
 // @match          https://link.uisdc.com/?redirect=*
 // @match          https://mail.qq.com/cgi-bin/readtemplate*
-// @match          https://mp.weixin.qq.com/s/+
+// @match          https://mp.weixin.qq.com/s?src=*
 // @match          https://nga.178.com/read.php?*
 // @match          https://ref.gamer.com.tw/redir.php/url=*
 // @match          https://sspai.com/link?target=*
@@ -96,7 +96,7 @@ const fuckers = {
   tianyancha: { match: 'https://www.tianyancha.com/security?target=', redirect: "target" },
   tieba: { match: 'https://jump2.bdimg.com/safecheck/index?url=', redirect: function () { window.location.replace(document.getElementsByClassName('btn')[0].getAttribute('href')) } },
   uisdc: { match: 'https://link.uisdc.com/?redirect=', redirect: "redirect" },
-  wechat1: { match: 'https://mp.weixin.qq.com/s/', redirect: enableURLs },
+  wechat1: { match: 'https://mp.weixin.qq.com/s?src=', redirect: enableURLs },
   wechat2: { match: 'https://weixin110.qq.com/cgi-bin/mmspamsupport-bin/newredirectconfirmcgi', redirect: function () { window.location.replace($(".weui-msg__desc").first().text()) } },
   // http://t.cn/RgAKoPE
   // https://weibo.cn/sinaurl?luicode=10000011&lfid=230259&u=http%3A%2F%2Ft.cn%2FA6qHeVlf
