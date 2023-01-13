@@ -14,6 +14,7 @@
 // @match          https://blog.51cto.com/transfer?*
 // @match          https://developers.weixin.qq.com/community/middlepage/href?href=*
 // @match          https://docs.qq.com/scenario/link.html?url=*
+// @match          https://docs.qq.com/scenario/link.html?u=*
 // @match          https://game.bilibili.com/linkfilter/?url=*
 // @match          https://gitee.com/link?target=*
 // @match          https://jump2.bdimg.com/safecheck/index?url=*
