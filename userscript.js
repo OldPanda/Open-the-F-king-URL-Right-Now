@@ -47,6 +47,7 @@
 // @match          https://www.tianyancha.com/security?target=*
 // @match          https://www.yuque.com/r/goto?url=*
 // @match          https://xie.infoq.cn/link?target=*
+// @match          https://tieba.baidu.com/mo/q/checkurl?url=*
 // @exclude        https://mp.weixin.qq.com/cgi-bin/*
 // @version        1.1.5
 // @run-at         document-idle
@@ -97,6 +98,7 @@ const fuckers = {
   steam: { match: 'https://steamcommunity.com/linkfilter/?url=', redirect: "url" },
   tianyancha: { match: 'https://www.tianyancha.com/security?target=', redirect: "target" },
   tieba: { match: 'https://jump2.bdimg.com/safecheck/index?url=', redirect: function () { window.location.replace(document.getElementsByClassName('btn')[0].getAttribute('href')) } },
+  tieba_2: { match: 'https://tieba.baidu.com/mo/q/checkurl?url=', redirect: "url" },
   uisdc: { match: 'https://link.uisdc.com/?redirect=', redirect: "redirect" },
   wechat1: { match: 'https://mp.weixin.qq.com/s/', redirect: enableURLs },
   wechat2: { match: 'https://weixin110.qq.com/cgi-bin/mmspamsupport-bin/newredirectconfirmcgi', redirect: function () { window.location.replace($(".weui-msg__desc").first().text()) } },
