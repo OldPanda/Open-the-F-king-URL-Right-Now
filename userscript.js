@@ -30,6 +30,7 @@
 // @match          https://ref.gamer.com.tw/redir.php/url=*
 // @match          https://sspai.com/link?target=*
 // @match          https://steamcommunity.com/linkfilter/?url=*
+// @match          https://tieba.baidu.com/mo/q/checkurl?url=*
 // @match          https://weibo.cn/sinaurl?*
 // @match          https://weixin110.qq.com/cgi-bin/mmspamsupport-bin/newredirectconfirmcgi*
 // @match          https://www.bookmarkearth.com/view/*
@@ -47,9 +48,8 @@
 // @match          https://www.tianyancha.com/security?target=*
 // @match          https://www.yuque.com/r/goto?url=*
 // @match          https://xie.infoq.cn/link?target=*
-// @match          https://tieba.baidu.com/mo/q/checkurl?url=*
 // @exclude        https://mp.weixin.qq.com/cgi-bin/*
-// @version        1.1.5
+// @version        1.2.0
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
 // @require        https://cdn.staticfile.org/jquery/3.6.3/jquery.min.js
