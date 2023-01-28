@@ -2,19 +2,19 @@
 // @name           Open the F**king URL Right Now
 // @description    自动跳转某些网站不希望用户直达的外链
 // @author         OldPanda
-// @match          http://redir.yy.duowan.com/warning.php?url=*
-// @match          http://t.cn/*
-// @match          http://www.360doc.com/content/*
 // @match          http*://c.pc.qq.com/*
 // @match          http*://iphone.myzaker.com/zaker/link.php?*
 // @match          http*://link.zhihu.com/?*
 // @match          http*://www.360doc.cn/outlink.html?url=*
+// @match          http://redir.yy.duowan.com/warning.php?url=*
+// @match          http://t.cn/*
+// @match          http://www.360doc.com/content/*
 // @match          https://afdian.net/link?target=*
 // @match          https://bbs.nga.cn/read.php?*
 // @match          https://blog.51cto.com/transfer?*
 // @match          https://developers.weixin.qq.com/community/middlepage/href?href=*
-// @match          https://docs.qq.com/scenario/link.html?url=*
 // @match          https://docs.qq.com/scenario/link.html?u=*
+// @match          https://docs.qq.com/scenario/link.html?url=*
 // @match          https://game.bilibili.com/linkfilter/?url=*
 // @match          https://gitee.com/link?target=*
 // @match          https://jump2.bdimg.com/safecheck/index?url=*
@@ -30,6 +30,7 @@
 // @match          https://ref.gamer.com.tw/redir.php/url=*
 // @match          https://sspai.com/link?target=*
 // @match          https://steamcommunity.com/linkfilter/?url=*
+// @match          https://t.me/iv?url=*
 // @match          https://tieba.baidu.com/mo/q/checkurl?url=*
 // @match          https://weibo.cn/sinaurl?*
 // @match          https://weixin110.qq.com/cgi-bin/mmspamsupport-bin/newredirectconfirmcgi*
@@ -49,7 +50,7 @@
 // @match          https://www.yuque.com/r/goto?url=*
 // @match          https://xie.infoq.cn/link?target=*
 // @exclude        https://mp.weixin.qq.com/cgi-bin/*
-// @version        1.2.0
+// @version        1.3.0
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
 // @require        https://cdn.staticfile.org/jquery/3.6.3/jquery.min.js
@@ -96,6 +97,7 @@ const fuckers = {
   qqmail: { match: 'https://mail.qq.com/cgi-bin/readtemplate', redirect: "gourl" },
   sspai: { match: 'https://sspai.com/link?target=', redirect: "target" },
   steam: { match: 'https://steamcommunity.com/linkfilter/?url=', redirect: "url" },
+  telegram: { match: 'https://t.me/iv?url=', redirect: "url" },
   tianyancha: { match: 'https://www.tianyancha.com/security?target=', redirect: "target" },
   tieba: { match: 'https://jump2.bdimg.com/safecheck/index?url=', redirect: function () { window.location.replace(document.getElementsByClassName('btn')[0].getAttribute('href')) } },
   tieba_2: { match: 'https://tieba.baidu.com/mo/q/checkurl?url=', redirect: "url" },
