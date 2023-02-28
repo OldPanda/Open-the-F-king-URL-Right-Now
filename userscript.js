@@ -93,6 +93,7 @@ const fuckers = {
   pixiv: { match: 'https://www.pixiv.net/jump.php?url=', redirect: "url" },
   qcc: { match: 'https://www.qcc.com/web/transfer-link?link=', redirect: "link" },
   qq: { match: 'https://c.pc.qq.com/(middlem|index).html', redirect: "pfurl", enableRegex: true },
+  qqios: { match: 'https://c.pc.qq.com/ios.html', redirect: "url"},
   qqdocs: { match: 'https://docs.qq.com/scenario/link.html?url=', redirect: "url" },
   qqmail: { match: 'https://mail.qq.com/cgi-bin/readtemplate', redirect: "gourl" },
   sspai: { match: 'https://sspai.com/link?target=', redirect: "target" },
