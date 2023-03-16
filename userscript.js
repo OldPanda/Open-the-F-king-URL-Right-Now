@@ -42,6 +42,7 @@
 // @match          https://www.instagram.com/linkshim/?u=*
 // @match          https://www.jianshu.com/go-wild?*
 // @match          https://www.kookapp.cn/go-wild.html?url=*
+// @match          https://www.linkedin.com/safety/go?url=*
 // @match          https://www.mcbbs.net/plugin.php?id=link_redirect&target=*
 // @match          https://www.oschina.net/action/GoToLink?url=*
 // @match          https://www.pixiv.net/jump.php?url=*
@@ -50,7 +51,7 @@
 // @match          https://www.yuque.com/r/goto?url=*
 // @match          https://xie.infoq.cn/link?target=*
 // @exclude        https://mp.weixin.qq.com/cgi-bin/*
-// @version        1.4.0
+// @version        1.5.0
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
 // @require        https://cdn.staticfile.org/jquery/3.6.3/jquery.min.js
@@ -85,6 +86,7 @@ const fuckers = {
   juejin: { match: 'https://link.juejin.cn/?target=', redirect: "target" },
   kook: { match: 'https://www.kookapp.cn/go-wild.html?url=', redirect: "url" },
   leetcode: { match: 'https://leetcode.cn/link/?target', redirect: "target" },
+  linkedin: { match: 'https://www.linkedin.com/safety/go?url=', redirect: "url"},
   logonews: { match: 'https://link.logonews.cn/?', redirect: "url" },
   mcbbs: { match: 'https://www.mcbbs.net/plugin.php?id=link_redirect&target=', redirect: "target" },
   nga: { match: 'https://nga.178.com/read.php?', redirect: function () { $("#m_posts #m_posts_c a").prop("onclick", null).off("click") } },
