@@ -51,7 +51,7 @@
 // @match          https://www.yuque.com/r/goto?url=*
 // @match          https://xie.infoq.cn/link?target=*
 // @exclude        https://mp.weixin.qq.com/cgi-bin/*
-// @version        1.5.0
+// @version        1.5.1
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
 // @require        https://cdn.staticfile.org/jquery/3.6.3/jquery.min.js
@@ -86,7 +86,7 @@ const fuckers = {
   juejin: { match: 'https://link.juejin.cn/?target=', redirect: "target" },
   kook: { match: 'https://www.kookapp.cn/go-wild.html?url=', redirect: "url" },
   leetcode: { match: 'https://leetcode.cn/link/?target', redirect: "target" },
-  linkedin: { match: 'https://www.linkedin.com/safety/go?url=', redirect: "url"},
+  linkedin: { match: 'https://www.linkedin.com/safety/go?url=', redirect: "url" },
   logonews: { match: 'https://link.logonews.cn/?', redirect: "url" },
   mcbbs: { match: 'https://www.mcbbs.net/plugin.php?id=link_redirect&target=', redirect: "target" },
   nga: { match: 'https://nga.178.com/read.php?', redirect: function () { $("#m_posts #m_posts_c a").prop("onclick", null).off("click") } },
@@ -95,7 +95,7 @@ const fuckers = {
   pixiv: { match: 'https://www.pixiv.net/jump.php?url=', redirect: "url" },
   qcc: { match: 'https://www.qcc.com/web/transfer-link?link=', redirect: "link" },
   qq: { match: 'https://c.pc.qq.com/(middlem|index).html', redirect: "pfurl", enableRegex: true },
-  qqios: { match: 'https://c.pc.qq.com/ios.html', redirect: "url"},
+  qqios: { match: 'https://c.pc.qq.com/ios.html', redirect: "url" },
   qqdocs: { match: 'https://docs.qq.com/scenario/link.html?url=', redirect: "url" },
   qqmail: { match: 'https://mail.qq.com/cgi-bin/readtemplate', redirect: "gourl" },
   sspai: { match: 'https://sspai.com/link?target=', redirect: "target" },
@@ -206,6 +206,11 @@ function enableURLs() {
   });
 
   $("#js_content > section").each(function (_, obj) {
+    // Don't do anything on code blocks
+    let className = $(obj).attr('class');
+    if (className != undefined && className.indexOf("code-snippet__js") != -1) {
+      return;
+    }
     let content = $(obj).text();
     let urls = content.matchAll(urlPattern);
     let replaced = new Set();
