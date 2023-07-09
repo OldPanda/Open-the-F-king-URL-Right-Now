@@ -51,7 +51,7 @@
 // @match          https://www.yuque.com/r/goto?url=*
 // @match          https://xie.infoq.cn/link?target=*
 // @exclude        https://mp.weixin.qq.com/cgi-bin/*
-// @version        1.5.1
+// @version        1.5.2
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
 // @require        https://cdn.staticfile.org/jquery/3.6.3/jquery.min.js
@@ -94,7 +94,7 @@ const fuckers = {
   oschina: { match: 'https://www.oschina.net/action/GoToLink?url=', redirect: "url" },
   pixiv: { match: 'https://www.pixiv.net/jump.php?url=', redirect: "url" },
   qcc: { match: 'https://www.qcc.com/web/transfer-link?link=', redirect: "link" },
-  qq: { match: 'https://c.pc.qq.com/(middlem|index).html', redirect: "pfurl", enableRegex: true },
+  qq: { match: 'https://c.pc.qq.com/(middleb|middlem|index).html', redirect: "pfurl", enableRegex: true },
   qqios: { match: 'https://c.pc.qq.com/ios.html', redirect: "url" },
   qqdocs: { match: 'https://docs.qq.com/scenario/link.html?url=', redirect: "url" },
   qqmail: { match: 'https://mail.qq.com/cgi-bin/readtemplate', redirect: "gourl" },
