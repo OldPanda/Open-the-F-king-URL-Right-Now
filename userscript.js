@@ -28,6 +28,7 @@
 // @match          https://mp.weixin.qq.com/s/*
 // @match          https://nga.178.com/read.php?*
 // @match          https://ref.gamer.com.tw/redir.php/url=*
+// @match          https://shimo.im/outlink/black?url=*
 // @match          https://sspai.com/link?target=*
 // @match          https://steamcommunity.com/linkfilter/?url=*
 // @match          https://t.me/iv?url=*
@@ -51,7 +52,7 @@
 // @match          https://www.yuque.com/r/goto?url=*
 // @match          https://xie.infoq.cn/link?target=*
 // @exclude        https://mp.weixin.qq.com/cgi-bin/*
-// @version        1.5.2
+// @version        1.6.0
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
 // @require        https://cdn.staticfile.org/jquery/3.6.3/jquery.min.js
@@ -98,6 +99,7 @@ const fuckers = {
   qqios: { match: 'https://c.pc.qq.com/ios.html', redirect: "url" },
   qqdocs: { match: 'https://docs.qq.com/scenario/link.html?url=', redirect: "url" },
   qqmail: { match: 'https://mail.qq.com/cgi-bin/readtemplate', redirect: "gourl" },
+  shimo: { match: 'https://shimo.im/outlink/black', redirect: "url" },
   sspai: { match: 'https://sspai.com/link?target=', redirect: "target" },
   steam: { match: 'https://steamcommunity.com/linkfilter/?url=', redirect: "url" },
   telegram: { match: 'https://t.me/iv?url=', redirect: "url" },
