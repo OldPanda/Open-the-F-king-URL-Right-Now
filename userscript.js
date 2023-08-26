@@ -256,6 +256,7 @@ function redirect(fakeURLStr, trueURLParam, enableBase64 = false) {
       trueURL = "https://" + trueURL;
     }
   }
+  trueURL = decodeURIComponent(trueURL)
   window.location.replace(trueURL);
 }
 
