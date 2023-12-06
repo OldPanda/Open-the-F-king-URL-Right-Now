@@ -31,6 +31,7 @@
 // @match          https://shimo.im/outlink/black?url=*
 // @match          https://sspai.com/link?target=*
 // @match          https://steamcommunity.com/linkfilter/?url=*
+// @match          https://steamcommunity.com/linkfilter/?u=*
 // @match          https://t.me/iv?url=*
 // @match          https://tieba.baidu.com/mo/q/checkurl?url=*
 // @match          https://weibo.cn/sinaurl?*
@@ -104,6 +105,7 @@ const fuckers = {
   shimo: { match: 'https://shimo.im/outlink/black', redirect: "url" },
   sspai: { match: 'https://sspai.com/link?target=', redirect: "target" },
   steam: { match: 'https://steamcommunity.com/linkfilter/?url=', redirect: "url" },
+  steam2: { match: 'https://steamcommunity.com/linkfilter/?u=', redirect: "u" },
   telegram: { match: 'https://t.me/iv?url=', redirect: "url" },
   tianyancha: { match: 'https://www.tianyancha.com/security?target=', redirect: "target" },
   tieba: { match: 'https://jump2.bdimg.com/safecheck/index?url=', redirect: function () { window.location.replace(document.getElementsByClassName('btn')[0].getAttribute('href')) } },
