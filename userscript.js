@@ -48,7 +48,7 @@
 // @match          https://www.mcbbs.net/plugin.php?id=link_redirect&target=*
 // @match          https://www.nodeseek.com/jump?to=*
 // @match          https://www.oschina.net/action/GoToLink?url=*
-// @match          https://www.pixiv.net/jump.php?url=*
+// @match          https://www.pixiv.net/jump.php?*
 // @match          https://www.qcc.com/web/transfer-link?link=*
 // @match          https://www.tianyancha.com/security?target=*
 // @match          https://www.yuque.com/r/goto?url=*
@@ -96,7 +96,7 @@ const fuckers = {
   nga2: { match: 'https://bbs.nga.cn/read.php?', redirect: function () { $("#m_posts #m_posts_c a").prop("onclick", null).off("click") } },
   nodeseek: { match: 'https://www.nodeseek.com/jump?to=', redirect: "to" },
   oschina: { match: 'https://www.oschina.net/action/GoToLink?url=', redirect: "url" },
-  pixiv: { match: 'https://www.pixiv.net/jump.php?url=', redirect: "url" },
+  pixiv: { match: 'https://www.pixiv.net/jump.php?', redirect: function () { window.location.href = decodeURIComponent(curURL.match(/jump.php\?[url=]*(.*)/)[1].replace(/=$/, '')) } },
   qcc: { match: 'https://www.qcc.com/web/transfer-link?link=', redirect: "link" },
   qq: { match: 'https://c.pc.qq.com/(middleb|middlem|index).html', redirect: "pfurl", enableRegex: true },
   qqios: { match: 'https://c.pc.qq.com/ios.html', redirect: "url" },
