@@ -54,7 +54,7 @@
 // @match          https://www.yuque.com/r/goto?url=*
 // @match          https://xie.infoq.cn/link?target=*
 // @exclude        https://mp.weixin.qq.com/cgi-bin/*
-// @version        1.7.2
+// @version        1.7.3
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
 // @require        https://cdn.staticfile.org/jquery/3.7.1/jquery.min.js
@@ -99,7 +99,7 @@ const fuckers = {
   pixiv: { match: 'https://www.pixiv.net/jump.php?', redirect: function () { window.location.href = decodeURIComponent(curURL.match(/jump.php\?[url=]*(.*)/)[1].replace(/=$/, '')) } },
   qcc: { match: 'https://www.qcc.com/web/transfer-link?link=', redirect: "link" },
   qq: { match: 'https://c.pc.qq.com/(middleb|middlem|index).html', redirect: "pfurl", enableRegex: true },
-  qqios: { match: 'https://c.pc.qq.com/ios.html', redirect: "url" },
+  qq2: { match: 'https://c.pc.qq.com/(ios|pc|android).html', redirect: "url", enableRegex: true },
   qqdocs: { match: 'https://docs.qq.com/scenario/link.html?url=', redirect: "url" },
   qqmail: { match: 'https://mail.qq.com/cgi-bin/readtemplate', redirect: "gourl" },
   shimo: { match: 'https://shimo.im/outlink/black', redirect: "url" },
