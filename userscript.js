@@ -90,6 +90,7 @@ const fuckers = {
   kook: { match: 'https://www.kookapp.cn/go-wild.html?url=', redirect: "url" },
   leetcode: { match: 'https://leetcode.cn/link/?target', redirect: "target" },
   linkedin: { match: 'https://www.linkedin.com/safety/go?url=', redirect: "url" },
+  linkedin2: { match: 'https://lnkd.in/', redirect: function () { window.location.replace(document.querySelector("body > main > a").href) } },
   logonews: { match: 'https://link.logonews.cn/?', redirect: "url" },
   mcbbs: { match: 'https://www.mcbbs.net/plugin.php?id=link_redirect&target=', redirect: "target" },
   nga: { match: 'https://nga.178.com/read.php?', redirect: function () { $("#m_posts #m_posts_c a").prop("onclick", null).off("click") } },
