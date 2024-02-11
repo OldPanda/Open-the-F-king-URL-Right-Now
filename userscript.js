@@ -12,6 +12,7 @@
 // @match          https://afdian.net/link?target=*
 // @match          https://bbs.nga.cn/read.php?*
 // @match          https://blog.51cto.com/transfer?*
+// @match          https://cloud.tencent.com/developer/tools/blog-entry?target=*
 // @match          https://developers.weixin.qq.com/community/middlepage/href?href=*
 // @match          https://docs.qq.com/scenario/link.html?u=*
 // @match          https://docs.qq.com/scenario/link.html?url=*
@@ -107,6 +108,7 @@ const fuckers = {
   steam: { match: 'https://steamcommunity.com/linkfilter/?url=', redirect: "url" },
   steam2: { match: 'https://steamcommunity.com/linkfilter/?u=', redirect: "u" },
   telegram: { match: 'https://t.me/iv?url=', redirect: "url" },
+  tencentclouddev: { match: 'https://cloud.tencent.com/developer/tools/blog-entry?target=', redirect: "target" },
   tianyancha: { match: 'https://www.tianyancha.com/security?target=', redirect: "target" },
   tieba: { match: 'https://jump2.bdimg.com/safecheck/index?url=', redirect: function () { window.location.replace(document.getElementsByClassName('btn')[0].getAttribute('href')) } },
   tieba_2: { match: 'https://tieba.baidu.com/mo/q/checkurl?url=', redirect: "url" },
