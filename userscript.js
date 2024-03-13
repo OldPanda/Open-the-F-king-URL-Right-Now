@@ -54,6 +54,7 @@
 // @match          https://www.tianyancha.com/security?target=*
 // @match          https://www.yuque.com/r/goto?url=*
 // @match          https://xie.infoq.cn/link?target=*
+// @match          https://www.baike.com/redirect_link?url=*
 // @exclude        https://mp.weixin.qq.com/cgi-bin/*
 // @version        1.8.0
 // @run-at         document-idle
@@ -71,6 +72,7 @@ const $ = jQuery.noConflict(true);
    */
 const fuckers = {
   afdian: { match: 'https://afdian.net/link?target=', redirect: "target" },
+  baidu: { match: 'https://www.baike.com/redirect_link?url=', redirect: "url" },
   bookmarkearth: { match: 'https://www.bookmarkearth.com/view/', redirect: function () { window.location.replace(document.querySelector("p.link").innerHTML) } },
   chinaz: { match: 'https://www.chinaz.com/go.shtml?url=', redirect: "url" },
   coolapk: { match: 'https://www.coolapk.com/link?url=', redirect: "url" },
