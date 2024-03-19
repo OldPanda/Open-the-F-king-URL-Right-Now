@@ -55,6 +55,7 @@
 // @match          https://www.yuque.com/r/goto?url=*
 // @match          https://xie.infoq.cn/link?target=*
 // @match          https://www.baike.com/redirect_link?url=*
+// @match          https://www.youtube.com/redirect?*
 // @exclude        https://mp.weixin.qq.com/cgi-bin/*
 // @version        1.8.0
 // @run-at         document-idle
@@ -72,7 +73,7 @@ const $ = jQuery.noConflict(true);
    */
 const fuckers = {
   afdian: { match: 'https://afdian.net/link?target=', redirect: "target" },
-  baidu: { match: 'https://www.baike.com/redirect_link?url=', redirect: "url" },
+  baike: { match: 'https://www.baike.com/redirect_link?url=', redirect: "url" },
   bookmarkearth: { match: 'https://www.bookmarkearth.com/view/', redirect: function () { window.location.replace(document.querySelector("p.link").innerHTML) } },
   chinaz: { match: 'https://www.chinaz.com/go.shtml?url=', redirect: "url" },
   coolapk: { match: 'https://www.coolapk.com/link?url=', redirect: "url" },
@@ -127,6 +128,7 @@ const fuckers = {
   weibo_4: { match: 'https://weibo.cn/sinaurl?', redirect: function () { const link = $(".wrap .link").first().text() || document.querySelector('.open-url').children[0].href; window.location.replace(link); } },
   weixindev: { match: 'https://developers.weixin.qq.com/community/middlepage/href?href=', redirect: "href" },
   yuque: { match: 'https://www.yuque.com/r/goto?url=', redirect: "url" },
+  youtube: { match: 'https://www.youtube.com/redirect?', redirect: "q" },
   yy: { match: 'http://redir.yy.duowan.com/warning.php?url=', redirect: "url" },
   zaker: { match: 'http://iphone.myzaker.com/zaker/link.php?', redirect: function () { redirect(curURL, "url", true) } },
   // https://link.zhihu.com/?target=https%3A%2F%2Ftime.geekbang.org%2F
