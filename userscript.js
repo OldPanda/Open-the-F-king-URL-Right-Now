@@ -18,6 +18,7 @@
 // @match          https://docs.qq.com/scenario/link.html?url=*
 // @match          https://game.bilibili.com/linkfilter/?url=*
 // @match          https://gitee.com/link?target=*
+// @match          https://hd.nowcoder.com/link.html?target=*
 // @match          https://jump2.bdimg.com/safecheck/index?url=*
 // @match          https://leetcode.cn/link/?target=*
 // @match          https://link.csdn.net/?target=*
@@ -99,6 +100,7 @@ const fuckers = {
   nga: { match: 'https://nga.178.com/read.php?', redirect: function () { $("#m_posts #m_posts_c a").prop("onclick", null).off("click") } },
   nga2: { match: 'https://bbs.nga.cn/read.php?', redirect: function () { $("#m_posts #m_posts_c a").prop("onclick", null).off("click") } },
   nodeseek: { match: 'https://www.nodeseek.com/jump?to=', redirect: "to" },
+  nowcoder: { match: 'https://hd.nowcoder.com/link.html?target=', redirect: "target" },
   oschina: { match: 'https://www.oschina.net/action/GoToLink?url=', redirect: "url" },
   pixiv: { match: 'https://www.pixiv.net/jump.php?', redirect: function () { window.location.href = decodeURIComponent(curURL.match(/jump.php\?[url=]*(.*)/)[1].replace(/=$/, '')) } },
   qcc: { match: 'https://www.qcc.com/web/transfer-link?link=', redirect: "link" },
