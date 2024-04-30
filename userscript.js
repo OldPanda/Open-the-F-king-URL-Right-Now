@@ -54,7 +54,7 @@
 // @match          https://www.qcc.com/web/transfer-link?link=*
 // @match          https://www.tianyancha.com/security?target=*
 // @match          https://www.yuque.com/r/goto?url=*
-// @match          https://xie.infoq.cn/link?target=*
+// @match          https://*.infoq.cn/link?target=*
 // @match          https://www.baike.com/redirect_link?url=*
 // @match          https://www.youtube.com/redirect?*
 // @exclude        https://mp.weixin.qq.com/cgi-bin/*
@@ -88,7 +88,7 @@ const fuckers = {
   gamebilibili: { match: 'https://game.bilibili.com/linkfilter/?url=', redirect: "url" },
   gamertw: { match: 'https://ref.gamer.com.tw/redir.php/?url=', redirect: "url" },
   gitee: { match: 'https://gitee.com/link?target=', redirect: "target" },
-  infoq: { match: 'https://xie.infoq.cn/link?target=', redirect: "target" },
+  infoq: { match: 'https://(xie.infoq.cn/link|www.infoq.cn/link)?target=', redirect: "target", enableRegex: true },
   instagram: { match: 'https://www.instagram.com/linkshim/?u=', redirect: "url" },
   jianshu: { match: 'https://www.jianshu.com/go-wild?', redirect: "url" },
   juejin: { match: 'https://link.juejin.cn/?target=', redirect: "target" },
