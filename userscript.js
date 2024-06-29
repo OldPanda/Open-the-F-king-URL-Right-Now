@@ -62,7 +62,7 @@
 // @match          https://www.baike.com/redirect_link?url=*
 // @match          https://www.youtube.com/redirect?*
 // @exclude        https://mp.weixin.qq.com/cgi-bin/*
-// @version        1.11.0
+// @version        1.12.0
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
 // @require        https://cdn.staticfile.org/jquery/3.7.1/jquery.min.js
