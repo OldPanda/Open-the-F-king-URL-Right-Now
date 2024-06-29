@@ -13,6 +13,7 @@
 // @match          https://bbs.acgrip.com/*
 // @match          https://bbs.nga.cn/read.php?*
 // @match          https://blog.51cto.com/transfer?*
+// @match          https://blzxteam.com/gowild.htm?url=*
 // @match          https://cloud.tencent.com/developer/tools/blog-entry?target=*
 // @match          https://developers.weixin.qq.com/community/middlepage/href?href=*
 // @match          https://docs.qq.com/scenario/link.html?u=*
@@ -77,6 +78,7 @@ const fuckers = {
   acgrip: { match: 'https://bbs.acgrip.com/', redirect: removeFwinDialog },
   afdian: { match: 'https://afdian.net/link?target=', redirect: "target" },
   baike: { match: 'https://www.baike.com/redirect_link?url=', redirect: "url" },
+  blzxteam: { match: 'https://blzxteam.com/gowild.htm?url=', redirect: function () { const url = $("div._2VEbEOHfDtVWiQAJxSIrVi_0").first().attr("title"); window.location.href = url } },
   bookmarkearth: { match: 'https://www.bookmarkearth.com/view/', redirect: function () { window.location.replace(document.querySelector("p.link").innerHTML) } },
   chinaz: { match: 'https://www.chinaz.com/go.shtml?url=', redirect: "url" },
   coolapk: { match: 'https://www.coolapk.com/link?url=', redirect: "url" },
