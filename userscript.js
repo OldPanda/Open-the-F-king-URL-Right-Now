@@ -33,6 +33,7 @@
 // @match          https://nga.178.com/read.php?*
 // @match          https://ref.gamer.com.tw/redir.php/url=*
 // @match          https://shimo.im/outlink/black?url=*
+// @match          https://shimo.im/outlink/gray?url=*
 // @match          https://sspai.com/link?target=*
 // @match          https://steamcommunity.com/linkfilter/?url=*
 // @match          https://steamcommunity.com/linkfilter/?u=*
@@ -117,6 +118,7 @@ const fuckers = {
   qqdocs: { match: 'https://docs.qq.com/scenario/link.html?url=', redirect: "url" },
   qqmail: { match: 'https://mail.qq.com/cgi-bin/readtemplate', redirect: "gourl" },
   shimo: { match: 'https://shimo.im/outlink/black', redirect: "url" },
+  shimo_2: { match: 'https://shimo.im/outlink/gray', redirect: "url" },
   sspai: { match: 'https://sspai.com/link?target=', redirect: "target" },
   steam: { match: 'https://steamcommunity.com/linkfilter/?url=', redirect: "url" },
   steam2: { match: 'https://steamcommunity.com/linkfilter/?u=', redirect: "u" },
