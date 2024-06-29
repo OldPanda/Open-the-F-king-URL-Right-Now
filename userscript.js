@@ -49,6 +49,8 @@
 // @match          https://www.jianshu.com/go-wild?*
 // @match          https://www.kookapp.cn/go-wild.html?url=*
 // @match          https://www.linkedin.com/safety/go?url=*
+// @match          https://www.luogu.com.cn/discuss/*
+// @match          https://www.luogu.com.cn/paste/*
 // @match          https://www.mcbbs.net/plugin.php?id=link_redirect&target=*
 // @match          https://www.nodeseek.com/jump?to=*
 // @match          https://www.oschina.net/action/GoToLink?url=*
@@ -100,6 +102,8 @@ const fuckers = {
   leetcode: { match: 'https://leetcode.cn/link/?target', redirect: "target" },
   linkedin: { match: 'https://www.linkedin.com/safety/go?url=', redirect: "url" },
   logonews: { match: 'https://link.logonews.cn/?', redirect: "url" },
+  luogu: { match: 'https://www.luogu.com.cn/paste/', redirect: function () { window.location.href = $("#url").text() } },
+  luogu_2: { match: 'https://www.luogu.com.cn/discuss/', redirect: function () { window.location.href = $("#url").text() } },
   mcbbs: { match: 'https://www.mcbbs.net/plugin.php?id=link_redirect&target=', redirect: "target" },
   nga: { match: 'https://nga.178.com/read.php?', redirect: function () { $("#m_posts #m_posts_c a").prop("onclick", null).off("click") } },
   nga2: { match: 'https://bbs.nga.cn/read.php?', redirect: function () { $("#m_posts #m_posts_c a").prop("onclick", null).off("click") } },
