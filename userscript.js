@@ -10,6 +10,7 @@
 // @match          http://redir.yy.duowan.com/warning.php?url=*
 // @match          http://www.360doc.com/content/*
 // @match          https://afdian.net/link?target=*
+// @match          https://bbs.acgrip.com/*
 // @match          https://bbs.nga.cn/read.php?*
 // @match          https://blog.51cto.com/transfer?*
 // @match          https://cloud.tencent.com/developer/tools/blog-entry?target=*
@@ -73,6 +74,7 @@ const $ = jQuery.noConflict(true);
    * @description all link pattern needed deal with
    */
 const fuckers = {
+  acgrip: { match: 'https://bbs.acgrip.com/', redirect: removeFwinDialog },
   afdian: { match: 'https://afdian.net/link?target=', redirect: "target" },
   baike: { match: 'https://www.baike.com/redirect_link?url=', redirect: "url" },
   bookmarkearth: { match: 'https://www.bookmarkearth.com/view/', redirect: function () { window.location.replace(document.querySelector("p.link").innerHTML) } },
@@ -142,9 +144,9 @@ const curURL = window.location.href;
 const urlPattern = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g;
 
 /**
-   * Return URL without "http://" or "https://" at the beginning
-   * @param {String} str
-   */
+ * Return URL without "http://" or "https://" at the beginning
+ * @param {String} str
+ */
 function removeProtocol(str) {
   return str.replace(/^https?\??:\/\//gm, '');
 }
@@ -253,6 +255,20 @@ function enableURLs() {
     }
   });
   $("span.js_img_placeholder").remove();
+}
+
+/**
+ * Remove the fwin_dialog when clicking external links on Anime Subtitle Club
+ */
+function removeFwinDialog() {
+  $("a").each((_, elem) => {
+    if (elem.href && elem.href.startsWith("http") && !elem.href.includes(window.location.host)) {
+      elem.addEventListener("click", (_) => {
+        window.open(elem.href, "_blank");
+        hideMenu('fwin_dialog', 'dialog');
+      })
+    }
+  })
 }
 
 function redirect(fakeURLStr, trueURLParam, enableBase64 = false) {
