@@ -67,7 +67,7 @@
 // @version        1.12.1
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
-// @require        https://cdn.staticfile.org/jquery/3.7.1/jquery.min.js
+// @require        https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js
 // @license        GPLv3 License
 // ==/UserScript==
 
