@@ -31,6 +31,7 @@
 // @match          https://link.uisdc.com/?redirect=*
 // @match          https://mail.qq.com/cgi-bin/readtemplate*
 // @match          https://mp.weixin.qq.com/s/*
+// @match          https://mp.weixin.qq.com/s?*
 // @match          https://nga.178.com/read.php?*
 // @match          https://ref.gamer.com.tw/redir.php/url=*
 // @match          https://shimo.im/outlink/black?url=*
@@ -132,6 +133,7 @@ const fuckers = {
   uisdc: { match: 'https://link.uisdc.com/?redirect=', redirect: "redirect" },
   wechat1: { match: 'https://mp.weixin.qq.com/s/', redirect: enableURLs },
   wechat2: { match: 'https://weixin110.qq.com/cgi-bin/mmspamsupport-bin/newredirectconfirmcgi', redirect: function () { window.location.replace($(".weui-msg__desc").first().text()) } },
+  wechat3: { match: 'https://mp.weixin.qq.com/s?', redirect: function () { let elem = $("#js_access_msg"); if (elem !== undefined && elem.attr("href") !== undefined) { window.location.replace(elem.attr("href")); } } },
   // https://t.cn/RgAKoPE
   // https://weibo.cn/sinaurl?luicode=10000011&lfid=230259&u=http%3A%2F%2Ft.cn%2FA6qHeVlf
   // https://weibo.cn/sinaurl?toasturl=https%3A%2F%2Ftime.geekbang.org%2F
