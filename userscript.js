@@ -105,6 +105,7 @@ const fuckers = {
   kook: { match: 'https://www.kookapp.cn/go-wild.html?url=', redirect: "url" },
   leetcode: { match: 'https://leetcode.cn/link/?target', redirect: "target" },
   linkedin: { match: 'https://www.linkedin.com/safety/go?url=', redirect: "url" },
+  linkedin2: { match: 'https://lnkd.in/', redirect: function () { window.location.replace(document.querySelector("body > main > a").href) } },
   logonews: { match: 'https://link.logonews.cn/?', redirect: "url" },
   luogu: { match: 'https://www.luogu.com.cn/paste/', redirect: function () { if (document.getElementById("url")) { window.location.href = $("#url").text() } } },
   luogu_2: { match: 'https://www.luogu.com.cn/discuss/', redirect: function () { if (document.getElementById("url")) { window.location.href = $("#url").text() } } },
