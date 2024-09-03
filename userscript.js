@@ -48,6 +48,7 @@
 // @match          https://www.coolapk.com/link?url=*
 // @match          https://www.curseforge.com/linkout?remoteUrl=*
 // @match          https://www.douban.com/link2/?url=*
+// @match          https://www.gcores.com/link?target=*
 // @match          https://www.instagram.com/linkshim/?u=*
 // @match          https://www.jianshu.com/go-wild?*
 // @match          https://www.kookapp.cn/go-wild.html?url=*
@@ -97,6 +98,7 @@ const fuckers = {
   douban: { match: 'https://www.douban.com/link2/?url=', redirect: "url" },
   gamebilibili: { match: 'https://game.bilibili.com/linkfilter/?url=', redirect: "url" },
   gamertw: { match: 'https://ref.gamer.com.tw/redir.php/?url=', redirect: "url" },
+  gcores: { match: 'https://www.gcores.com/link?target=', redirect: "target" },
   gitee: { match: 'https://gitee.com/link?target=', redirect: "target" },
   infoq: { match: 'https://(xie.infoq.cn/link|www.infoq.cn/link)?target=', redirect: "target", enableRegex: true },
   instagram: { match: 'https://www.instagram.com/linkshim/?u=', redirect: "url" },
