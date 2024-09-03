@@ -22,6 +22,7 @@
 // @match          https://game.bilibili.com/linkfilter/?url=*
 // @match          https://gitee.com/link?target=*
 // @match          https://hd.nowcoder.com/link.html?target=*
+// @match          https://hellogithub.com/periodical/statistics/click?target=*
 // @match          https://jump2.bdimg.com/safecheck/index?url=*
 // @match          https://leetcode.cn/link/?target=*
 // @match          https://link.csdn.net/?target=*
@@ -100,6 +101,7 @@ const fuckers = {
   gamertw: { match: 'https://ref.gamer.com.tw/redir.php/?url=', redirect: "url" },
   gcores: { match: 'https://www.gcores.com/link?target=', redirect: "target" },
   gitee: { match: 'https://gitee.com/link?target=', redirect: "target" },
+  hellogithub: { match: 'https://hellogithub.com/periodical/statistics/click?target=', redirect: "target" },
   infoq: { match: 'https://(xie.infoq.cn/link|www.infoq.cn/link)?target=', redirect: "target", enableRegex: true },
   instagram: { match: 'https://www.instagram.com/linkshim/?u=', redirect: "url" },
   jianshu: { match: 'https://www.jianshu.com/go-wild?', redirect: "url" },
