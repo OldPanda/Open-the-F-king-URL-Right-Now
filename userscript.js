@@ -35,6 +35,7 @@
 // @match          https://mp.weixin.qq.com/s?*
 // @match          https://nga.178.com/read.php?*
 // @match          https://ref.gamer.com.tw/redir.php/url=*
+// @match          https://ref.gamer.com.tw/redir.php?url=*
 // @match          https://shimo.im/outlink/black?url=*
 // @match          https://shimo.im/outlink/gray?url=*
 // @match          https://sspai.com/link?target=*
@@ -99,6 +100,7 @@ const fuckers = {
   douban: { match: 'https://www.douban.com/link2/?url=', redirect: "url" },
   gamebilibili: { match: 'https://game.bilibili.com/linkfilter/?url=', redirect: "url" },
   gamertw: { match: 'https://ref.gamer.com.tw/redir.php/?url=', redirect: "url" },
+  gamertw_2: { match: 'https://ref.gamer.com.tw/redir.php?url=', redirect: "url" },
   gcores: { match: 'https://www.gcores.com/link?target=', redirect: "target" },
   gitee: { match: 'https://gitee.com/link?target=', redirect: "target" },
   hellogithub: { match: 'https://hellogithub.com/periodical/statistics/click?target=', redirect: "target" },
