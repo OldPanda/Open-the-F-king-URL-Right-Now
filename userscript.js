@@ -116,7 +116,7 @@ const fuckers = {
   oschina: { match: 'https://www.oschina.net/action/GoToLink?url=', redirect: "url" },
   pixiv: { match: 'https://www.pixiv.net/jump.php?', redirect: function () { window.location.href = decodeURIComponent(curURL.match(/jump.php\?[url=]*(.*)/)[1].replace(/=$/, '')) } },
   qcc: { match: 'https://www.qcc.com/web/transfer-link?link=', redirect: "link" },
-  qq: { match: 'https://c.pc.qq.com/(middleb|middlem|index).html', redirect: "pfurl", enableRegex: true },
+  qq: { match: 'https://c.pc.qq.com/(middleb|middlect|middlem|index).html', redirect: "pfurl", enableRegex: true },
   qq2: { match: 'https://c.pc.qq.com/(ios|pc|android).html', redirect: "url", enableRegex: true },
   qqdocs: { match: 'https://docs.qq.com/scenario/link.html?url=', redirect: "url" },
   qqmail: { match: 'https://mail.qq.com/cgi-bin/readtemplate', redirect: "gourl" },
