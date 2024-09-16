@@ -54,6 +54,7 @@
 // @match          https://www.linkedin.com/safety/go?url=*
 // @match          https://www.luogu.com.cn/discuss/*
 // @match          https://www.luogu.com.cn/paste/*
+// @match          https://www.luogu.com.cn/article/*
 // @match          https://www.mcbbs.net/plugin.php?id=link_redirect&target=*
 // @match          https://www.nodeseek.com/jump?to=*
 // @match          https://www.oschina.net/action/GoToLink?url=*
