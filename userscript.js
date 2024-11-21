@@ -25,7 +25,7 @@
 // @match          https://hellogithub.com/periodical/statistics/click?target=*
 // @match          https://jump2.bdimg.com/safecheck/index?url=*
 // @match          https://leetcode.cn/link/?target=*
-// @match          https://link.csdn.net/?target=*
+// @match          https://link.csdn.net/?*target=*
 // @match          https://link.juejin.cn/?target=*
 // @match          https://link.ld246.com/forward?goto=*
 // @match          https://link.logonews.cn/?*
@@ -90,7 +90,7 @@ const fuckers = {
   bookmarkearth: { match: 'https://www.bookmarkearth.com/view/', redirect: function () { window.location.replace(document.querySelector("p.link").innerHTML) } },
   chinaz: { match: 'https://www.chinaz.com/go.shtml?url=', redirect: "url" },
   coolapk: { match: 'https://www.coolapk.com/link?url=', redirect: "url" },
-  csdn: { match: 'https://link.csdn.net/?target=', redirect: "target" },
+  csdn: { match: 'https://link.csdn.net/?*target=', redirect: "target" },
   cto51: { match: 'https://blog.51cto.com/transfer?', redirect: function () { window.location.href = window.location.href.replace("https://blog.51cto.com/transfer?", "") } },
   curseforge: { match: 'https://www.curseforge.com/linkout?remoteUrl=', redirect: function () { window.location.replace(document.querySelector(".root-content a.button").href) } },
   dilian: { match: 'https://link.ld246.com/forward?goto=', redirect: "goto" },
