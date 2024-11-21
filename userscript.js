@@ -92,7 +92,7 @@ const fuckers = {
   coolapk: { match: 'https://www.coolapk.com/link?url=', redirect: "url" },
   csdn: { match: 'https://link.csdn.net/?*target=', redirect: "target" },
   cto51: { match: 'https://blog.51cto.com/transfer?', redirect: function () { window.location.href = window.location.href.replace("https://blog.51cto.com/transfer?", "") } },
-  curseforge: { match: 'https://www.curseforge.com/linkout?remoteUrl=', redirect: function () { window.location.replace(document.querySelector(".root-content a.button").href) } },
+  curseforge: { match: 'https://www.curseforge.com/linkout?remoteUrl=', redirect: function() { redirect(decodeURIComponent(curURL), 'remoteUrl') } },
   dilian: { match: 'https://link.ld246.com/forward?goto=', redirect: "goto" },
   doc360_2: { match: 'http://www.360doc.cn/outlink.html?url=', redirect: "url" },
   doc360: { match: 'http://www.360doc.com/content/', redirect: function () { $("#articlecontent table tbody tr td#artContent").find("a").off("click") } },
