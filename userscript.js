@@ -22,6 +22,7 @@
 // @match          https://game.bilibili.com/linkfilter/?url=*
 // @match          https://gitee.com/link?target=*
 // @match          https://hd.nowcoder.com/link.html?target=*
+// @match          https://hellogithub.com/periodical/statistics/click?target=*
 // @match          https://jump2.bdimg.com/safecheck/index?url=*
 // @match          https://leetcode.cn/link/?target=*
 // @match          https://link.csdn.net/?target=*
@@ -34,6 +35,7 @@
 // @match          https://mp.weixin.qq.com/s?*
 // @match          https://nga.178.com/read.php?*
 // @match          https://ref.gamer.com.tw/redir.php/url=*
+// @match          https://ref.gamer.com.tw/redir.php?url=*
 // @match          https://shimo.im/outlink/black?url=*
 // @match          https://shimo.im/outlink/gray?url=*
 // @match          https://sspai.com/link?target=*
@@ -48,6 +50,7 @@
 // @match          https://www.coolapk.com/link?url=*
 // @match          https://www.curseforge.com/linkout?remoteUrl=*
 // @match          https://www.douban.com/link2/?url=*
+// @match          https://www.gcores.com/link?target=*
 // @match          https://www.instagram.com/linkshim/?u=*
 // @match          https://www.jianshu.com/go-wild?*
 // @match          https://www.kookapp.cn/go-wild.html?url=*
@@ -96,7 +99,10 @@ const fuckers = {
   douban: { match: 'https://www.douban.com/link2/?url=', redirect: "url" },
   gamebilibili: { match: 'https://game.bilibili.com/linkfilter/?url=', redirect: "url" },
   gamertw: { match: 'https://ref.gamer.com.tw/redir.php/?url=', redirect: "url" },
+  gamertw_2: { match: 'https://ref.gamer.com.tw/redir.php?url=', redirect: "url" },
+  gcores: { match: 'https://www.gcores.com/link?target=', redirect: "target" },
   gitee: { match: 'https://gitee.com/link?target=', redirect: "target" },
+  hellogithub: { match: 'https://hellogithub.com/periodical/statistics/click?target=', redirect: "target" },
   infoq: { match: 'https://(xie.infoq.cn/link|www.infoq.cn/link)?target=', redirect: "target", enableRegex: true },
   instagram: { match: 'https://www.instagram.com/linkshim/?u=', redirect: "url" },
   jianshu: { match: 'https://www.jianshu.com/go-wild?', redirect: "url" },
