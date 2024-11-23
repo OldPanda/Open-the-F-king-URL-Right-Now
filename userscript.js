@@ -67,7 +67,10 @@
 // @match          https://www.baike.com/redirect_link?url=*
 // @match          https://www.youtube.com/redirect?*
 // @exclude        https://mp.weixin.qq.com/cgi-bin/*
+// @match          https://txc.qq.com/product/*/link-jump?jump=*
 // @match          https://txc.qq.com/products/*/link-jump?jump=*
+// @match          https://support.qq.com/product/*/link-jump?jump=*
+// @match          https://support.qq.com/products/*/link-jump?jump=*
 // @version        1.14.0
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
@@ -155,7 +158,7 @@ const fuckers = {
   // https://link.zhihu.com/?target=https%3A%2F%2Ftime.geekbang.org%2F
   // https://link.zhihu.com/?utm_oi=35221042888704&target=https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/import
   zhihu: { match: 'https://link.zhihu.com/?', redirect: "target" },
-  txc: { match: 'https://txc.qq.com/products/(\\d+)/link-jump', enableRegex: true, redirect: 'jump' },
+  txc: { match: 'https://(txc|support).qq.com/products?/(\\d+)/link-jump', enableRegex: true, redirect: 'jump' },
 }
 
 const curURL = window.location.href;
