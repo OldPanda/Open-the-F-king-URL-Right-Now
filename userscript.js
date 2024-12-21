@@ -11,6 +11,7 @@
 // @match          http://www.360doc.com/content/*
 // @match          https://afdian.com/link?target=*
 // @match          https://afdian.net/link?target=*
+// @match          https://ask.latexstudio.net/go/index?url=*
 // @match          https://bbs.acgrip.com/*
 // @match          https://bbs.nga.cn/read.php?*
 // @match          https://blog.51cto.com/transfer?*
@@ -112,6 +113,7 @@ const fuckers = {
   jianshu: { match: 'https://www.jianshu.com/go-wild?', redirect: "url" },
   juejin: { match: 'https://link.juejin.cn/?target=', redirect: "target" },
   kook: { match: 'https://www.kookapp.cn/go-wild.html?url=', redirect: "url" },
+  latexstudio: {match: 'https://ask.latexstudio.net/go/index?url=', redirect: "url"},
   leetcode: { match: 'https://leetcode.cn/link/?target', redirect: "target" },
   linkedin: { match: 'https://www.linkedin.com/safety/go?url=', redirect: "url" },
   logonews: { match: 'https://link.logonews.cn/?', redirect: "url" },
