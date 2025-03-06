@@ -51,6 +51,7 @@
 // @match          https://txc.qq.com/products/*/link-jump?jump=*
 // @match          https://weibo.cn/sinaurl?*
 // @match          https://weixin110.qq.com/cgi-bin/mmspamsupport-bin/newredirectconfirmcgi*
+// @match          https://wx.mail.qq.com/xmspamcheck/xmsafejump?*
 // @match          https://www.bookmarkearth.com/view/*
 // @match          https://www.chinaz.com/go.shtml?url=*
 // @match          https://www.coolapk.com/link?url=*
@@ -134,6 +135,7 @@ const fuckers = {
   qq2: { match: 'https://c.pc.qq.com/(ios|pc|android).html', redirect: "url", enableRegex: true },
   qqdocs: { match: 'https://docs.qq.com/scenario/link.html?url=', redirect: "url" },
   qqmail: { match: 'https://mail.qq.com/cgi-bin/readtemplate', redirect: "gourl" },
+  qqmailwx: { match: 'https://wx.mail.qq.com/xmspamcheck/xmsafejump', redirect: "url" },
   shimo: { match: 'https://shimo.im/outlink/black', redirect: "url" },
   shimo_2: { match: 'https://shimo.im/outlink/gray', redirect: "url" },
   sspai: { match: 'https://sspai.com/link?target=', redirect: "target" },
