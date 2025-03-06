@@ -18,6 +18,7 @@
 // @match          https://blzxteam.com/gowild.htm?url=*
 // @match          https://cloud.tencent.com/developer/tools/blog-entry?target=*
 // @match          https://developers.weixin.qq.com/community/middlepage/href?href=*
+// @match          https://developer.aliyun.com/redirect?target=*
 // @match          https://docs.qq.com/scenario/link.html?u=*
 // @match          https://docs.qq.com/scenario/link.html?url=*
 // @match          https://game.bilibili.com/linkfilter/?url=*
@@ -100,6 +101,7 @@ const fuckers = {
   cto51: { match: 'https://blog.51cto.com/transfer?', redirect: function () { window.location.href = window.location.href.replace("https://blog.51cto.com/transfer?", "") } },
   curseforge: { match: 'https://www.curseforge.com/linkout?remoteUrl=', redirect: function() { redirect(decodeURIComponent(curURL), 'remoteUrl') } },
   dilian: { match: 'https://link.ld246.com/forward?goto=', redirect: "goto" },
+  developeraliyun: { match: 'https://developer.aliyun.com/redirect?target=', redirect: "target" },
   doc360_2: { match: 'http://www.360doc.cn/outlink.html?url=', redirect: "url" },
   doc360: { match: 'http://www.360doc.com/content/', redirect: function () { $("#articlecontent table tbody tr td#artContent").find("a").off("click") } },
   douban: { match: 'https://www.douban.com/link2/?url=', redirect: "url" },
