@@ -100,7 +100,7 @@ const fuckers = {
   coolapk: { match: 'https://www.coolapk.com/link?url=', redirect: "url" },
   csdn: { match: 'https://link.csdn.net/?*target=', redirect: "target" },
   cto51: { match: 'https://blog.51cto.com/transfer?', redirect: function () { window.location.href = window.location.href.replace("https://blog.51cto.com/transfer?", "") } },
-  curseforge: { match: 'https://www.curseforge.com/linkout?remoteUrl=', redirect: function() { redirect(decodeURIComponent(curURL), 'remoteUrl') } },
+  curseforge: { match: 'https://www.curseforge.com/linkout?remoteUrl=', redirect: function () { redirect(decodeURIComponent(curURL), 'remoteUrl') } },
   dilian: { match: 'https://link.ld246.com/forward?goto=', redirect: "goto" },
   developeraliyun: { match: 'https://developer.aliyun.com/redirect?target=', redirect: "target" },
   doc360_2: { match: 'http://www.360doc.cn/outlink.html?url=', redirect: "url" },
@@ -117,7 +117,7 @@ const fuckers = {
   jianshu: { match: 'https://www.jianshu.com/go-wild?', redirect: "url" },
   juejin: { match: 'https://link.juejin.cn/?target=', redirect: "target" },
   kook: { match: 'https://www.kookapp.cn/go-wild.html?url=', redirect: "url" },
-  latexstudio: {match: 'https://ask.latexstudio.net/go/index?url=', redirect: "url"},
+  latexstudio: { match: 'https://ask.latexstudio.net/go/index?url=', redirect: "url" },
   leetcode: { match: 'https://leetcode.cn/link/?target', redirect: "target" },
   linkedin: { match: 'https://www.linkedin.com/safety/go?url=', redirect: "url" },
   logonews: { match: 'https://link.logonews.cn/?', redirect: "url" },
@@ -155,10 +155,23 @@ const fuckers = {
   // https://weibo.cn/sinaurl?luicode=10000011&lfid=230259&u=http%3A%2F%2Ft.cn%2FA6qHeVlf
   // https://weibo.cn/sinaurl?toasturl=https%3A%2F%2Ftime.geekbang.org%2F
   // https://weibo.cn/sinaurl?u=https%3A%2F%2Fwww.freebsd.org%2F
-  weibo_1: { match: 'https://t.cn/', redirect: function () { const link = $(".wrap .link").first().text() || document.querySelector('.open-url').children[0].href; window.location.replace(link); } }, // 微博网页版
+  weibo_1: {
+    match: 'https://t.cn/', redirect: function () {
+      const link = $(".wrap .link").first().text() || document.querySelector('.open-url').children[0].href;
+      const url = new URL(link);
+      url.searchParams.delete("continueFlag");
+      window.location.replace(url.toString());
+    }
+  }, // 微博网页版
   weibo_2: { match: 'https://weibo.cn/sinaurl?u', redirect: "u" },
   weibo_3: { match: 'https://weibo.cn/sinaurl?toasturl', redirect: "toasturl" },
-  weibo_4: { match: 'https://weibo.cn/sinaurl?', redirect: function () { const link = $(".wrap .link").first().text() || document.querySelector('.open-url').children[0].href; window.location.replace(link); } },
+  weibo_4: {
+    match: 'https://weibo.cn/sinaurl?', redirect: function () {
+      const url = new URL(link);
+      url.searchParams.delete("continueFlag");
+      window.location.replace(url.toString());
+    }
+  },
   weixindev: { match: 'https://developers.weixin.qq.com/community/middlepage/href?href=', redirect: "href" },
   yuque: { match: 'https://www.yuque.com/r/goto?url=', redirect: "url" },
   youtube: { match: 'https://www.youtube.com/redirect?', redirect: "q" },
