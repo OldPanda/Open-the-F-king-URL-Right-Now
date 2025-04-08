@@ -36,6 +36,7 @@
 // @match          https://mp.weixin.qq.com/s/*
 // @match          https://mp.weixin.qq.com/s?*
 // @match          https://nga.178.com/read.php?*
+// @match          https://open.work.weixin.qq.com/wwopen/uriconfirm?uri=*
 // @match          https://ref.gamer.com.tw/redir.php/url=*
 // @match          https://ref.gamer.com.tw/redir.php?url=*
 // @match          https://shimo.im/outlink/black?url=*
@@ -175,6 +176,7 @@ const fuckers = {
     }
   },
   weixindev: { match: 'https://developers.weixin.qq.com/community/middlepage/href?href=', redirect: "href" },
+  work_weixin: { match: 'https://open.work.weixin.qq.com/wwopen/uriconfirm?uri=', redirect: "uri" },
   yuque: { match: 'https://www.yuque.com/r/goto?url=', redirect: "url" },
   youtube: { match: 'https://www.youtube.com/redirect?', redirect: "q" },
   yy: { match: 'http://redir.yy.duowan.com/warning.php?url=', redirect: "url" },
