@@ -36,6 +36,7 @@
 // @match          https://mp.weixin.qq.com/s/*
 // @match          https://mp.weixin.qq.com/s?*
 // @match          https://nga.178.com/read.php?*
+// @match          https://open.work.weixin.qq.com/wwopen/uriconfirm?uri=*
 // @match          https://ref.gamer.com.tw/redir.php/url=*
 // @match          https://ref.gamer.com.tw/redir.php?url=*
 // @match          https://shimo.im/outlink/black?url=*
@@ -75,7 +76,6 @@
 // @match          https://*.infoq.cn/link?target=*
 // @match          https://www.baike.com/redirect_link?url=*
 // @match          https://www.youtube.com/redirect?*
-// @match          https://open.work.weixin.qq.com/wwopen/uriconfirm?uri=*
 // @exclude        https://mp.weixin.qq.com/cgi-bin/*
 // @version        1.14.3
 // @run-at         document-idle
@@ -176,6 +176,7 @@ const fuckers = {
     }
   },
   weixindev: { match: 'https://developers.weixin.qq.com/community/middlepage/href?href=', redirect: "href" },
+  work_weixin: { match: 'https://open.work.weixin.qq.com/wwopen/uriconfirm?uri=', redirect: "uri" },
   yuque: { match: 'https://www.yuque.com/r/goto?url=', redirect: "url" },
   youtube: { match: 'https://www.youtube.com/redirect?', redirect: "q" },
   yy: { match: 'http://redir.yy.duowan.com/warning.php?url=', redirect: "url" },
@@ -183,7 +184,6 @@ const fuckers = {
   // https://link.zhihu.com/?target=https%3A%2F%2Ftime.geekbang.org%2F
   // https://link.zhihu.com/?utm_oi=35221042888704&target=https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/import
   zhihu: { match: 'https://link.zhihu.com/?', redirect: "target" },
-  work_weixin: { match: 'https://open.work.weixin.qq.com/wwopen/uriconfirm?uri=', redirect: 'uri' },
 }
 
 const curURL = window.location.href;
