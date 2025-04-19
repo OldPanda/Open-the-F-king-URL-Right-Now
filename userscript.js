@@ -67,6 +67,7 @@
 // @match          https://www.luogu.com.cn/discuss/*
 // @match          https://www.luogu.com.cn/paste/*
 // @match          https://www.luogu.com.cn/article/*
+// @match          https://www.mczwlt.net/go-external?url=*
 // @match          https://www.nodeseek.com/jump?to=*
 // @match          https://www.oschina.net/action/GoToLink?url=*
 // @match          https://www.pixiv.net/jump.php?*
@@ -127,6 +128,7 @@ const fuckers = {
   luogu: { match: 'https://www.luogu.com.cn/paste/', redirect: function () { if (document.getElementById("url")) { window.location.href = $("#url").text() } } },
   luogu_2: { match: 'https://www.luogu.com.cn/discuss/', redirect: function () { if (document.getElementById("url")) { window.location.href = $("#url").text() } } },
   luogu_3: { match: 'https://www.luogu.com.cn/article/', redirect: function () { if (document.getElementById("url")) { window.location.href = $("#url").text() } } },
+  mczwlt: { match: 'https://www.mczwlt.net/go-external?url=', redirect: "url" },
   nga: { match: 'https://nga.178.com/read.php?', redirect: function () { $("#m_posts #m_posts_c a").prop("onclick", null).off("click") } },
   nga2: { match: 'https://bbs.nga.cn/read.php?', redirect: function () { $("#m_posts #m_posts_c a").prop("onclick", null).off("click") } },
   nodeseek: { match: 'https://www.nodeseek.com/jump?to=', redirect: "to" },
