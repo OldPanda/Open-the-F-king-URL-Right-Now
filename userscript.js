@@ -28,6 +28,7 @@
 // @match          https://jump2.bdimg.com/safecheck/index?url=*
 // @match          https://leetcode.cn/link/?target=*
 // @match          https://link.csdn.net/?*target=*
+// @match          https://link.gitcode.com/?target=*
 // @match          https://link.juejin.cn/?target=*
 // @match          https://link.ld246.com/forward?goto=*
 // @match          https://link.logonews.cn/?*
@@ -114,6 +115,7 @@ const fuckers = {
   gamertw: { match: 'https://ref.gamer.com.tw/redir.php/?url=', redirect: "url" },
   gamertw_2: { match: 'https://ref.gamer.com.tw/redir.php?url=', redirect: "url" },
   gcores: { match: 'https://www.gcores.com/link?target=', redirect: "target" },
+  gitcode: { match: 'https://link.gitcode.com/?target=', redirect: "target" },
   gitee: { match: 'https://gitee.com/link?target=', redirect: "target" },
   google: { match: 'https://www.google.com/url?q=', redirect: "q" },
   hellogithub: { match: 'https://hellogithub.com/periodical/statistics/click?target=', redirect: "target" },
