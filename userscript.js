@@ -46,6 +46,7 @@
 // @match          https://steamcommunity.com/linkfilter/?u=*
 // @match          https://support.qq.com/product/*/link-jump?jump=*
 // @match          https://support.qq.com/products/*/link-jump?jump=*
+// @match          http*://t.techlife.app/*
 // @match          https://t.me/iv?url=*
 // @match          https://tieba.baidu.com/mo/q/checkurl?url=*
 // @match          https://txc.qq.com/product/*/link-jump?jump=*
@@ -146,6 +147,7 @@ const fuckers = {
   sspai: { match: 'https://sspai.com/link?target=', redirect: "target" },
   steam: { match: 'https://steamcommunity.com/linkfilter/?url=', redirect: "url" },
   steam2: { match: 'https://steamcommunity.com/linkfilter/?u=', redirect: "u" },
+  techlife: { match: 'https://t.techlife.app/#/', redirect: function () { window.location.replace(document.querySelector("#urltext").innerHTML) } },
   telegram: { match: 'https://t.me/iv?url=', redirect: "url" },
   tencentclouddev: { match: 'https://cloud.tencent.com/developer/tools/blog-entry?target=', redirect: "target" },
   tianyancha: { match: 'https://www.tianyancha.com/security?target=', redirect: "target" },
