@@ -74,6 +74,7 @@
 // @match          https://www.oschina.net/action/GoToLink?url=*
 // @match          https://www.pixiv.net/jump.php?*
 // @match          https://www.qcc.com/web/transfer-link?link=*
+// @match          https://www.skland.com/third-link?target=*
 // @match          https://www.tianyancha.com/security?target=*
 // @match          https://www.yuque.com/r/goto?url=*
 // @match          https://*.infoq.cn/link?target=*
@@ -144,6 +145,7 @@ const fuckers = {
   qqdocs: { match: 'https://docs.qq.com/scenario/link.html?url=', redirect: "url" },
   qqmail: { match: 'https://mail.qq.com/cgi-bin/readtemplate', redirect: "gourl" },
   qqmailwx: { match: 'https://wx.mail.qq.com/xmspamcheck/xmsafejump', redirect: "url" },
+  skland: { match: 'https://www.skland.com/third-link?target=', redirect: "target" },
   shimo: { match: 'https://shimo.im/outlink/black', redirect: "url" },
   shimo_2: { match: 'https://shimo.im/outlink/gray', redirect: "url" },
   sspai: { match: 'https://sspai.com/link?target=', redirect: "target" },
