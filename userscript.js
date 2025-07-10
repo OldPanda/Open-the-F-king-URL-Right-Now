@@ -21,6 +21,7 @@
 // @match          https://developer.aliyun.com/redirect?target=*
 // @match          https://docs.qq.com/scenario/link.html?u=*
 // @match          https://docs.qq.com/scenario/link.html?url=*
+// @match          https://gamebanana.com/linkfilter?url=*
 // @match          https://game.bilibili.com/linkfilter/?url=*
 // @match          https://gitee.com/link?target=*
 // @match          https://hd.nowcoder.com/link.html?target=*
@@ -112,6 +113,7 @@ const fuckers = {
   doc360_2: { match: 'http://www.360doc.cn/outlink.html?url=', redirect: "url" },
   doc360: { match: 'http://www.360doc.com/content/', redirect: function () { $("#articlecontent table tbody tr td#artContent").find("a").off("click") } },
   douban: { match: 'https://www.douban.com/link2/?url=', redirect: "url" },
+  gamebanana: { match: 'https://gamebanana.com/linkfilter?url=', redirect: "url" },
   gamebilibili: { match: 'https://game.bilibili.com/linkfilter/?url=', redirect: "url" },
   gamertw: { match: 'https://ref.gamer.com.tw/redir.php/?url=', redirect: "url" },
   gamertw_2: { match: 'https://ref.gamer.com.tw/redir.php?url=', redirect: "url" },
