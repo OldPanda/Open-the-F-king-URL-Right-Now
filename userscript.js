@@ -66,6 +66,7 @@
 // @match          https://www.google.com/url?q=*
 // @match          https://www.instagram.com/linkshim/?u=*
 // @match          https://www.jianshu.com/go-wild?*
+// @match          https://www.kdocs.cn/etapps/query/link?target=*
 // @match          https://www.kookapp.cn/go-wild.html?url=*
 // @match          https://www.linkedin.com/safety/go?url=*
 // @match          https://www.luogu.com.cn/discuss/*
@@ -127,6 +128,7 @@ const fuckers = {
   instagram: { match: 'https://www.instagram.com/linkshim/?u=', redirect: "url" },
   jianshu: { match: 'https://www.jianshu.com/go-wild?', redirect: "url" },
   juejin: { match: 'https://link.juejin.cn/?target=', redirect: "target" },
+  kdocs: { match: 'https://www.kdocs.cn/etapps/query/link?target=', redirect: "target" },
   kook: { match: 'https://www.kookapp.cn/go-wild.html?url=', redirect: "url" },
   latexstudio: { match: 'https://ask.latexstudio.net/go/index?url=', redirect: "url" },
   leetcode: { match: 'https://leetcode.cn/link/?target', redirect: "target" },
