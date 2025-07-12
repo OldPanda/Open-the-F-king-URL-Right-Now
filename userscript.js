@@ -53,6 +53,7 @@
 // @match          https://tieba.baidu.com/mo/q/checkurl?url=*
 // @match          https://txc.qq.com/product/*/link-jump?jump=*
 // @match          https://txc.qq.com/products/*/link-jump?jump=*
+// @match          https://unsafelink.com/*
 // @match          https://weibo.cn/sinaurl?*
 // @match          https://weixin110.qq.com/cgi-bin/mmspamsupport-bin/newredirectconfirmcgi*
 // @match          https://wx.mail.qq.com/xmspamcheck/xmsafejump?*
@@ -161,6 +162,7 @@ const fuckers = {
   tieba_2: { match: 'https://tieba.baidu.com/mo/q/checkurl?url=', redirect: "url" },
   txc: { match: 'https://(txc|support).qq.com/products?/(\\d+)/link-jump', enableRegex: true, redirect: 'jump' },
   uisdc: { match: 'https://link.uisdc.com/?redirect=', redirect: "redirect" },
+  unsafelink: { match: 'https://unsafelink.com/', redirect: function () { window.location.href = window.location.href.replace("https://unsafelink.com/", "") } },
   wechat1: { match: 'https://mp.weixin.qq.com/s/', redirect: enableURLs },
   wechat2: { match: 'https://weixin110.qq.com/cgi-bin/mmspamsupport-bin/newredirectconfirmcgi', redirect: function () { window.location.replace($(".weui-msg__desc").first().text()) } },
   wechat3: { match: 'https://mp.weixin.qq.com/s?', redirect: function () { let elem = $("#js_access_msg"); if (elem !== undefined && elem.attr("href") !== undefined) { window.location.replace(elem.attr("href")); } } },
