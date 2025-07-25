@@ -33,6 +33,7 @@
 // @match          https://link.juejin.cn/?target=*
 // @match          https://link.ld246.com/forward?goto=*
 // @match          https://link.logonews.cn/?*
+// @match          https://link.mcmod.cn/target/*
 // @match          https://link.uisdc.com/?redirect=*
 // @match          https://mail.qq.com/cgi-bin/readtemplate*
 // @match          https://mp.weixin.qq.com/s/*
@@ -137,6 +138,7 @@ const fuckers = {
   luogu: { match: 'https://www.luogu.com.cn/paste/', redirect: function () { if (document.getElementById("url")) { window.location.href = $("#url").text() } } },
   luogu_2: { match: 'https://www.luogu.com.cn/discuss/', redirect: function () { if (document.getElementById("url")) { window.location.href = $("#url").text() } } },
   luogu_3: { match: 'https://www.luogu.com.cn/article/', redirect: function () { if (document.getElementById("url")) { window.location.href = $("#url").text() } } },
+  mcmod: { match: 'https://link.mcmod.cn/target/', redirect: function () { window.location.href = atob(window.location.href.replace("https://link.mcmod.cn/target/", "")) } },
   mczwlt: { match: 'https://www.mczwlt.net/go-external?url=', redirect: "url" },
   nga: { match: 'https://nga.178.com/read.php?', redirect: function () { ubbcode.showUrlAlert = (...args) => window.open(args[1].href) } },
   nga2: { match: 'https://bbs.nga.cn/read.php?', redirect: function () { ubbcode.showUrlAlert = (...args) => window.open(args[1].href) } },
@@ -156,7 +158,7 @@ const fuckers = {
   sspai: { match: 'https://sspai.com/link?target=', redirect: "target" },
   steam: { match: 'https://steamcommunity.com/linkfilter/?url=', redirect: "url" },
   steam2: { match: 'https://steamcommunity.com/linkfilter/?u=', redirect: "u" },
-  techlife: { match: 'https://t.techlife.app/#/', redirect: function () { window.location.replace(document.querySelector("#urltext").innerHTML) } },
+  techlife: { match: 'https://t.techlife.app/#/', redirect: function () { window.location.href = atob(window.location.href.replace("https://t.techlife.app/#/", "")) } },
   telegram: { match: 'https://t.me/iv?url=', redirect: "url" },
   tencentclouddev: { match: 'https://cloud.tencent.com/developer/tools/blog-entry?target=', redirect: "target" },
   tianyancha: { match: 'https://www.tianyancha.com/security?target=', redirect: "target" },
