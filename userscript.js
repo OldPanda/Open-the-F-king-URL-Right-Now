@@ -11,6 +11,7 @@
 // @match          http://www.360doc.com/content/*
 // @match          https://afdian.com/link?target=*
 // @match          https://afdian.net/link?target=*
+// @match          https://api.himcbbs.com/refer/?url=*
 // @match          https://ask.latexstudio.net/go/index?url=*
 // @match          https://bbs.acgrip.com/*
 // @match          https://bbs.nga.cn/read.php?*
@@ -125,6 +126,7 @@ const fuckers = {
   gitee: { match: 'https://gitee.com/link?target=', redirect: "target" },
   google: { match: 'https://www.google.com/url?q=', redirect: "q" },
   hellogithub: { match: 'https://hellogithub.com/periodical/statistics/click?target=', redirect: "target" },
+  himcbbs: { match: 'https://api.himcbbs.com/refer/?url=', redirect: "url" },
   infoq: { match: 'https://(xie.infoq.cn/link|www.infoq.cn/link)?target=', redirect: "target", enableRegex: true },
   instagram: { match: 'https://www.instagram.com/linkshim/?u=', redirect: "url" },
   jianshu: { match: 'https://www.jianshu.com/go-wild?', redirect: "url" },
