@@ -22,6 +22,7 @@
 // @match          https://developer.aliyun.com/redirect?target=*
 // @match          https://docs.qq.com/scenario/link.html?u=*
 // @match          https://docs.qq.com/scenario/link.html?url=*
+// @match          https://forum.mczwlt.net/outgoing?url=*
 // @match          https://gamebanana.com/linkfilter?url=*
 // @match          https://game.bilibili.com/linkfilter/?url=*
 // @match          https://gitee.com/link?target=*
@@ -142,6 +143,7 @@ const fuckers = {
   luogu_3: { match: 'https://www.luogu.com.cn/article/', redirect: function () { if (document.getElementById("url")) { window.location.href = $("#url").text() } } },
   mcmod: { match: 'https://link.mcmod.cn/target/', redirect: function () { window.location.href = atob(window.location.href.replace("https://link.mcmod.cn/target/", "")) } },
   mczwlt: { match: 'https://www.mczwlt.net/go-external?url=', redirect: "url" },
+  mczwlt2: { match: 'https://forum.mczwlt.net/outgoing?url=', redirect: "url" },
   nga: { match: 'https://nga.178.com/read.php?', redirect: function () { ubbcode.showUrlAlert = (...args) => window.open(args[1].href) } },
   nga2: { match: 'https://bbs.nga.cn/read.php?', redirect: function () { ubbcode.showUrlAlert = (...args) => window.open(args[1].href) } },
   nodeseek: { match: 'https://www.nodeseek.com/jump?to=', redirect: "to" },
