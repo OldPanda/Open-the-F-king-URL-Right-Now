@@ -66,7 +66,7 @@
 // @match          https://www.curseforge.com/linkout?remoteUrl=*
 // @match          https://www.douban.com/link2/?url=*
 // @match          https://www.gcores.com/link?target=*
-// @match          https://www.google.com/url?q=*
+// @match          https://www.google.com/url?*
 // @match          https://www.instagram.com/linkshim/?u=*
 // @match          https://www.jianshu.com/go-wild?*
 // @match          https://www.kdocs.cn/etapps/query/link?target=*
@@ -125,7 +125,7 @@ const fuckers = {
   gcores: { match: 'https://www.gcores.com/link?target=', redirect: "target" },
   gitcode: { match: 'https://link.gitcode.com/?target=', redirect: "target" },
   gitee: { match: 'https://gitee.com/link?target=', redirect: "target" },
-  google: { match: 'https://www.google.com/url?q=', redirect: "q" },
+  google: { match: 'https://www\\.google\\.com/url\\?(sa=E&)?q=', redirect: "q", enableRegex: true },
   hellogithub: { match: 'https://hellogithub.com/periodical/statistics/click?target=', redirect: "target" },
   himcbbs: { match: 'https://api.himcbbs.com/refer/?url=', redirect: "url" },
   infoq: { match: 'https://(xie.infoq.cn/link|www.infoq.cn/link)?target=', redirect: "target", enableRegex: true },
