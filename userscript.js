@@ -28,6 +28,7 @@
 // @match          https://gitee.com/link?target=*
 // @match          https://hd.nowcoder.com/link.html?target=*
 // @match          https://hellogithub.com/periodical/statistics/click?target=*
+// @match          https://www.iplaysoft.com/link/?url=*
 // @match          https://jump2.bdimg.com/safecheck/index?url=*
 // @match          https://leetcode.cn/link/?target=*
 // @match          https://link.csdn.net/?*target=*
@@ -130,6 +131,7 @@ const fuckers = {
   himcbbs: { match: 'https://api.himcbbs.com/refer/?url=', redirect: "url" },
   infoq: { match: 'https://(xie.infoq.cn/link|www.infoq.cn/link)?target=', redirect: "target", enableRegex: true },
   instagram: { match: 'https://www.instagram.com/linkshim/?u=', redirect: "url" },
+  iplaysoft: { match: 'https://www.iplaysoft.com/link/?url=', redirect: function () { window.location.href = document.querySelector('#targetUrl a').href } },
   jianshu: { match: 'https://www.jianshu.com/go-wild?', redirect: "url" },
   juejin: { match: 'https://link.juejin.cn/?target=', redirect: "target" },
   kdocs: { match: 'https://www.kdocs.cn/etapps/query/link?target=', redirect: "target" },
