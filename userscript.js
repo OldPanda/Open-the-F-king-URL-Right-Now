@@ -154,7 +154,7 @@ const fuckers = {
   pixiv: { match: 'https://www.pixiv.net/jump.php?', redirect: function () { window.location.href = decodeURIComponent(curURL.match(/jump.php\?[url=]*(.*)/)[1].replace(/=$/, '')) } },
   qcc: { match: 'https://www.qcc.com/web/transfer-link?link=', redirect: "link" },
   qq: { match: 'https://c.pc.qq.com/(middleb|middlect|middlem|index).html', redirect: "pfurl", enableRegex: true },
-  qq2: { match: 'https://c.pc.qq.com/(ios|pc|android).html', redirect: "url", enableRegex: true },
+  qq2: { match: 'https://c.pc.qq.com/(ios|pc|android).html', redirect: function () { window.location.href = window.location.href.replace("https://c.pc.qq.com/ios.html?level=14&url=", "") }, enableRegex: true },
   qqdocs: { match: 'https://docs.qq.com/scenario/link.html?url=', redirect: "url" },
   qqmail: { match: 'https://mail.qq.com/cgi-bin/readtemplate', redirect: "gourl" },
   qqmailwx: { match: 'https://wx.mail.qq.com/xmspamcheck/xmsafejump', redirect: "url" },
