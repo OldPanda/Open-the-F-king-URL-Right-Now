@@ -20,6 +20,7 @@
 // @match          https://blog.51cto.com/transfer?*
 // @match          https://blzxteam.com/gowild.htm?url=*
 // @match          https://cloud.tencent.com/developer/tools/blog-entry?target=*
+// @match          https://cnb.cool/goto?url=*
 // @match          https://developers.weixin.qq.com/community/middlepage/href?href=*
 // @match          https://developer.aliyun.com/redirect?target=*
 // @match          https://docs.qq.com/scenario/link.html?u=*
@@ -115,6 +116,7 @@ const fuckers = {
   csdn: { match: 'https://link.csdn.net/?*target=', redirect: "target" },
   cto51: { match: 'https://blog.51cto.com/transfer?', redirect: function () { window.location.href = window.location.href.replace("https://blog.51cto.com/transfer?", "") } },
   curseforge: { match: 'https://www.curseforge.com/linkout?remoteUrl=', redirect: function () { redirect(decodeURIComponent(curURL), 'remoteUrl') } },
+  cnb: { match: 'https://cnb.cool/goto?url=', redirect: "url" },
   dilian: { match: 'https://link.ld246.com/forward?goto=', redirect: "goto" },
   developeraliyun: { match: 'https://developer.aliyun.com/redirect?target=', redirect: "target" },
   doc360_2: { match: 'http://www.360doc.cn/outlink.html?url=', redirect: "url" },
