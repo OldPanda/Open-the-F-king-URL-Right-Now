@@ -15,6 +15,7 @@
 // @match          https://afdian.net/link?target=*
 // @match          https://api.himcbbs.com/refer/?url=*
 // @match          https://ask.latexstudio.net/go/index?url=*
+// @match          https://atcoder.jp/jump?url=*
 // @match          https://bbs.acgrip.com/*
 // @match          https://bbs.nga.cn/read.php?*
 // @match          https://blog.51cto.com/transfer?*
@@ -91,7 +92,7 @@
 // @match          https://www.youtube.com/redirect?*
 // @match          https://wx.mail.qq.com/xmspamcheck/xmsafejump?*
 // @exclude        https://mp.weixin.qq.com/cgi-bin/*
-// @version        1.14.5
+// @version        1.14.6
 // @run-at         document-idle
 // @namespace      https://old-panda.com/
 // @require        https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js
@@ -109,6 +110,7 @@ const fuckers = {
   acgrip: { match: 'https://bbs.acgrip.com/', redirect: removeFwinDialog },
   afdian: { match: 'https://afdian.net/link?target=', redirect: "target" },
   afdian2: { match: 'https://afdian.com/link?target=', redirect: "target" },
+  atcoder: { match: 'https://atcoder.jp/jump?url=', redirect: "url" },
   baike: { match: 'https://www.baike.com/redirect_link?url=', redirect: "url" },
   blzxteam: { match: 'https://blzxteam.com/gowild.htm?url=', redirect: function () { const url = $("div._2VEbEOHfDtVWiQAJxSIrVi_0").first().attr("title"); window.location.href = url } },
   bookmarkearth: { match: 'https://www.bookmarkearth.com/view/', redirect: function () { window.location.replace(document.querySelector("p.link").innerHTML) } },
