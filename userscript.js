@@ -64,6 +64,7 @@
 // @match          https://weixin110.qq.com/cgi-bin/mmspamsupport-bin/newredirectconfirmcgi*
 // @match          https://wj.qq.com/s2/*
 // @match          https://www.baike.com/redirect_link?url=*
+// @match          https://www.bilibili.com/york/link-middle-page*
 // @match          https://www.bookmarkearth.com/view/*
 // @match          https://www.chinaz.com/go.shtml?url=*
 // @match          https://www.coolapk.com/link?url=*
@@ -112,6 +113,7 @@ const fuckers = {
   afdian2: { match: 'https://afdian.com/link?target=', redirect: "target" },
   atcoder: { match: 'https://atcoder.jp/jump?url=', redirect: "url" },
   baike: { match: 'https://www.baike.com/redirect_link?url=', redirect: "url" },
+  bilibiliYork: { match: 'https://www.bilibili.com/york/link-middle-page?', redirect: "redirect_url" },
   blzxteam: { match: 'https://blzxteam.com/gowild.htm?url=', redirect: function () { const url = $("div._2VEbEOHfDtVWiQAJxSIrVi_0").first().attr("title"); window.location.href = url } },
   bookmarkearth: { match: 'https://www.bookmarkearth.com/view/', redirect: function () { window.location.replace(document.querySelector("p.link").innerHTML) } },
   chinaz: { match: 'https://www.chinaz.com/go.shtml?url=', redirect: "url" },
