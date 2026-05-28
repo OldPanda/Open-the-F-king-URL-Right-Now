@@ -11,6 +11,7 @@
 // @match          http://redir.yy.duowan.com/warning.php?url=*
 // @match          http://www.360doc.com/content/*
 // @match          https://*.infoq.cn/link?target=*
+// @match          https://aiqicha.baidu.com/safetip?target=*
 // @match          https://afdian.com/link?target=*
 // @match          https://afdian.net/link?target=*
 // @match          https://api.himcbbs.com/refer/?url=*
@@ -109,6 +110,7 @@ const $ = jQuery.noConflict(true);
    */
 const fuckers = {
   acgrip: { match: 'https://bbs.acgrip.com/', redirect: removeFwinDialog },
+  aiqicha: { match: 'https://aiqicha.baidu.com/safetip?target=', redirect: "target" },
   afdian: { match: 'https://afdian.net/link?target=', redirect: "target" },
   afdian2: { match: 'https://afdian.com/link?target=', redirect: "target" },
   atcoder: { match: 'https://atcoder.jp/jump?url=', redirect: "url" },
