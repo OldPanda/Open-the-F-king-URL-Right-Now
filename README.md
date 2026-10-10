@@ -9,3 +9,57 @@
 一次两次也倒罢了，但最近此风甚长，还有愈演愈烈之势，好好的超链接变成了一个个的『超不链接』，其他网站为了留存用户，延长用户停留时间，不惜以暴制暴，进行恶性竞争，结果就是互联网的用户体验变成了各大公司利益的牺牲品，在夹缝中艰难地生存，昔日的信息高速公路上就这样被人为地挖了许多坑。
 
 为了把互联网体验变回我们熟悉的样子，为了让超链接能痛快地把用户送到终点，就写了这样一个简单的脚本，欢迎大家试用！
+
+## 安装
+
+在 Tampermonkey 中安装 [Greasy Fork 发布版本](https://greasyfork.org/zh-CN/scripts/412612-open-the-f-king-url-right-now)，或将仓库根目录的 [`userscript.js`](userscript.js) 内容复制到新建脚本中。
+
+## 项目结构
+
+```text
+src/
+  index.js                  # 浏览器入口及 document-ready 初始化
+  userscript.meta.txt       # Tampermonkey 元数据、站点范围及版本号
+  core/
+    url.js                  # URL 提取、校验、Base64 解码及文本 URL 拆分
+    runner.js               # 规则匹配及可注入的浏览器上下文
+  rules/
+    query.js                # 从查询参数提取目标地址的规则
+    custom.js               # DOM、路径编码及站点交互规则
+    index.js                # 统一规则注册表
+  handlers/
+    redirects.js            # 特殊跳转页处理
+    forums.js               # 论坛及问卷外链处理
+    wechat.js               # 微信文章链接与图片处理
+scripts/
+  build.js                  # 将模块打包为单文件 userscript
+test/
+  helpers/browser.js        # jsdom + jQuery 浏览器环境及导航记录
+  *.test.js                 # URL、规则、DOM 和构建产物测试
+.github/workflows/ci.yml    # 自动测试及构建一致性检查
+userscript.js               # 提交到仓库的安装产物，由构建生成
+```
+
+## 开发
+
+需要 Node.js 22.8 或更新版本及 npm。
+
+```sh
+npm ci
+npm test
+npm run build
+npm run check
+```
+
+修改 `src/` 下的源码，运行 `npm run build` 后将源码和生成的 `userscript.js` 一起提交。根目录的安装文件路径保持不变，请勿直接编辑生成文件。esbuild 只打包项目代码；运行时仍由 Tampermonkey 的 `@require` 加载 jQuery，npm 中的 jQuery 和 jsdom 用于测试。
+
+`npm run check` 运行所有测试、检查覆盖率，并确认安装产物与源码一致；产物过期时会失败，不会覆盖文件。`npm run test:coverage` 只统计 `src/**/*.js` 的覆盖率，要求整体行覆盖率、分支覆盖率和函数覆盖率均达到 95%，任何一项不足都会返回非零退出码。CI 使用相同的覆盖率检查及构建一致性检查。测试不访问真实站点，所有导航及新窗口操作均通过记录调用验证。
+
+## 添加站点支持
+
+1. 在 `src/userscript.meta.txt` 中添加 `@match`。查询参数可能改变顺序，使用 `?*target=*` 等模式；语法参考 [Tampermonkey 官方文档](https://www.tampermonkey.net/documentation.php?q=include)。
+2. 普通跳转在 `src/rules/query.js` 中添加唯一的 `id`、`host`、`path` 和 `param`；Base64 参数加上 `base64: true`。`host` 支持一个域名或域名数组，`path` 支持精确路径或带首尾锚点的正则表达式。
+3. 特殊行为放在 `src/handlers/`，并在 `src/rules/custom.js` 注册。处理函数接收 `{ window, document, url, $, navigate, logger }`；通过 `navigate()` 跳转，无法处理时返回 `false`。匹配器仅执行第一个匹配规则。
+4. 在 `test/` 添加真实 URL 格式或 DOM 样例，覆盖正常情况和缺失/无效输入，然后运行 `npm run build` 和 `npm run check`。
+
+发布时同步修改 `package.json` 和 `src/userscript.meta.txt` 的版本号，再重新构建。构建会检查两个版本是否一致。
