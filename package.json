@@ -6,14 +6,14 @@
   "license": "GPL-3.0-only",
   "type": "module",
   "engines": {
-    "node": ">=22"
+    "node": ">=22.8"
   },
   "scripts": {
     "build": "node scripts/build.js",
     "build:check": "node scripts/build.js --check",
     "test": "node --test test/*.test.js",
-    "test:coverage": "node --test --experimental-test-coverage test/*.test.js",
-    "check": "npm test && npm run build:check"
+    "test:coverage": "node --test --experimental-test-coverage --test-coverage-include='src/**/*.js' --test-coverage-lines=95 --test-coverage-branches=95 --test-coverage-functions=95 test/*.test.js",
+    "check": "npm run test:coverage && npm run build:check"
   },
   "devDependencies": {
     "esbuild": "0.25.12",

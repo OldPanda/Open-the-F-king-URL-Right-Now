@@ -42,7 +42,7 @@ userscript.js               # 提交到仓库的安装产物，由构建生成
 
 ## 开发
 
-需要 Node.js 22 或更新版本及 npm。
+需要 Node.js 22.8 或更新版本及 npm。
 
 ```sh
 npm ci
@@ -53,7 +53,7 @@ npm run check
 
 修改 `src/` 下的源码，运行 `npm run build` 后将源码和生成的 `userscript.js` 一起提交。根目录的安装文件路径保持不变，请勿直接编辑生成文件。esbuild 只打包项目代码；运行时仍由 Tampermonkey 的 `@require` 加载 jQuery，npm 中的 jQuery 和 jsdom 用于测试。
 
-`npm run check` 运行所有测试，并确认安装产物与源码一致；产物过期时会失败，不会覆盖文件。`npm run test:coverage` 输出测试覆盖率。测试不访问真实站点，所有导航及新窗口操作均通过记录调用验证。
+`npm run check` 运行所有测试、检查覆盖率，并确认安装产物与源码一致；产物过期时会失败，不会覆盖文件。`npm run test:coverage` 只统计 `src/**/*.js` 的覆盖率，要求整体行覆盖率、分支覆盖率和函数覆盖率均达到 95%，任何一项不足都会返回非零退出码。CI 使用相同的覆盖率检查及构建一致性检查。测试不访问真实站点，所有导航及新窗口操作均通过记录调用验证。
 
 ## 添加站点支持
 

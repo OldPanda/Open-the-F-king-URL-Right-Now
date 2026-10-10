@@ -17,4 +17,7 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - run: npm run check
+      - name: Enforce test coverage
+        run: npm run test:coverage
+      - name: Verify generated userscript
+        run: npm run build:check
