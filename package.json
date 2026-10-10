@@ -1,0 +1,23 @@
+{
+  "name": "open-the-f-king-url-right-now",
+  "version": "1.14.8",
+  "private": true,
+  "description": "A Tampermonkey userscript that bypasses external-link interstitials",
+  "license": "GPL-3.0-only",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "node scripts/build.js",
+    "build:check": "node scripts/build.js --check",
+    "test": "node --test test/*.test.js",
+    "test:coverage": "node --test --experimental-test-coverage test/*.test.js",
+    "check": "npm test && npm run build:check"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.12",
+    "jquery": "3.7.1",
+    "jsdom": "26.1.0"
+  }
+}
