@@ -73,3 +73,25 @@ test('generated userscript automatically redirects t.cn/A6WDOjcb to doubanbook.p
   assert.deepEqual(fixture.navigations, ['https://doubanbook.plus/']);
   assert.deepEqual(fixture.opened, []);
 });
+
+for (const page of ['ios', 'pc', 'android']) {
+  for (const encoded of [false, true]) {
+    test(`generated userscript redirects QQ ${page} with ${encoded ? 'encoded' : 'raw'} query parameters`, async (t) => {
+      const target = 'https://example.com/a%2Fb?q=a+b&value=a%26b&empty=#section';
+      const query = encoded ? `${encodeURIComponent(target)}&sublevel=293` : target;
+      const fixture = browser(`https://c.pc.qq.com/${page}.html?level=99&url=${query}`);
+      t.after(() => fixture.dom.window.close());
+      vm.runInNewContext(bundle, {
+        window: fixture.context.window,
+        document: fixture.context.document,
+        jQuery: fixture.$,
+        URL,
+        atob: fixture.context.window.atob,
+        console,
+      });
+      fixture.$.ready();
+      await new Promise((resolve) => fixture.$(resolve));
+      assert.deepEqual(fixture.navigations, [target]);
+    });
+  }
+}

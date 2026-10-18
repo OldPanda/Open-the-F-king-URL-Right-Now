@@ -41,7 +41,6 @@ export const queryRules = [
   { id: 'oschina', host: 'www.oschina.net', path: '/action/GoToLink', param: 'url' },
   { id: 'qcc', host: 'www.qcc.com', path: '/web/transfer-link', param: 'link' },
   { id: 'qq', host: 'c.pc.qq.com', path: /^\/(middleb|middlect|middlem|index)\.html$/, param: 'pfurl' },
-  { id: 'qq2', host: 'c.pc.qq.com', path: /^\/(ios|pc|android)\.html$/, param: 'url' },
   { id: 'qqmail', host: 'mail.qq.com', path: '/cgi-bin/readtemplate', param: 'gourl' },
   { id: 'qqmailwx', host: 'wx.mail.qq.com', path: '/xmspamcheck/xmsafejump', param: 'url' },
   { id: 'skland', host: 'www.skland.com', path: '/third-link', param: 'target' },

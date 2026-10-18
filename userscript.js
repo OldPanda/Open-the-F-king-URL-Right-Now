@@ -230,7 +230,6 @@
     { id: "oschina", host: "www.oschina.net", path: "/action/GoToLink", param: "url" },
     { id: "qcc", host: "www.qcc.com", path: "/web/transfer-link", param: "link" },
     { id: "qq", host: "c.pc.qq.com", path: /^\/(middleb|middlect|middlem|index)\.html$/, param: "pfurl" },
-    { id: "qq2", host: "c.pc.qq.com", path: /^\/(ios|pc|android)\.html$/, param: "url" },
     { id: "qqmail", host: "mail.qq.com", path: "/cgi-bin/readtemplate", param: "gourl" },
     { id: "qqmailwx", host: "wx.mail.qq.com", path: "/xmspamcheck/xmsafejump", param: "url" },
     { id: "skland", host: "www.skland.com", path: "/third-link", param: "target" },
@@ -263,6 +262,11 @@
       const element = document2.querySelector(selector);
       return navigate(attribute ? element?.getAttribute(attribute) : element?.textContent);
     };
+  }
+  function redirectQQ({ url, navigate }) {
+    const raw = url.search.match(/(?:^\?|&)url=(.*)$/)?.[1];
+    if (/^https?:\/\//i.test(raw)) return navigate(raw + url.hash);
+    return navigate(getDestination(url, "url"));
   }
   function redirectQQDocs({ url, navigate }) {
     return navigate(getDestination(url, "url") || getDestination(url, "u"));
@@ -383,6 +387,7 @@
     { id: "mcmod", host: "link.mcmod.cn", path: /^\/target\//, handler: redirectBase64Path("/target/") },
     { id: "nga", host: ["nga.178.com", "bbs.nga.cn"], path: "/read.php", handler: enableNgaLinks },
     { id: "pixiv", host: "www.pixiv.net", path: "/jump.php", handler: redirectPixiv },
+    { id: "qq2", host: "c.pc.qq.com", path: /^\/(ios|pc|android)\.html$/, handler: redirectQQ },
     { id: "qqdocs", host: "docs.qq.com", path: "/scenario/link.html", handler: redirectQQDocs },
     { id: "techlife", host: "t.techlife.app", path: "/", handler: redirectBase64Path("", { hash: true }) },
     { id: "tieba", host: "jump2.bdimg.com", path: "/safecheck/index", handler: redirectFromElement(".btn", "href") },
