@@ -7,6 +7,16 @@ export function redirectFromElement(selector, attribute) {
   };
 }
 
+/** QQ also embeds raw URLs: their ampersands, plus signs and escapes belong to the target. */
+export function redirectQQ({ url, navigate }) {
+  const raw = url.search.match(/(?:^\?|&)url=(.*)$/)?.[1];
+  // An unescaped target has no reliable boundary for trailing wrapper fields.
+  // Preserve its entire tail (as in PR #163), including any destination fragment.
+  if (/^https?:\/\//i.test(raw)) return navigate(raw + url.hash);
+  // Encoded targets have an unambiguous outer boundary; decode only that layer.
+  return navigate(getDestination(url, 'url'));
+}
+
 export function redirectQQDocs({ url, navigate }) {
   return navigate(getDestination(url, 'url') || getDestination(url, 'u'));
 }

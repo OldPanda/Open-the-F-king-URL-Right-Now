@@ -1,5 +1,5 @@
 import {
-  redirectFromElement, redirectQQDocs, redirectWeibo, redirectPixiv,
+  redirectFromElement, redirectQQDocs, redirectQQ, redirectWeibo, redirectPixiv,
   redirectBase64Path, redirectGamerPath,
 } from '../handlers/redirects.js';
 import {
@@ -19,6 +19,7 @@ export const customRules = [
   { id: 'mcmod', host: 'link.mcmod.cn', path: /^\/target\//, handler: redirectBase64Path('/target/') },
   { id: 'nga', host: ['nga.178.com', 'bbs.nga.cn'], path: '/read.php', handler: enableNgaLinks },
   { id: 'pixiv', host: 'www.pixiv.net', path: '/jump.php', handler: redirectPixiv },
+  { id: 'qq2', host: 'c.pc.qq.com', path: /^\/(ios|pc|android)\.html$/, handler: redirectQQ },
   { id: 'qqdocs', host: 'docs.qq.com', path: '/scenario/link.html', handler: redirectQQDocs },
   { id: 'techlife', host: 't.techlife.app', path: '/', handler: redirectBase64Path('', { hash: true }) },
   { id: 'tieba', host: 'jump2.bdimg.com', path: '/safecheck/index', handler: redirectFromElement('.btn', 'href') },

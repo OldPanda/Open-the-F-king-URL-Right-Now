@@ -63,3 +63,12 @@ npm run check
 4. 在 `test/` 添加真实 URL 格式或 DOM 样例，覆盖正常情况和缺失/无效输入，然后运行 `npm run build` 和 `npm run check`。
 
 发布时同步修改 `package.json` 和 `src/userscript.meta.txt` 的版本号，再重新构建。构建会检查两个版本是否一致。
+
+### QQ 中转页参数边界
+
+`c.pc.qq.com` 的 `ios.html`、`pc.html` 和 `android.html` 支持两种 `url=` 格式：
+
+- 已编码目标地址按外层查询参数解析，保留目标内部的编码，忽略其后的外层参数。
+- 以 `http://` 或 `https://` 开头的未编码目标地址，从 `url=` 起保留完整剩余内容，包括 `&`、`+`、百分号编码和片段。未编码格式无法可靠区分目标参数与中转页尾部参数，因此不猜测删除 `level`、`sublevel` 等字段。
+
+目标地址的尾斜杠保持原样；不会按域名或路径猜测删除，以免改变合法地址。
