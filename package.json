@@ -1,6 +1,6 @@
 {
   "name": "open-the-f-king-url-right-now",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "private": true,
   "description": "A Tampermonkey userscript that bypasses external-link interstitials",
   "license": "GPL-3.0-only",
