@@ -2,6 +2,7 @@
 // @name           Open the F**king URL Right Now
 // @description    自动跳转某些网站不希望用户直达的外链
 // @author         OldPanda
+// @match          https://2libra.com/*
 // @match          *://c.pc.qq.com/*
 // @match          *://iphone.myzaker.com/zaker/link.php?*
 // @match          *://link.zhihu.com/?*
@@ -317,6 +318,13 @@
       if (event.target.classList?.contains("pe-link")) event.stopPropagation();
     }, true);
   }
+  function enable2LibraLinks({ document: document2, url }) {
+    document2.addEventListener("click", (event) => {
+      const link = event.target.closest?.("a[href]");
+      if (!link || !/^https?:$/.test(link.protocol) || link.origin === url.origin) return;
+      event.stopPropagation();
+    }, true);
+  }
 
   // src/handlers/wechat.js
   var urlPattern = /https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,63}\b[-a-zA-Z0-9@:%_+.~#?&/=,$^*()-]*/g;
@@ -376,6 +384,7 @@
 
   // src/rules/custom.js
   var customRules = [
+    { id: "2libra", host: "2libra.com", path: /^\//, handler: enable2LibraLinks },
     { id: "acgrip", host: "bbs.acgrip.com", path: /^\//, handler: removeFwinDialog },
     { id: "blzxteam", host: "blzxteam.com", path: "/gowild.htm", handler: redirectFromElement("div._2VEbEOHfDtVWiQAJxSIrVi_0", "title") },
     { id: "bookmarkearth", host: "www.bookmarkearth.com", path: /^\/view\//, handler: redirectFromElement("p.link") },

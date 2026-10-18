@@ -22,3 +22,13 @@ export function enableQQSurveyLinks({ document }) {
     if (event.target.classList?.contains('pe-link')) event.stopPropagation();
   }, true);
 }
+
+/** Let direct external anchors use their native action before React opens a modal. */
+export function enable2LibraLinks({ document, url }) {
+  document.addEventListener('click', (event) => {
+    const link = event.target.closest?.('a[href]');
+    if (!link || !/^https?:$/.test(link.protocol) || link.origin === url.origin) return;
+    // Keep href, target, rel and modifier keys intact; delegation also covers SPA content.
+    event.stopPropagation();
+  }, true);
+}

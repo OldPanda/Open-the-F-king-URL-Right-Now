@@ -95,3 +95,34 @@ for (const page of ['ios', 'pc', 'android']) {
     });
   }
 }
+
+
+test('generated userscript enables native 2libra external links from dynamically added content', async (t) => {
+  const fixture = browser('https://2libra.com/post/personal-works/1ZFDQFd', '<main></main>');
+  t.after(() => fixture.dom.window.close());
+  const metadata = bundle.split('// ==/UserScript==')[0];
+  assert.match(metadata, /@match\s+https:\/\/2libra\.com\/\*/);
+  let dialogs = 0;
+  const main = fixture.context.document.querySelector('main');
+  main.addEventListener('click', (event) => { dialogs++; event.preventDefault(); });
+  vm.runInNewContext(bundle, {
+    window: fixture.context.window,
+    document: fixture.context.document,
+    jQuery: fixture.$,
+    URL,
+    console,
+  });
+  fixture.$.ready();
+  await new Promise((resolve) => fixture.$(resolve));
+  const target = 'https://tenyears.app/#backtest=1&symbols=ASHR&lang=zh';
+  const link = fixture.context.document.createElement('a');
+  link.href = target;
+  link.target = '_blank';
+  main.append(link);
+  const event = new fixture.dom.window.MouseEvent('click', { bubbles: true, cancelable: true });
+  assert.equal(link.dispatchEvent(event), true);
+  assert.equal(dialogs, 0);
+  assert.equal(link.getAttribute('href'), target);
+  assert.deepEqual(fixture.opened, []);
+  assert.deepEqual(fixture.navigations, []);
+});
