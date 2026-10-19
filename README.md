@@ -18,7 +18,7 @@
 
 ```text
 src/
-  index.js                  # 浏览器入口及 document-ready 初始化
+  index.js                  # 浏览器入口：URL 规则立即执行，DOM 规则等待就绪
   userscript.meta.txt       # Tampermonkey 元数据、站点范围及版本号
   core/
     url.js                  # URL 提取、校验、Base64 解码及文本 URL 拆分
@@ -51,7 +51,9 @@ npm run build
 npm run check
 ```
 
-修改 `src/` 下的源码，运行 `npm run build` 后将源码和生成的 `userscript.js` 一起提交。根目录的安装文件路径保持不变，请勿直接编辑生成文件。esbuild 只打包项目代码；运行时仍由 Tampermonkey 的 `@require` 加载 jQuery，npm 中的 jQuery 和 jsdom 用于测试。
+修改 `src/` 下的源码，运行 `npm run build` 后将源码和生成的 `userscript.js` 一起提交。根目录的安装文件路径保持不变，请勿直接编辑生成文件。脚本在 `document-start` 启动，无运行时外部依赖。带 `param` 的查询参数规则及标记 `runAt: 'start'` 的纯 URL 自定义规则立即执行；依赖页面内容的规则在 `DOMContentLoaded` 后通过定时任务执行，让站点自身的就绪监听和微任务先初始化页面对象（晚注入时通过 Navigation Timing 区分就绪事件是否已触发；无法确认时等待事件或 complete 状态，同样异步执行）。新增自定义规则默认等待 DOM，仅在完全不读取页面内容时标记提前执行。npm 中的 jQuery 和 jsdom 仅用于测试，包括模拟站点自身的点击处理器。
+
+这能消除可避免的页面就绪等待和外部依赖加载，但不能消除中转页网络请求、浏览器和脚本管理器自身的注入延迟；需要从页面文字提取目标的规则仍需等待 DOM。
 
 `npm run check` 运行所有测试、检查覆盖率，并确认安装产物与源码一致；产物过期时会失败，不会覆盖文件。`npm run test:coverage` 只统计 `src/**/*.js` 的覆盖率，要求整体行覆盖率、分支覆盖率和函数覆盖率均达到 95%，任何一项不足都会返回非零退出码。CI 使用相同的覆盖率检查及构建一致性检查。测试不访问真实站点，所有导航及新窗口操作均通过记录调用验证。
 

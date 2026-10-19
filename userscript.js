@@ -98,9 +98,8 @@
 // @match          https://wx.mail.qq.com/xmspamcheck/xmsafejump?*
 // @exclude        https://mp.weixin.qq.com/cgi-bin/*
 // @version        2.2.0
-// @run-at         document-idle
+// @run-at         document-start
 // @namespace      https://old-panda.com/
-// @require        https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js
 // @license        GPLv3 License
 // ==/UserScript==
 
@@ -153,12 +152,12 @@
     if (rule.path instanceof RegExp) return rule.path.test(url.pathname);
     return url.pathname === rule.path;
   }
-  function createContext(window2, $2, logger = console) {
+  function createContext(window2, $, logger = console) {
     return {
       window: window2,
       document: window2.document,
       url: new URL(window2.location.href),
-      $: $2,
+      $,
       logger,
       navigate(value) {
         const target = normalizeDestination(value);
@@ -186,6 +185,32 @@
       }
     }
     return false;
+  }
+  function startRules(context, rules2) {
+    const rule = rules2.find((candidate) => matchesRule(context.url, candidate));
+    if (!rule) return;
+    const run = () => runRules(context, [rule]);
+    if (rule.param || rule.runAt === "start") {
+      run();
+      return;
+    }
+    const defer = () => context.window.setTimeout(run, 0);
+    const { document, window: window2 } = context;
+    const readyEventStarted = window2.performance?.getEntriesByType?.("navigation")?.[0]?.domContentLoadedEventStart > 0;
+    if (document.readyState === "complete" || readyEventStarted) {
+      defer();
+      return;
+    }
+    const onReady = () => {
+      document.removeEventListener("DOMContentLoaded", onReady);
+      document.removeEventListener("readystatechange", onStateChange);
+      defer();
+    };
+    const onStateChange = () => {
+      if (document.readyState === "complete") onReady();
+    };
+    document.addEventListener("DOMContentLoaded", onReady);
+    document.addEventListener("readystatechange", onStateChange);
   }
 
   // src/rules/query.js
@@ -259,8 +284,8 @@
 
   // src/handlers/redirects.js
   function redirectFromElement(selector, attribute) {
-    return ({ document: document2, navigate }) => {
-      const element = document2.querySelector(selector);
+    return ({ document, navigate }) => {
+      const element = document.querySelector(selector);
       return navigate(attribute ? element?.getAttribute(attribute) : element?.textContent);
     };
   }
@@ -272,8 +297,8 @@
   function redirectQQDocs({ url, navigate }) {
     return navigate(getDestination(url, "url") || getDestination(url, "u"));
   }
-  function redirectWeibo({ url, document: document2, navigate }) {
-    const target = getDestination(url, "u") || getDestination(url, "toasturl") || document2.querySelector("#textline")?.textContent.trim() || document2.querySelector(".wrap .link")?.textContent.trim() || document2.querySelector(".open-url a")?.href;
+  function redirectWeibo({ url, document, navigate }) {
+    const target = getDestination(url, "u") || getDestination(url, "toasturl") || document.querySelector("#textline")?.textContent.trim() || document.querySelector(".wrap .link")?.textContent.trim() || document.querySelector(".open-url a")?.href;
     if (!target) return false;
     const destination = new URL(target);
     destination.searchParams.delete("continueFlag");
@@ -297,8 +322,8 @@
   }
 
   // src/handlers/forums.js
-  function removeFwinDialog({ document: document2, window: window2, url }) {
-    for (const link of document2.querySelectorAll("a[href]")) {
+  function removeFwinDialog({ document, window: window2, url }) {
+    for (const link of document.querySelectorAll("a[href]")) {
       if (!/^https?:/.test(link.href) || new URL(link.href).host === url.host) continue;
       link.addEventListener("click", () => {
         window2.open(link.href, "_blank");
@@ -310,16 +335,19 @@
     if (!window2.ubbcode) return false;
     window2.ubbcode.showUrlAlert = (...args) => window2.open(args[1].href);
   }
-  function enable360DocLinks({ $: $2 }) {
-    $2("#articlecontent table tbody tr td#artContent").find("a").off("click");
+  function enable360DocLinks({ document }) {
+    document.addEventListener("click", (event) => {
+      const link = event.target.closest?.("#articlecontent table tbody tr td#artContent a[href]");
+      if (link) event.stopPropagation();
+    }, true);
   }
-  function enableQQSurveyLinks({ document: document2 }) {
-    document2.addEventListener("click", (event) => {
+  function enableQQSurveyLinks({ document }) {
+    document.addEventListener("click", (event) => {
       if (event.target.classList?.contains("pe-link")) event.stopPropagation();
     }, true);
   }
-  function enable2LibraLinks({ document: document2, url }) {
-    document2.addEventListener("click", (event) => {
+  function enable2LibraLinks({ document, url }) {
+    document.addEventListener("click", (event) => {
       const link = event.target.closest?.("a[href]");
       if (!link || !/^https?:$/.test(link.protocol) || link.origin === url.origin) return;
       event.stopPropagation();
@@ -329,15 +357,15 @@
   // src/handlers/wechat.js
   var urlPattern = /https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,63}\b[-a-zA-Z0-9@:%_+.~#?&/=,$^*()-]*/g;
   var excluded = "a, pre, code, script, style, .code-snippet__js";
-  function linkifySection(section, document2, window2) {
-    const walker = document2.createTreeWalker(section, window2.NodeFilter.SHOW_TEXT);
+  function linkifySection(section, document, window2) {
+    const walker = document.createTreeWalker(section, window2.NodeFilter.SHOW_TEXT);
     const nodes = [];
     while (walker.nextNode()) {
       if (!walker.currentNode.parentElement.closest(excluded)) nodes.push(walker.currentNode);
     }
     for (const node of nodes) {
       const text = node.textContent;
-      const fragment = document2.createDocumentFragment();
+      const fragment = document.createDocumentFragment();
       let offset = 0;
       for (const match of text.matchAll(urlPattern)) {
         let innerOffset = 0;
@@ -353,7 +381,7 @@
           }
           if (["localhost", "127.0.0.1"].includes(parsed.hostname)) continue;
           fragment.append(text.slice(offset, start));
-          const link = document2.createElement("a");
+          const link = document.createElement("a");
           link.href = url;
           link.textContent = url;
           link.target = "_blank";
@@ -368,16 +396,16 @@
       }
     }
   }
-  function enableWechatURLs({ document: document2, window: window2 }) {
-    for (const section of document2.querySelectorAll("#js_content > section")) {
-      if (!section.closest(excluded)) linkifySection(section, document2, window2);
+  function enableWechatURLs({ document, window: window2 }) {
+    for (const section of document.querySelectorAll("#js_content > section")) {
+      if (!section.closest(excluded)) linkifySection(section, document, window2);
     }
-    for (const image of document2.querySelectorAll("img[data-src]")) {
+    for (const image of document.querySelectorAll("img[data-src]")) {
       if (!image.dataset.src) continue;
       image.src = image.dataset.src;
       image.style.cssText = "width: 100% !important; height: auto !important; display: initial; visibility: visible !important;";
     }
-    for (const placeholder of document2.querySelectorAll("span.js_img_placeholder")) {
+    for (const placeholder of document.querySelectorAll("span.js_img_placeholder")) {
       placeholder.remove();
     }
   }
@@ -388,19 +416,19 @@
     { id: "acgrip", host: "bbs.acgrip.com", path: /^\//, handler: removeFwinDialog },
     { id: "blzxteam", host: "blzxteam.com", path: "/gowild.htm", handler: redirectFromElement("div._2VEbEOHfDtVWiQAJxSIrVi_0", "title") },
     { id: "bookmarkearth", host: "www.bookmarkearth.com", path: /^\/view\//, handler: redirectFromElement("p.link") },
-    { id: "cto51", host: "blog.51cto.com", path: "/transfer", handler: ({ url, navigate }) => navigate(decodeURIComponent(url.href.split("/transfer?")[1] ?? "")) },
+    { id: "cto51", runAt: "start", host: "blog.51cto.com", path: "/transfer", handler: ({ url, navigate }) => navigate(decodeURIComponent(url.href.split("/transfer?")[1] ?? "")) },
     { id: "doc360", host: "www.360doc.com", path: /^\/content\//, handler: enable360DocLinks },
-    { id: "gamertw", host: "ref.gamer.com.tw", path: /^\/redir\.php\/url=/, handler: redirectGamerPath },
+    { id: "gamertw", runAt: "start", host: "ref.gamer.com.tw", path: /^\/redir\.php\/url=/, handler: redirectGamerPath },
     { id: "iplaysoft", host: "www.iplaysoft.com", path: "/link/", handler: redirectFromElement("#targetUrl a", "href") },
     { id: "luogu", host: "www.luogu.com.cn", path: /^\/(paste|discuss|article)\//, handler: redirectFromElement("#url") },
-    { id: "mcmod", host: "link.mcmod.cn", path: /^\/target\//, handler: redirectBase64Path("/target/") },
+    { id: "mcmod", runAt: "start", host: "link.mcmod.cn", path: /^\/target\//, handler: redirectBase64Path("/target/") },
     { id: "nga", host: ["nga.178.com", "bbs.nga.cn"], path: "/read.php", handler: enableNgaLinks },
-    { id: "pixiv", host: "www.pixiv.net", path: "/jump.php", handler: redirectPixiv },
-    { id: "qq2", host: "c.pc.qq.com", path: /^\/(ios|pc|android)\.html$/, handler: redirectQQ },
-    { id: "qqdocs", host: "docs.qq.com", path: "/scenario/link.html", handler: redirectQQDocs },
-    { id: "techlife", host: "t.techlife.app", path: "/", handler: redirectBase64Path("", { hash: true }) },
+    { id: "pixiv", runAt: "start", host: "www.pixiv.net", path: "/jump.php", handler: redirectPixiv },
+    { id: "qq2", runAt: "start", host: "c.pc.qq.com", path: /^\/(ios|pc|android)\.html$/, handler: redirectQQ },
+    { id: "qqdocs", runAt: "start", host: "docs.qq.com", path: "/scenario/link.html", handler: redirectQQDocs },
+    { id: "techlife", runAt: "start", host: "t.techlife.app", path: "/", handler: redirectBase64Path("", { hash: true }) },
     { id: "tieba", host: "jump2.bdimg.com", path: "/safecheck/index", handler: redirectFromElement(".btn", "href") },
-    { id: "unsafelink", host: "unsafelink.com", path: /^\//, handler: ({ url, navigate }) => navigate(url.href.slice(url.origin.length + 1)) },
+    { id: "unsafelink", runAt: "start", host: "unsafelink.com", path: /^\//, handler: ({ url, navigate }) => navigate(url.href.slice(url.origin.length + 1)) },
     { id: "wechat-article", host: "mp.weixin.qq.com", path: /^\/s\//, handler: enableWechatURLs },
     { id: "wechat-warning", host: "weixin110.qq.com", path: "/cgi-bin/mmspamsupport-bin/newredirectconfirmcgi", handler: redirectFromElement(".weui-msg__desc") },
     { id: "wechat-access", host: "mp.weixin.qq.com", path: "/s", handler: redirectFromElement("#js_access_msg", "href") },
@@ -413,6 +441,5 @@
   var rules = [...queryRules, ...customRules];
 
   // src/index.js
-  var $ = jQuery.noConflict(true);
-  $(document).ready(() => runRules(createContext(window, $), rules));
+  startRules(createContext(window), rules);
 })();
