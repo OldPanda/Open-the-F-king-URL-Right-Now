@@ -2,6 +2,7 @@
 // @name           Open the F**king URL Right Now
 // @description    自动跳转某些网站不希望用户直达的外链
 // @author         OldPanda
+// @match          https://2libra.com/*
 // @match          *://c.pc.qq.com/*
 // @match          *://iphone.myzaker.com/zaker/link.php?*
 // @match          *://link.zhihu.com/?*

@@ -3,11 +3,12 @@ import {
   redirectBase64Path, redirectGamerPath,
 } from '../handlers/redirects.js';
 import {
-  removeFwinDialog, enableNgaLinks, enable360DocLinks, enableQQSurveyLinks,
+  removeFwinDialog, enableNgaLinks, enable360DocLinks, enableQQSurveyLinks, enable2LibraLinks,
 } from '../handlers/forums.js';
 import { enableWechatURLs } from '../handlers/wechat.js';
 
 export const customRules = [
+  { id: '2libra', host: '2libra.com', path: /^\//, handler: enable2LibraLinks },
   { id: 'acgrip', host: 'bbs.acgrip.com', path: /^\//, handler: removeFwinDialog },
   { id: 'blzxteam', host: 'blzxteam.com', path: '/gowild.htm', handler: redirectFromElement('div._2VEbEOHfDtVWiQAJxSIrVi_0', 'title') },
   { id: 'bookmarkearth', host: 'www.bookmarkearth.com', path: /^\/view\//, handler: redirectFromElement('p.link') },
