@@ -59,9 +59,23 @@ export function startRules(context, rules) {
   // Registered at document-start: let later page ready listeners (and their
   // microtasks) initialize DOM targets/globals before invoking DOM handlers.
   const defer = () => context.window.setTimeout(run, 0);
-  if (context.document.readyState === 'loading') {
-    context.document.addEventListener('DOMContentLoaded', defer, { once: true });
-  } else {
+  const { document, window } = context;
+  // interactive also includes the period before deferred scripts finish.
+  const readyEventStarted = window.performance?.getEntriesByType?.('navigation')?.[0]?.domContentLoadedEventStart > 0;
+  if (document.readyState === 'complete' || readyEventStarted) {
     defer();
+    return;
   }
+  const onReady = () => {
+    document.removeEventListener('DOMContentLoaded', onReady);
+    document.removeEventListener('readystatechange', onStateChange);
+    defer();
+  };
+  // If navigation timing is unavailable and DOMContentLoaded was already missed,
+  // complete provides a conservative fallback without executing a rule twice.
+  const onStateChange = () => {
+    if (document.readyState === 'complete') onReady();
+  };
+  document.addEventListener('DOMContentLoaded', onReady);
+  document.addEventListener('readystatechange', onStateChange);
 }

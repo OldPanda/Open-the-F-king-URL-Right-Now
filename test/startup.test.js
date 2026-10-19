@@ -56,6 +56,7 @@ for (const readyState of ['interactive', 'complete']) {
     const fixture = browser('https://www.iplaysoft.com/link/', `<div id="targetUrl"><a href="${target}">Go</a></div>`);
     t.after(() => fixture.dom.window.close());
     Object.defineProperty(fixture.context.document, 'readyState', { value: readyState });
+    fixture.context.window.performance = { getEntriesByType: () => [{ domContentLoadedEventStart: 1 }] };
     startRules(fixture.context, rules);
     assert.deepEqual(fixture.navigations, []);
     await new Promise((resolve) => fixture.dom.window.setTimeout(resolve, 0));
@@ -108,6 +109,43 @@ test('DOM targets created by later page ready listeners are available to redirec
   fixture.context.document.addEventListener('DOMContentLoaded', () => {
     fixture.context.document.body.innerHTML = `<div id="targetUrl"><a href="${target}">Go</a></div>`;
   }, { once: true });
+  fixture.context.document.dispatchEvent(new fixture.dom.window.Event('DOMContentLoaded'));
+  await new Promise((resolve) => fixture.dom.window.setTimeout(resolve, 0));
+  assert.deepEqual(fixture.navigations, [target]);
+});
+
+
+test('interactive injection waits for a pending DOMContentLoaded before NGA initialization', async (t) => {
+  const fixture = browser('https://bbs.nga.cn/read.php?tid=123');
+  t.after(() => fixture.dom.window.close());
+  // Finish jsdom's initial automatic event before simulating a delayed ready event.
+  await new Promise((resolve) => fixture.dom.window.setTimeout(resolve, 0));
+  Object.defineProperty(fixture.context.document, 'readyState', { value: 'interactive' });
+  fixture.context.window.performance = { getEntriesByType: () => [{ domContentLoadedEventStart: 0 }] };
+  startRules(fixture.context, rules);
+  await new Promise((resolve) => fixture.dom.window.setTimeout(resolve, 0));
+  assert.equal(fixture.context.window.ubbcode, undefined);
+  fixture.context.document.addEventListener('DOMContentLoaded', () => {
+    fixture.context.window.ubbcode = {};
+  }, { once: true });
+  fixture.context.document.dispatchEvent(new fixture.dom.window.Event('DOMContentLoaded'));
+  await new Promise((resolve) => fixture.dom.window.setTimeout(resolve, 0));
+  assert.equal(typeof fixture.context.window.ubbcode.showUrlAlert, 'function');
+  assert.deepEqual(fixture.warnings, []);
+});
+
+test('missing navigation timing falls back to complete and initializes only once', async (t) => {
+  const fixture = browser('https://www.iplaysoft.com/link/', `<div id="targetUrl"><a href="${target}">Go</a></div>`);
+  t.after(() => fixture.dom.window.close());
+  await new Promise((resolve) => fixture.dom.window.setTimeout(resolve, 0));
+  let state = 'interactive';
+  Object.defineProperty(fixture.context.document, 'readyState', { get: () => state });
+  startRules(fixture.context, rules);
+  fixture.context.document.dispatchEvent(new fixture.dom.window.Event('readystatechange'));
+  await new Promise((resolve) => fixture.dom.window.setTimeout(resolve, 0));
+  assert.deepEqual(fixture.navigations, []);
+  state = 'complete';
+  fixture.context.document.dispatchEvent(new fixture.dom.window.Event('readystatechange'));
   fixture.context.document.dispatchEvent(new fixture.dom.window.Event('DOMContentLoaded'));
   await new Promise((resolve) => fixture.dom.window.setTimeout(resolve, 0));
   assert.deepEqual(fixture.navigations, [target]);

@@ -195,11 +195,22 @@
       return;
     }
     const defer = () => context.window.setTimeout(run, 0);
-    if (context.document.readyState === "loading") {
-      context.document.addEventListener("DOMContentLoaded", defer, { once: true });
-    } else {
+    const { document, window: window2 } = context;
+    const readyEventStarted = window2.performance?.getEntriesByType?.("navigation")?.[0]?.domContentLoadedEventStart > 0;
+    if (document.readyState === "complete" || readyEventStarted) {
       defer();
+      return;
     }
+    const onReady = () => {
+      document.removeEventListener("DOMContentLoaded", onReady);
+      document.removeEventListener("readystatechange", onStateChange);
+      defer();
+    };
+    const onStateChange = () => {
+      if (document.readyState === "complete") onReady();
+    };
+    document.addEventListener("DOMContentLoaded", onReady);
+    document.addEventListener("readystatechange", onStateChange);
   }
 
   // src/rules/query.js
