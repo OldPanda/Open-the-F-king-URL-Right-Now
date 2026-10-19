@@ -190,10 +190,15 @@
     const rule = rules2.find((candidate) => matchesRule(context.url, candidate));
     if (!rule) return;
     const run = () => runRules(context, [rule]);
-    if (rule.param || rule.runAt === "start" || context.document.readyState !== "loading") {
+    if (rule.param || rule.runAt === "start") {
       run();
+      return;
+    }
+    const defer = () => context.window.setTimeout(run, 0);
+    if (context.document.readyState === "loading") {
+      context.document.addEventListener("DOMContentLoaded", defer, { once: true });
     } else {
-      context.document.addEventListener("DOMContentLoaded", run, { once: true });
+      defer();
     }
   }
 

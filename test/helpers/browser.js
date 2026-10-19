@@ -10,6 +10,7 @@ export function browser(url, html = '') {
   const window = {
     document: dom.window.document,
     NodeFilter: dom.window.NodeFilter,
+    setTimeout: dom.window.setTimeout.bind(dom.window),
     location: {
       href: url,
       replace: (target) => navigations.push(target),

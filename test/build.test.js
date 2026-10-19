@@ -33,6 +33,7 @@ test('generated userscript redirects synchronously without jQuery while preservi
   });
   assert.deepEqual(fixture.navigations, [target]);
   fixture.context.document.dispatchEvent(new fixture.dom.window.Event('DOMContentLoaded'));
+  await new Promise((resolve) => fixture.dom.window.setTimeout(resolve, 0));
   assert.deepEqual(fixture.navigations, [target]);
   assert.equal(fixture.dom.window.$, pageDollar);
   assert.equal(fixture.dom.window.jQuery, fixture.$);
@@ -48,6 +49,7 @@ test('generated userscript performs WeChat DOM updates', async (t) => {
     console,
   });
   fixture.context.document.dispatchEvent(new fixture.dom.window.Event('DOMContentLoaded'));
+  await new Promise((resolve) => fixture.dom.window.setTimeout(resolve, 0));
   assert.equal(fixture.context.document.querySelector('a').getAttribute('href'), 'https://example.com/123');
   assert.deepEqual(fixture.navigations, []);
 });
@@ -65,6 +67,7 @@ test('generated userscript automatically redirects t.cn/A6WDOjcb to doubanbook.p
     console,
   });
   fixture.context.document.dispatchEvent(new fixture.dom.window.Event('DOMContentLoaded'));
+  await new Promise((resolve) => fixture.dom.window.setTimeout(resolve, 0));
 
   assert.deepEqual(fixture.navigations, ['https://doubanbook.plus/']);
   assert.deepEqual(fixture.opened, []);
@@ -86,6 +89,7 @@ for (const page of ['ios', 'pc', 'android']) {
       });
       assert.deepEqual(fixture.navigations, [target]);
       fixture.context.document.dispatchEvent(new fixture.dom.window.Event('DOMContentLoaded'));
+      await new Promise((resolve) => fixture.dom.window.setTimeout(resolve, 0));
       assert.deepEqual(fixture.navigations, [target]);
     });
   }
@@ -107,6 +111,7 @@ test('generated userscript enables native 2libra external links from dynamically
     console,
   });
   fixture.context.document.dispatchEvent(new fixture.dom.window.Event('DOMContentLoaded'));
+  await new Promise((resolve) => fixture.dom.window.setTimeout(resolve, 0));
   const target = 'https://tenyears.app/#backtest=1&symbols=ASHR&lang=zh';
   const link = fixture.context.document.createElement('a');
   link.href = target;
