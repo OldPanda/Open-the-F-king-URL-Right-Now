@@ -46,3 +46,15 @@ export function runRules(context, rules) {
   }
   return false;
 }
+
+/** URL-only rules can run before the page exists; DOM handlers retain ready timing. */
+export function startRules(context, rules) {
+  const rule = rules.find((candidate) => matchesRule(context.url, candidate));
+  if (!rule) return;
+  const run = () => runRules(context, [rule]);
+  if (rule.param || rule.runAt === 'start' || context.document.readyState !== 'loading') {
+    run();
+  } else {
+    context.document.addEventListener('DOMContentLoaded', run, { once: true });
+  }
+}

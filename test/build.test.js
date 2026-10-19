@@ -12,12 +12,13 @@ test('generated userscript has metadata first, consistent version, and standalon
   const { version } = JSON.parse(await readFile(new URL('package.json', root), 'utf8'));
   assert.ok(bundle.startsWith(metadata));
   assert.ok(metadata.includes(`// @version        ${version}\n`));
-  assert.match(metadata, /@require\s+https:\/\/cdnjs\.cloudflare\.com\/ajax\/libs\/jquery\/3\.7\.1\/jquery\.min\.js/);
+  assert.match(metadata, /@run-at\s+document-start/);
+  assert.doesNotMatch(metadata, /@require/);
   assert.doesNotThrow(() => new vm.Script(bundle));
   assert.doesNotMatch(bundle, /^\s*(import|export)\s/m);
 });
 
-test('generated userscript runs on document-ready with the real jQuery boundary', async (t) => {
+test('generated userscript redirects synchronously without jQuery while preserving page globals', async (t) => {
   const target = 'https://example.com/?value=a%26b#section';
   const fixture = browser(`https://link.csdn.net/?tracking=1&target=${encodeURIComponent(target)}`);
   t.after(() => fixture.dom.window.close());
@@ -27,15 +28,14 @@ test('generated userscript runs on document-ready with the real jQuery boundary'
   vm.runInNewContext(bundle, {
     window: fixture.context.window,
     document: fixture.context.document,
-    jQuery: fixture.$,
     URL,
     console,
   });
-  fixture.$.ready();
-  await new Promise((resolve) => fixture.$(resolve));
+  assert.deepEqual(fixture.navigations, [target]);
+  fixture.context.document.dispatchEvent(new fixture.dom.window.Event('DOMContentLoaded'));
   assert.deepEqual(fixture.navigations, [target]);
   assert.equal(fixture.dom.window.$, pageDollar);
-  assert.equal(fixture.dom.window.jQuery, undefined);
+  assert.equal(fixture.dom.window.jQuery, fixture.$);
 });
 
 test('generated userscript performs WeChat DOM updates', async (t) => {
@@ -44,12 +44,10 @@ test('generated userscript performs WeChat DOM updates', async (t) => {
   vm.runInNewContext(bundle, {
     window: fixture.context.window,
     document: fixture.context.document,
-    jQuery: fixture.$,
     URL,
     console,
   });
-  fixture.$.ready();
-  await new Promise((resolve) => fixture.$(resolve));
+  fixture.context.document.dispatchEvent(new fixture.dom.window.Event('DOMContentLoaded'));
   assert.equal(fixture.context.document.querySelector('a').getAttribute('href'), 'https://example.com/123');
   assert.deepEqual(fixture.navigations, []);
 });
@@ -62,13 +60,11 @@ test('generated userscript automatically redirects t.cn/A6WDOjcb to doubanbook.p
   vm.runInNewContext(bundle, {
     window: fixture.context.window,
     document: fixture.context.document,
-    jQuery: fixture.$,
     URL,
     atob: fixture.context.window.atob,
     console,
   });
-  fixture.$.ready();
-  await new Promise((resolve) => fixture.$(resolve));
+  fixture.context.document.dispatchEvent(new fixture.dom.window.Event('DOMContentLoaded'));
 
   assert.deepEqual(fixture.navigations, ['https://doubanbook.plus/']);
   assert.deepEqual(fixture.opened, []);
@@ -84,13 +80,12 @@ for (const page of ['ios', 'pc', 'android']) {
       vm.runInNewContext(bundle, {
         window: fixture.context.window,
         document: fixture.context.document,
-        jQuery: fixture.$,
         URL,
         atob: fixture.context.window.atob,
         console,
       });
-      fixture.$.ready();
-      await new Promise((resolve) => fixture.$(resolve));
+      assert.deepEqual(fixture.navigations, [target]);
+      fixture.context.document.dispatchEvent(new fixture.dom.window.Event('DOMContentLoaded'));
       assert.deepEqual(fixture.navigations, [target]);
     });
   }
@@ -108,12 +103,10 @@ test('generated userscript enables native 2libra external links from dynamically
   vm.runInNewContext(bundle, {
     window: fixture.context.window,
     document: fixture.context.document,
-    jQuery: fixture.$,
     URL,
     console,
   });
-  fixture.$.ready();
-  await new Promise((resolve) => fixture.$(resolve));
+  fixture.context.document.dispatchEvent(new fixture.dom.window.Event('DOMContentLoaded'));
   const target = 'https://tenyears.app/#backtest=1&symbols=ASHR&lang=zh';
   const link = fixture.context.document.createElement('a');
   link.href = target;

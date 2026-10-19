@@ -127,14 +127,19 @@ for (const host of ['nga.178.com', 'bbs.nga.cn']) {
   });
 }
 
-test('360doc removes blocking jQuery click handlers from article links', (t) => {
-  const fixture = browser('http://www.360doc.com/content/123', '<div id="articlecontent"><table><tbody><tr><td id="artContent"><a href="#">Link</a></td></tr></tbody></table></div>');
+test('360doc article links bypass site handlers without jQuery and preserve native actions', (t) => {
+  const fixture = browser('http://www.360doc.com/content/123', '<div id="articlecontent"><table><tbody><tr><td id="artContent"><a href="https://example.com/" target="_blank"><span>Link</span></a></td></tr></tbody></table></div><button>Other</button>');
   t.after(() => fixture.dom.window.close());
   let clicks = 0;
-  fixture.$('#artContent a').on('click', () => { clicks++; });
+  fixture.$('#artContent a, button').on('click', (event) => { clicks++; event.preventDefault(); });
   runRules(fixture.context, rules);
-  fixture.$('#artContent a').triggerHandler('click');
+  const event = new fixture.dom.window.MouseEvent('click', { bubbles: true, cancelable: true, ctrlKey: true });
+  assert.equal(fixture.context.document.querySelector('span').dispatchEvent(event), true);
+  assert.equal(event.defaultPrevented, false);
   assert.equal(clicks, 0);
+  fixture.context.document.querySelector('button').click();
+  assert.equal(clicks, 1);
+  assert.equal(fixture.context.document.querySelector('a').target, '_blank');
 });
 
 test('QQ Survey intercepts link propagation while preserving other clicks', (t) => {

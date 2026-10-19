@@ -13,8 +13,11 @@ export function enableNgaLinks({ window }) {
   window.ubbcode.showUrlAlert = (...args) => window.open(args[1].href);
 }
 
-export function enable360DocLinks({ $ }) {
-  $('#articlecontent table tbody tr td#artContent').find('a').off('click');
+export function enable360DocLinks({ document }) {
+  document.addEventListener('click', (event) => {
+    const link = event.target.closest?.('#articlecontent table tbody tr td#artContent a[href]');
+    if (link) event.stopPropagation();
+  }, true);
 }
 
 export function enableQQSurveyLinks({ document }) {
