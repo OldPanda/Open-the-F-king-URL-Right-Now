@@ -111,8 +111,18 @@ test('Anime Subtitle Club opens external links and hides the dialog', (t) => {
   for (const id of ['external', 'internal', 'script']) {
     fixture.context.document.getElementById(id).dispatchEvent(new fixture.dom.window.Event('click'));
   }
-  assert.deepEqual(fixture.opened, [[target, '_blank']]);
+  assert.deepEqual(fixture.opened, [[target, '_blank', 'noopener']]);
   assert.deepEqual(hidden, [['fwin_dialog', 'dialog']]);
+});
+
+test('forum popup handlers revalidate links changed after initialization', (t) => {
+  const fixture = browser('https://bbs.acgrip.com/topic', `<a href="${target}">External</a>`);
+  t.after(() => fixture.dom.window.close());
+  runRules(fixture.context, rules);
+  const link = fixture.context.document.querySelector('a');
+  link.href = 'javascript:alert(document.domain)';
+  link.dispatchEvent(new fixture.dom.window.Event('click'));
+  assert.deepEqual(fixture.opened, []);
 });
 
 for (const host of ['nga.178.com', 'bbs.nga.cn']) {
@@ -123,9 +133,21 @@ for (const host of ['nga.178.com', 'bbs.nga.cn']) {
     fixture.context.window.ubbcode = {};
     assert.equal(runRules(fixture.context, rules), true);
     fixture.context.window.ubbcode.showUrlAlert(null, { href: target });
-    assert.deepEqual(fixture.opened, [[target]]);
+    assert.deepEqual(fixture.opened, [[target, '_blank', 'noopener']]);
   });
 }
+
+test('NGA never opens executable or non-web destinations from page-controlled links', (t) => {
+  const fixture = browser('https://bbs.nga.cn/read.php?tid=123');
+  t.after(() => fixture.dom.window.close());
+  fixture.context.window.ubbcode = {};
+  runRules(fixture.context, rules);
+  for (const href of ['javascript:alert(document.domain)', 'data:text/html,<script>alert(1)</script>', 'file:///etc/passwd', '']) {
+    fixture.context.window.ubbcode.showUrlAlert(null, { href });
+  }
+  fixture.context.window.ubbcode.showUrlAlert(null);
+  assert.deepEqual(fixture.opened, []);
+});
 
 test('360doc article links bypass site handlers without jQuery and preserve native actions', (t) => {
   const fixture = browser('http://www.360doc.com/content/123', '<div id="articlecontent"><table><tbody><tr><td id="artContent"><a href="https://example.com/" target="_blank"><span>Link</span></a></td></tr></tbody></table></div><button>Other</button>');

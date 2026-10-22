@@ -99,7 +99,7 @@ test('NGA waits for page DOMContentLoaded listeners and their microtasks', async
   await new Promise((resolve) => fixture.dom.window.setTimeout(resolve, 0));
   assert.equal(typeof fixture.context.window.ubbcode.showUrlAlert, 'function');
   fixture.context.window.ubbcode.showUrlAlert(null, { href: target });
-  assert.deepEqual(fixture.opened, [[target]]);
+  assert.deepEqual(fixture.opened, [[target, '_blank', 'noopener']]);
 });
 
 test('DOM targets created by later page ready listeners are available to redirects', async (t) => {
