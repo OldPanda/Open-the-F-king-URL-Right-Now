@@ -326,14 +326,17 @@
     for (const link of document.querySelectorAll("a[href]")) {
       if (!/^https?:/.test(link.href) || new URL(link.href).host === url.host) continue;
       link.addEventListener("click", () => {
-        window2.open(link.href, "_blank");
+        window2.open(link.href, "_blank", "noopener");
         if (typeof window2.hideMenu === "function") window2.hideMenu("fwin_dialog", "dialog");
       });
     }
   }
   function enableNgaLinks({ window: window2 }) {
     if (!window2.ubbcode) return false;
-    window2.ubbcode.showUrlAlert = (...args) => window2.open(args[1].href);
+    window2.ubbcode.showUrlAlert = (...args) => {
+      const target = normalizeDestination(args[1]?.href);
+      if (target) window2.open(target, "_blank", "noopener");
+    };
   }
   function enable360DocLinks({ document }) {
     document.addEventListener("click", (event) => {
