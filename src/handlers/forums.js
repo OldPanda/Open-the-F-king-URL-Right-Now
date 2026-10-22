@@ -4,7 +4,9 @@ export function removeFwinDialog({ document, window, url }) {
   for (const link of document.querySelectorAll('a[href]')) {
     if (!/^https?:/.test(link.href) || new URL(link.href).host === url.host) continue;
     link.addEventListener('click', () => {
-      window.open(link.href, '_blank', 'noopener');
+      const target = normalizeDestination(link.href);
+      if (!target) return;
+      window.open(target, '_blank', 'noopener');
       if (typeof window.hideMenu === 'function') window.hideMenu('fwin_dialog', 'dialog');
     });
   }

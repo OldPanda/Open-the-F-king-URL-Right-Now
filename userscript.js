@@ -326,7 +326,9 @@
     for (const link of document.querySelectorAll("a[href]")) {
       if (!/^https?:/.test(link.href) || new URL(link.href).host === url.host) continue;
       link.addEventListener("click", () => {
-        window2.open(link.href, "_blank", "noopener");
+        const target = normalizeDestination(link.href);
+        if (!target) return;
+        window2.open(target, "_blank", "noopener");
         if (typeof window2.hideMenu === "function") window2.hideMenu("fwin_dialog", "dialog");
       });
     }

@@ -115,6 +115,16 @@ test('Anime Subtitle Club opens external links and hides the dialog', (t) => {
   assert.deepEqual(hidden, [['fwin_dialog', 'dialog']]);
 });
 
+test('forum popup handlers revalidate links changed after initialization', (t) => {
+  const fixture = browser('https://bbs.acgrip.com/topic', `<a href="${target}">External</a>`);
+  t.after(() => fixture.dom.window.close());
+  runRules(fixture.context, rules);
+  const link = fixture.context.document.querySelector('a');
+  link.href = 'javascript:alert(document.domain)';
+  link.dispatchEvent(new fixture.dom.window.Event('click'));
+  assert.deepEqual(fixture.opened, []);
+});
+
 for (const host of ['nga.178.com', 'bbs.nga.cn']) {
   test(`NGA overrides the page's link alert: ${host}`, (t) => {
     const fixture = browser(`https://${host}/read.php?tid=123`);
