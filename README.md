@@ -42,7 +42,7 @@ userscript.js               # 提交到仓库的安装产物，由构建生成
 
 ## 开发
 
-需要 Node.js 22.8 或更新版本及 npm。
+需要 npm；默认使用 `.node-version` 中固定的 Node.js 22.23.4。支持 22.23.4+、24.22.1+ 和 26.12.1+（各自大版本内），安装依赖时会拒绝较旧或不受支持的 Node.js。这些最低版本包含 [CVE-2026-111497 Brotli 解码器安全修复](https://nodejs.org/en/blog/vulnerability/october-2026-security-releases)。Node.js 仅用于开发、测试和构建；安装后的油猴脚本运行在浏览器中。
 
 ```sh
 npm ci
