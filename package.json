@@ -6,7 +6,7 @@
   "license": "GPL-3.0-only",
   "type": "module",
   "engines": {
-    "node": ">=22.8"
+    "node": "^22.23.4 || ^24.22.1 || ^26.12.1"
   },
   "scripts": {
     "build": "node scripts/build.js",
