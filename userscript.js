@@ -19,6 +19,7 @@
 // @match          https://api.himcbbs.com/refer/?*url=*
 // @match          https://ask.latexstudio.net/go/index?*url=*
 // @match          https://atcoder.jp/jump?*url=*
+// @match          https://help.aliyun.com/redirect?*targetUrl=*
 // @match          https://bbs.acgrip.com/*
 // @match          https://bbs.nga.cn/read.php?*
 // @match          https://blog.51cto.com/transfer?*
@@ -97,7 +98,7 @@
 // @match          https://www.youtube.com/redirect?*
 // @match          https://wx.mail.qq.com/xmspamcheck/xmsafejump?*
 // @exclude        https://mp.weixin.qq.com/cgi-bin/*
-// @version        2.2.0
+// @version        2.2.1
 // @run-at         document-start
 // @namespace      https://old-panda.com/
 // @license        GPLv3 License
@@ -220,6 +221,7 @@
     { id: "afdian", host: "afdian.net", path: "/link", param: "target" },
     { id: "afdian2", host: "afdian.com", path: "/link", param: "target" },
     { id: "atcoder", host: "atcoder.jp", path: "/jump", param: "url" },
+    { id: "aliyun_doc", host: "help.aliyun.com", path: "/redirect", param: "targetUrl" },
     { id: "baike", host: "www.baike.com", path: "/redirect_link", param: "url" },
     { id: "bilibiliYork", host: "www.bilibili.com", path: "/york/link-middle-page", param: "redirect_url" },
     { id: "chinaz", host: "www.chinaz.com", path: "/go.shtml", param: "url" },

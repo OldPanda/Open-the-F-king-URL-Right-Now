@@ -19,6 +19,7 @@
 // @match          https://api.himcbbs.com/refer/?*url=*
 // @match          https://ask.latexstudio.net/go/index?*url=*
 // @match          https://atcoder.jp/jump?*url=*
+// @match          https://help.aliyun.com/redirect?*targetUrl=*
 // @match          https://bbs.acgrip.com/*
 // @match          https://bbs.nga.cn/read.php?*
 // @match          https://blog.51cto.com/transfer?*
@@ -97,7 +98,7 @@
 // @match          https://www.youtube.com/redirect?*
 // @match          https://wx.mail.qq.com/xmspamcheck/xmsafejump?*
 // @exclude        https://mp.weixin.qq.com/cgi-bin/*
-// @version        2.2.0
+// @version        2.2.1
 // @run-at         document-start
 // @namespace      https://old-panda.com/
 // @license        GPLv3 License

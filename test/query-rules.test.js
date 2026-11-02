@@ -71,6 +71,7 @@ const interstitials = [
   'https://link.zhihu.com/?target=',
   'https://www.curseforge.com/linkout?remoteUrl=',
   'https://leetcode.cn/link/?target=',
+  'https://help.aliyun.com/redirect?targetUrl=',
   'https://docs.qq.com/scenario/link.html?url=',
   'https://docs.qq.com/scenario/link.html?u=',
   ...['txc', 'support'].flatMap((host) => ['product', 'products'].map((path) => `https://${host}.qq.com/${path}/123/link-jump?jump=`)),

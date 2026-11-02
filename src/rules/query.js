@@ -5,6 +5,7 @@ export const queryRules = [
   { id: 'afdian', host: 'afdian.net', path: '/link', param: 'target' },
   { id: 'afdian2', host: 'afdian.com', path: '/link', param: 'target' },
   { id: 'atcoder', host: 'atcoder.jp', path: '/jump', param: 'url' },
+  { id: 'aliyun_doc', host: 'help.aliyun.com', path: '/redirect', param: 'targetUrl'},
   { id: 'baike', host: 'www.baike.com', path: '/redirect_link', param: 'url' },
   { id: 'bilibiliYork', host: 'www.bilibili.com', path: '/york/link-middle-page', param: 'redirect_url' },
   { id: 'chinaz', host: 'www.chinaz.com', path: '/go.shtml', param: 'url' },
