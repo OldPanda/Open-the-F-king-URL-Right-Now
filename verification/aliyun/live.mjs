@@ -100,7 +100,7 @@ async function runCase(injected) {
       // The redirect shell responds before React renders the confirmation.
       // Wait for its visible destination before recording screenshot evidence.
       await landing.getByText(destination, { exact: true }).waitFor({ state: 'visible' });
-      result.confirmationHeading = await landing.locator('h4').innerText();
+      result.confirmationHeading = await landing.getByRole('heading', { name: '即将离开阿里云', exact: true }).innerText();
       assert.ok(result.confirmationHeading.trim(), 'confirmation heading must be rendered');
     }
     result.landing = { url: landing.url(), title: await landing.title() };
