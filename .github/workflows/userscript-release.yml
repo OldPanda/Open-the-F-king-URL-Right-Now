@@ -1,0 +1,106 @@
+name: Publish userscript release
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: userscript-release
+  cancel-in-progress: false
+
+jobs:
+  build:
+    if: github.ref == 'refs/heads/master' && github.repository == 'OldPanda/Open-the-F-king-URL-Right-Now'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    outputs:
+      version: ${{ steps.package.outputs.version }}
+      sha256: ${{ steps.package.outputs.sha256 }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Build and check in the bounded offline container
+        run: python3 verification/aliyun/offline.py
+      - name: Package the verified versioned installer
+        id: package
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import hashlib, json, os, re, shutil
+          from pathlib import Path
+          version = json.loads(Path('package.json').read_text())['version']
+          assert re.fullmatch(r'[0-9]+\.[0-9]+\.[0-9]+', version)
+          lock = json.loads(Path('package-lock.json').read_text())
+          assert lock['version'] == lock['packages']['']['version'] == version
+          data = Path('userscript.js').read_bytes()
+          metadata = Path('src/userscript.meta.txt').read_bytes()
+          assert data.startswith(metadata)
+          assert b'// @version        ' + version.encode() + b'\n' in metadata
+          output = Path('release-output')
+          output.mkdir()
+          (output / f'Open-the-F-king-URL-Right-Now-{version}.user.js').write_bytes(data)
+          shutil.copyfile(f'.github/release-notes/v{version}.md', output / 'notes.md')
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+              f.write(f'version={version}\nsha256={hashlib.sha256(data).hexdigest()}\n')
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: verified-userscript-release
+          path: release-output/
+          if-no-files-found: error
+          retention-days: 14
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: userscript-release-checks
+          path: verification/aliyun/results/offline/
+          if-no-files-found: error
+          retention-days: 14
+
+  publish:
+    needs: build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: write
+      checks: read
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: verified-userscript-release
+          path: installer
+      - name: Verify identity, tag the exact commit and publish the installer
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RELEASE_VERSION: ${{ needs.build.outputs.version }}
+          EXPECTED_SHA256: ${{ needs.build.outputs.sha256 }}
+          RELEASE_COMMIT: ${{ github.sha }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          [[ "$RELEASE_VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]
+          [[ "$EXPECTED_SHA256" =~ ^[a-f0-9]{64}$ ]]
+          [[ "$RELEASE_COMMIT" =~ ^[a-f0-9]{40}$ ]]
+          TAG="v$RELEASE_VERSION"
+          ASSET="installer/Open-the-F-king-URL-Right-Now-$RELEASE_VERSION.user.js"
+          printf '%s  %s\n' "$EXPECTED_SHA256" "$ASSET" | sha256sum --check
+          test "$(gh api "repos/$GH_REPO/git/ref/heads/master" --jq .object.sha)" = "$RELEASE_COMMIT"
+          gh api "repos/$GH_REPO/commits/$RELEASE_COMMIT/check-runs" > checks.json
+          python3 - <<'PY'
+          import json
+          checks = [c for c in json.load(open('checks.json'))['check_runs'] if c['name'] == 'test']
+          assert checks and all(c['status'] == 'completed' and c['conclusion'] == 'success' for c in checks), 'version commit CI must pass before tagging'
+          PY
+          gh api "repos/$GH_REPO/git/refs" --method POST -f "ref=refs/tags/$TAG" -f "sha=$RELEASE_COMMIT"
+          test "$(gh api "repos/$GH_REPO/git/ref/tags/$TAG" --jq .object.sha)" = "$RELEASE_COMMIT"
+          gh release create "$TAG" "$ASSET" --verify-tag --title "Release $TAG" --notes-file installer/notes.md --latest
+          gh release view "$TAG" --json url,isDraft,isPrerelease,tagName,assets

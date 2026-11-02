@@ -98,7 +98,7 @@
 // @match          https://www.youtube.com/redirect?*
 // @match          https://wx.mail.qq.com/xmspamcheck/xmsafejump?*
 // @exclude        https://mp.weixin.qq.com/cgi-bin/*
-// @version        2.2.0
+// @version        2.2.1
 // @run-at         document-start
 // @namespace      https://old-panda.com/
 // @license        GPLv3 License
