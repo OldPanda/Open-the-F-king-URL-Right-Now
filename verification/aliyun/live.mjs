@@ -96,6 +96,13 @@ async function runCase(injected) {
     await until(() => context.pages().some((candidate) => candidate.url() === expected), `${name} resulting page URL`);
     const landing = context.pages().find((candidate) => candidate.url() === expected);
     await landing.waitForLoadState('domcontentloaded');
+    if (!injected) {
+      // The redirect shell responds before React renders the confirmation.
+      // Wait for its visible destination before recording screenshot evidence.
+      await landing.getByText(destination, { exact: true }).waitFor({ state: 'visible' });
+      result.confirmationHeading = await landing.locator('h4').innerText();
+      assert.ok(result.confirmationHeading.trim(), 'confirmation heading must be rendered');
+    }
     result.landing = { url: landing.url(), title: await landing.title() };
     await landing.screenshot({ path: new URL(`${name}-after.png`, output).pathname });
     // For popup navigation the source document remains available for an exact
