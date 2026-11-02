@@ -42,3 +42,13 @@ export function enable2LibraLinks({ document, url }) {
     event.stopPropagation();
   }, true);
 }
+
+/** Aliyun's aPlugin cancels direct document anchors and opens /redirect instead. */
+export function enableAliyunHelpLinks({ document, url }) {
+  document.addEventListener('click', (event) => {
+    const link = event.target.closest?.('.markdown-body a[href]');
+    if (!link || !/^https?:$/.test(link.protocol) || link.origin === url.origin) return;
+    // Bypass the anchor's site listener while retaining the browser's native action.
+    event.stopPropagation();
+  }, true);
+}

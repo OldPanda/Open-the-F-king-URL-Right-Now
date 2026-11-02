@@ -1,0 +1,69 @@
+name: Aliyun issue 183 verification
+
+on:
+  push:
+    branches: [fix/aliyun-help-links-183]
+    paths:
+      - 'src/**'
+      - 'test/aliyun.test.js'
+      - 'userscript.js'
+      - 'verification/aliyun/**'
+      - '.github/workflows/aliyun-verification.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: aliyun-verification-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  offline-regression:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+      - name: Prepare pinned dependencies outside the offline sandbox
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Run baseline and fixed checks with enforced container limits
+        run: python3 verification/aliyun/offline.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: aliyun-offline-evidence
+          path: verification/aliyun/results/offline/
+          if-no-files-found: error
+          retention-days: 14
+
+  live-browser:
+    needs: offline-regression
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+      - name: Install locked browser tooling on the GitHub runner
+        working-directory: verification/aliyun
+        run: |
+          npm ci --ignore-scripts --no-audit --no-fund
+          ./node_modules/.bin/playwright-core install --with-deps chromium
+      - name: Compare real public document clicks in Chromium
+        run: timeout --signal=TERM --kill-after=10s 180s node verification/aliyun/live.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: aliyun-live-evidence
+          path: verification/aliyun/results/live/
+          if-no-files-found: error
+          retention-days: 14

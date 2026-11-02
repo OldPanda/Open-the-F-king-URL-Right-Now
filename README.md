@@ -78,3 +78,12 @@ npm run check
 ### 2libra 站内外链确认
 
 `2libra.com` 的帖子与评论直接使用目标地址作为 `href`，由页面点击事件弹出站外链接确认框。脚本在捕获阶段阻止外部 HTTP(S) 链接进入该处理，保留浏览器原生打开行为以及链接的查询参数、片段、`target` 和 `rel`。委托监听也适用于动态加载的评论和站内切换后的内容；站内链接及非 HTTP(S) 链接仍交给页面处理。
+
+### 阿里云帮助文档
+
+支持 `https://help.aliyun.com/*` 正文（`.markdown-body`）中的外部 HTTP(S) 链接。
+在 document-start 注册捕获监听，阻止正文链接点击处理器打开二次确认页，保留原始 `href`、`target`、`rel` 和浏览器默认操作（含修饰键）。委托监听也支持后来加载的文档内容；站内链接、非 HTTP(S) 链接和正文之外的链接仍由页面处理。
+
+该适配另有 `Aliyun issue 183 verification` 工作流，仅在修复分支推送或显式手动触发时运行。GitHub 托管 Linux runner 的离线容器先验证旧实现的关键测试确实失败，再构建修复并执行 `npm run check`；容器限制网络、内存、进程、CPU、文件大小、临时磁盘与执行时间，并记录实际控制值。
+
+独立的联网任务使用锁定版本 Playwright Chromium，只点击上述公开示例中的 gov.cn 外链，对比无脚本时的确认中转和运行当前 userscript 后的直接导航。脚本通过 `addInitScript` 注入，不能代替 Tampermonkey 安装验证。截图、trace 和 JSON 作为 Actions artifacts 保留 14 天。外站不可达、验证码、机制变化或行为不符都会使任务失败，无自动重试或跳过。普通单元测试仍不访问外网；联网任务不属于无网络安全审计。

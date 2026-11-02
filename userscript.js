@@ -34,6 +34,7 @@
 // @match          https://gamebanana.com/linkfilter?*url=*
 // @match          https://game.bilibili.com/linkfilter/?*url=*
 // @match          https://gitee.com/link?*target=*
+// @match          https://help.aliyun.com/*
 // @match          https://hd.nowcoder.com/link.html?*target=*
 // @match          https://hellogithub.com/periodical/statistics/click?*target=*
 // @match          https://jump2.bdimg.com/safecheck/index?*url=*
@@ -358,6 +359,13 @@
       event.stopPropagation();
     }, true);
   }
+  function enableAliyunHelpLinks({ document, url }) {
+    document.addEventListener("click", (event) => {
+      const link = event.target.closest?.(".markdown-body a[href]");
+      if (!link || !/^https?:$/.test(link.protocol) || link.origin === url.origin) return;
+      event.stopPropagation();
+    }, true);
+  }
 
   // src/handlers/wechat.js
   var urlPattern = /https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,63}\b[-a-zA-Z0-9@:%_+.~#?&/=,$^*()-]*/g;
@@ -418,6 +426,7 @@
   // src/rules/custom.js
   var customRules = [
     { id: "2libra", host: "2libra.com", path: /^\//, handler: enable2LibraLinks },
+    { id: "aliyun-help", runAt: "start", host: "help.aliyun.com", path: /^\//, handler: enableAliyunHelpLinks },
     { id: "acgrip", host: "bbs.acgrip.com", path: /^\//, handler: removeFwinDialog },
     { id: "blzxteam", host: "blzxteam.com", path: "/gowild.htm", handler: redirectFromElement("div._2VEbEOHfDtVWiQAJxSIrVi_0", "title") },
     { id: "bookmarkearth", host: "www.bookmarkearth.com", path: /^\/view\//, handler: redirectFromElement("p.link") },
