@@ -89,3 +89,7 @@ lerna-debug.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# Runner-only Aliyun verification output and isolated browser dependency
+verification/aliyun/results/
+verification/aliyun/node_modules/
