@@ -239,6 +239,7 @@
     { id: "gitcode", host: "link.gitcode.com", path: "/", param: "target" },
     { id: "gitee", host: "gitee.com", path: "/link", param: "target" },
     { id: "google", host: "www.google.com", path: "/url", param: "q" },
+    { id: "google_url", host: "www.google.com", path: "/url", param: "url" },
     { id: "hellogithub", host: "hellogithub.com", path: "/periodical/statistics/click", param: "target" },
     { id: "himcbbs", host: "api.himcbbs.com", path: "/refer/", param: "url" },
     { id: "infoq", host: ["xie.infoq.cn", "www.infoq.cn"], path: "/link", param: "target" },
