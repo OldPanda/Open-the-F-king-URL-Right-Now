@@ -30,6 +30,7 @@ const interstitials = [
   'https://link.gitcode.com/?target=',
   'https://gitee.com/link?target=',
   'https://www.google.com/url?q=',
+  'https://www.google.com/url?url=',
   'https://hellogithub.com/periodical/statistics/click?target=',
   'https://api.himcbbs.com/refer/?url=',
   'https://www.infoq.cn/link?target=',
@@ -92,6 +93,18 @@ for (const prefix of interstitials) {
     assert.deepEqual(navigations, [target]);
   });
 }
+
+test('Google keeps q precedence when both destination parameters are present', () => {
+  const url = new URL('https://www.google.com/url?url=https%3A%2F%2Fexample.com&q=https%3A%2F%2Fexample.org');
+  const navigations = [];
+  assert.equal(runRules({ url, navigate: (value) => { navigations.push(value); return true; } }, rules), true);
+  assert.deepEqual(navigations, ['https://example.org']);
+});
+
+test('Google rejects non-HTTP(S) destinations in url', () => {
+  const url = new URL('https://www.google.com/url?url=mailto%3Afeedback%40example.com');
+  assert.equal(runRules({ url, navigate: () => assert.fail('must not navigate') }, rules), false);
+});
 
 for (const prefix of ['https://www.xgw4.com/qqdl.html?url=', 'http://iphone.myzaker.com/zaker/link.php?url=']) {
   test(`redirects base64 wrapper ${prefix}`, () => {
